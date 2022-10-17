@@ -1,12 +1,15 @@
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Button, Grid, TextField, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { loginFormStyles } from './LoginForm.styles'
+import { loginRegisterFormStyles } from './LoginRegisterForm.styles'
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate  } from 'react-router-dom';
 import { login, register } from '../../../actions/auth';
+import { globalStyles } from '../../../styles/global.styles';
 
-export const LoginForm = () => {
-  const classes = loginFormStyles();
+export const LoginRegisterForm = () => {
+  const theme = useTheme();
+  const classes = loginRegisterFormStyles(theme);
+  const globalClases = globalStyles();
 
   const [isRegister, setIsRegister] = useState(false);
 
@@ -75,25 +78,25 @@ export const LoginForm = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} className={classes.form}>
+    <Grid container elevation={3} justifyContent='center'>
+      <Grid item xs={12} md={6} className={classes.form}>
     {!isRegister ? (
       <>
         <Typography variant='h6' textAlign='center'>Inicio de sesión</Typography>
-        <TextField fullWidth label="Usuario" variant="outlined" className={classes.mt10} onChange={ (e) => onChangeUsername(e)} />
-        <TextField fullWidth label="Contraseña" variant="outlined" className={classes.mt10} onChange={ (e) => onChangePassword(e)} />
-        <Button fullWidth variant="contained" className={classes.mt10} onClick={handleLogin}>Iniciar sesión</Button>
+        <TextField fullWidth label="Usuario" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeUsername(e)} />
+        <TextField fullWidth label="Contraseña" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
+        <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleLogin}>Iniciar sesión</Button>
         <Typography variant='caption' textAlign='center'>¿No tienes cuenta? <u onClick={ () => setIsRegister(true)}>Registrar</u></Typography>
       </>
     )
     : (
       <>
         <Typography variant='h6' textAlign='center'>Registrar</Typography>
-        <TextField fullWidth label="Usuario" variant="outlined" className={classes.mt10} onChange={ (e) => onChangeUsername(e)} />        
-        <TextField fullWidth label="Email" variant="outlined" className={classes.mt10} onChange={ (e) => onChangeEmail(e)} />
-        <TextField fullWidth label="Contraseña" variant="outlined" className={classes.mt10} onChange={ (e) => onChangePassword(e)} />
-        <TextField fullWidth label="Repetir contraseña" variant="outlined" className={classes.mt10} />
-        <Button fullWidth variant="contained" className={classes.mt10} onClick={handleRegister}>Registrar</Button>
+        <TextField fullWidth label="Usuario" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeUsername(e)} />        
+        <TextField fullWidth label="Email" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeEmail(e)} />
+        <TextField fullWidth label="Contraseña" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
+        <TextField fullWidth label="Repetir contraseña" variant="outlined" className={globalClases.mt10} />
+        <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleRegister}>Registrar</Button>
         <Typography variant='caption' textAlign='center'>¿Ya tienes cuenta? <u onClick={ () => setIsRegister(false)}>Iniciar sesión</u></Typography>
       </>
     )}

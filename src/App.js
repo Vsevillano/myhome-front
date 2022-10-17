@@ -6,22 +6,30 @@ import { Home } from './pages/Home/Home';
 import { Tareas } from './pages/Tareas/Tareas';
 import { Signin } from './pages/Signin/Signin';
 import { Profile } from './components/organisms/Profile/Profile';
+import { ThemeProvider } from '@mui/material/styles';
+
+import { myHomeTheme } from './styles/theme';
 
 
 function App() {
   return (
-    <Provider store={store}>  
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<GlobalLayout/>}>
-            <Route path='' element={<Home/>}/>
-            <Route path='tareas' element={<Tareas/>}/>
-            <Route path='login' element={<Signin/>}/>
-            <Route path='profile' element={<Profile/>}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={myHomeTheme}>
+    
+      <Provider store={store}>  
+        <BrowserRouter>
+          
+            <Routes>
+              <Route path='/' element={<GlobalLayout/>}>
+                <Route path='' element={<Home/>}/>
+                <Route path='tareas' element={<Tareas/>}/>
+                <Route path='login' element={<Signin/>}/>
+                <Route path='profile' element={<Profile/>}/>
+              </Route>
+            </Routes>
+          
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
