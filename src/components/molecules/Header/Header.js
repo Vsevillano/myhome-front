@@ -13,15 +13,19 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { headerLayoutStyles } from './HeaderLayout.styles';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../actions/auth';
 
 const pages = ['Inicio', 'Tareas', 'Lista de la compra', 'Contactos', 'Calendario'];
 const urls = ['/', 'tareas', 'lista', 'contactos', 'alendario'];
-const settings = ['Perfil', 'Dashboard', 'Login'];
 
 export const Header = () => {
   const classes = headerLayoutStyles();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -152,11 +156,25 @@ export const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Perfil</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+                {!currentUser ? (
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>):
+                (<MenuItem onClick={() => {
+                  handleCloseUserMenu();
+                  dispatch(logout())
+                  
+                }}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>)}
+              
             </Menu>
           </Box>
         </Toolbar>
