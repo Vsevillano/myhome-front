@@ -15,12 +15,13 @@ import { headerLayoutStyles } from './HeaderLayout.styles';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../actions/auth';
-
-const pages = ['Inicio', 'Tareas', 'Lista de la compra', 'Contactos', 'Calendario'];
-const urls = ['/', 'tareas', 'lista', 'contactos', 'alendario'];
+import HomeIcon from '@mui/icons-material/Home';
+import { Divider } from '@mui/material';
+import { globalStyles } from '../../../styles/global.styles';
 
 export const Header = () => {
   const classes = headerLayoutStyles();
+  const globalClases = globalStyles();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -45,7 +46,8 @@ export const Header = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters>  
+          <HomeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />        
           <Typography
             variant="h6"
             noWrap
@@ -60,7 +62,7 @@ export const Header = () => {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
+          >          
             MyHome
           </Typography>
 
@@ -92,17 +94,35 @@ export const Header = () => {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
-            >
-              {pages.map((page, i) => (
-                <Link key={page} to={urls[i]} className={classes.noUnderline}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
+            >              
+              <MenuItem component={Link} to='/' onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Inicio</Typography>
+              </MenuItem>
+              {currentUser && (            
+              <MenuItem component={Link} to='tareas' onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Tareas</Typography>
+              </MenuItem>)}
+              {currentUser && (            
+              <MenuItem component={Link} to='lista' onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Lista de la compra</Typography>                
+              </MenuItem>)}
+              {currentUser && (
+              <MenuItem component={Link} to='productos' onClick={handleCloseNavMenu}>              
+                <Typography>Productos</Typography>
+              </MenuItem>
+              )}
+              
+              {currentUser && (            
+              <MenuItem component={Link} to='contactos' onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Contactos</Typography>
+              </MenuItem>)}
+              {currentUser && (            
+              <MenuItem component={Link} to='calendario' onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Calendario</Typography>
+              </MenuItem>)}              
             </Menu>
           </Box>
-          
+          <HomeIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -121,23 +141,32 @@ export const Header = () => {
           >
             MyHome
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, i) => (
-              <Link key={page} to={urls[i]} className={classes.noUnderline}>
-               <Button                 
-                 onClick={handleCloseNavMenu}
-                 sx={{ my: 2, color: 'white', display: 'block' }}
-               >
-                 {page}
-               </Button>
-              </Link>
-            ))}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>                        
+            <Button component={Link} to='/' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Inicio
+            </Button>
+            {currentUser && (               
+            <Button component={Link} to='tareas' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Tareas
+            </Button>)}
+            {currentUser && (               
+            <Button component={Link} to='lista' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Lista de la compra
+            </Button>)}            
+            {currentUser && (               
+            <Button component={Link} to='contactos' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Contactos
+            </Button>)}
+            {currentUser && (               
+            <Button component={Link} to='calendario' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Calendario
+            </Button>)}                                                                  
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {currentUser ? <Avatar alt={currentUser?.username.toUpperCase()} src="/static/images/avatar/2.jpg" /> : <Avatar alt="" src="/static/images/avatar/2.jpg" />}
               </IconButton>
             </Tooltip>
             <Menu
@@ -156,24 +185,34 @@ export const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
-                <MenuItem onClick={handleCloseUserMenu}>
+                {currentUser && 
+                <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Perfil</Typography>
+                </MenuItem> }
+                              
+                <MenuItem component={Link} to="/acerca" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Acerca de</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Dashboard</Typography>
+
+                <MenuItem component={Link} to="/faqs" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Faqs</Typography>
                 </MenuItem>
+
+                <Divider/>
+
                 {!currentUser ? (
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem component={Link} to="/login" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Login</Typography>
                 </MenuItem>):
-                (<MenuItem onClick={() => {
-                  handleCloseUserMenu();
-                  dispatch(logout())
-                  
-                }}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>)}
+                (                                               
+                  <MenuItem onClick={() => {
+                    handleCloseUserMenu();
+                    dispatch(logout())                    
+                  }}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>                
+                )}
+
               
             </Menu>
           </Box>

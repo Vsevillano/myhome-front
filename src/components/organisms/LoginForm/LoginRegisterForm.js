@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate  } from 'react-router-dom';
 import { login, register } from '../../../actions/auth';
 import { globalStyles } from '../../../styles/global.styles';
-
+import {CustomLoader} from '../../atoms/CustomLoader/CustomLoader'
 export const LoginRegisterForm = () => {
   const theme = useTheme();
   const classes = loginRegisterFormStyles(theme);
@@ -18,8 +18,8 @@ export const LoginRegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [successful, setSuccessful] = useState(false);
 
+  const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -53,11 +53,10 @@ export const LoginRegisterForm = () => {
 
     dispatch(login(username, password))
       .then(() => {
-        navigate("/profile");
-        window.location.reload();
+        navigate("/profile");        
       })
       .catch(() => {
-        setLoading(false);
+        setLoading(false);        
       });
     
   };
@@ -78,15 +77,20 @@ export const LoginRegisterForm = () => {
   };
 
   return (
+    
     <Grid container elevation={3} justifyContent='center'>
-      <Grid item xs={12} md={6} className={classes.form}>
+      <Grid item xs={12} md={6} className={`${classes.form} ${globalClases.mt50}`}>
+      
     {!isRegister ? (
       <>
         <Typography variant='h6' textAlign='center'>Inicio de sesión</Typography>
         <TextField fullWidth label="Usuario" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeUsername(e)} />
-        <TextField fullWidth label="Contraseña" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
-        <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleLogin}>Iniciar sesión</Button>
-        <Typography variant='caption' textAlign='center'>¿No tienes cuenta? <u onClick={ () => setIsRegister(true)}>Registrar</u></Typography>
+        <TextField fullWidth label="Contraseña" variant="outlined" type='password' className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
+        {loading ? 
+          <CustomLoader size='small'/> :
+          <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleLogin}>Iniciar sesión</Button>
+        }        
+        <Typography className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}>¿No tienes cuenta? <u onClick={ () => setIsRegister(true)}>Registrar</u></Typography>
       </>
     )
     : (
@@ -94,13 +98,14 @@ export const LoginRegisterForm = () => {
         <Typography variant='h6' textAlign='center'>Registrar</Typography>
         <TextField fullWidth label="Usuario" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeUsername(e)} />        
         <TextField fullWidth label="Email" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangeEmail(e)} />
-        <TextField fullWidth label="Contraseña" variant="outlined" className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
-        <TextField fullWidth label="Repetir contraseña" variant="outlined" className={globalClases.mt10} />
-        <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleRegister}>Registrar</Button>
-        <Typography variant='caption' textAlign='center'>¿Ya tienes cuenta? <u onClick={ () => setIsRegister(false)}>Iniciar sesión</u></Typography>
+        <TextField fullWidth label="Contraseña" variant="outlined" type='password' className={globalClases.mt10} onChange={ (e) => onChangePassword(e)} />
+        <TextField fullWidth label="Repetir contraseña" variant="outlined" type='password' className={globalClases.mt10} />        
+        <Button fullWidth variant="contained" className={globalClases.mt10} onClick={handleRegister}>Registrar</Button>        
+        <Typography className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}>¿Ya tienes cuenta? <u onClick={ () => setIsRegister(false)}>Iniciar sesión</u></Typography>
       </>
     )}
     </Grid>
       </Grid>
+      
   )
 }

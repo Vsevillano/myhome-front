@@ -9,7 +9,7 @@ export const GlobalLayout = () => {
   const classes = globalLayoutStyles();
 
   return (
-    <Grid container>      
+    <Grid container className={classes.container}>      
         <Header/>
         <Grid item sm={12} md={12} xs={12} className={classes.root}>            
             <Outlet/>            
