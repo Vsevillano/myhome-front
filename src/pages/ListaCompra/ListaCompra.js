@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { globalStyles } from '../../styles/global.styles';
-import { getListas } from '../../actions/lists';
+import { deleteLista, getListas } from '../../actions/lists';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { ListaCompraVacia } from '../../components/organisms/ListaCompraVacia/ListaCompraVacia';
 import { ListaCompraCard } from '../../components/organisms/ListaCompraCard/ListaCompraCard';
@@ -19,10 +19,16 @@ export const ListaCompra = () => {
   const dispatch = useDispatch();
   
   const [isAdding, setIsAdding] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteLista = (e, id) => {
+    e.preventDefault();    
+    dispatch(deleteLista(id)).then(setIsDeleting(!isDeleting));    
+  };
   
   useEffect(() => {    
       dispatch(getListas())
-  }, [dispatch, isAdding])
+  }, [dispatch, isAdding, isDeleting])
   
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -33,33 +39,35 @@ export const ListaCompra = () => {
       <Grid item xs={12}>
         <Typography className={`${globalClases.mb10} ${globalClases.colorWhite} ${globalClases.fw700} ${globalClases.fs20}`}>Mis listas</Typography>      
       </Grid>
-      {isLoading ? <CustomLoader size='large'/> : (
-      listas && !isAdding ? (
-        listas.map(lista => (
-          <Grid key={lista.id} item xs={12}>
-            <ListaCompraCard lista={lista}/>
-          </Grid>
-        ))
-                        
-        ) : (
-        <>         
-        {isAdding ? (      
-          <Grid item xs={12}>
-            <ListaCompraAdd setIsAdding={setIsAdding}/>        
-          </Grid>      
-        ): (
-          <ListaCompraVacia setIsAdding={setIsAdding}/>
-        )}        
-        </>)
-      
+      {!isAdding ? (
+        <Grid item xs={12}>
+          {isLoading ? <CustomLoader size='medium'/> : (  
+            listas ? (
+              listas.map(lista => (
+                <Grid key={lista.id} item xs={12}>
+                  <ListaCompraCard lista={lista} handleDeleteLista={handleDeleteLista}/>
+                </Grid>
+              )))
+              : (
+                <Grid item xs={12}>
+                  <ListaCompraVacia setIsAdding={setIsAdding}/>
+                </Grid>
+              )
+          )}
+        </Grid>
+      )
+      : 
+      (
+        <Grid item xs={12}>
+          <ListaCompraAdd setIsAdding={setIsAdding}/>
+        </Grid>
       )}
-      
-      {!isAdding && (
-      <Grid item xs={12} textAlign='right' className={globalClases.mt50}>
+      <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>
         <Button variant="contained" startIcon={<AddIcon />} onClick={ () => setIsAdding(true)}>
-          Crear lista
+            Crear lista
         </Button>
-      </Grid>)}
-  </Grid>
+      </Grid>
+    </Grid>
+  
   )
 }

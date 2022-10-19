@@ -2,10 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 export const customLoaderStyles = makeStyles((theme) => ({
     loader : {
+        display: 'flex',
+        margin: '0 auto',
         border: '5px solid #FFF',
         borderBottomColor: '#1976d2',
-        borderRadius: '50%',
-        display: 'inline-block',
+        borderRadius: '50%',        
         boxSizing: 'border-box',
         animation: '$rotation 1s linear infinite',
     },

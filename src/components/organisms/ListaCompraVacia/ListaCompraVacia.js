@@ -14,10 +14,7 @@ export const ListaCompraVacia = ({setIsAdding}) => {
             <Typography className={`${globalClases.mb10} ${globalClases.fw700} ${globalClases.textCenter} ${globalClases.mt10}`}>¡Planifiquemos tus compras!</Typography>      
             <Typography>Toca el botón más para crear tu primera lista</Typography>        
         </Grid>  
-        <Grid item xs={12} textAlign='right' className={globalClases.mt50}>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={ () => setIsAdding(true)}>
-            Crear lista
-        </Button>
+        <Grid item xs={12} textAlign='right' className={globalClases.mt50}>        
       </Grid>
     </Grid>
     

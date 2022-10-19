@@ -5,8 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { globalStyles } from '../../../styles/global.styles';
 
-export const ListaCompraCard = ({lista}) => {
-    const globalClases = globalStyles();
+
+export const ListaCompraCard = ({lista, handleDeleteLista}) => {
+    const globalClases = globalStyles();    
 
     const [anchorEl, setAnchorEl] = useState(null);    
 
@@ -40,7 +41,11 @@ export const ListaCompraCard = ({lista}) => {
                             <EditIcon className={`${globalClases.mr10} ${globalClases.fs20}`} />
                             Editar
                         </MenuItem>
-                        <MenuItem onClick={handleClose} disableRipple>
+                        <MenuItem onClick={ (e) => {
+                            handleClose();
+                            handleDeleteLista(e, lista.id);                            
+                            }
+                        } disableRipple>
                             <DeleteIcon className={`${globalClases.mr10} ${globalClases.fs20}`} />
                             Borrar
                         </MenuItem>

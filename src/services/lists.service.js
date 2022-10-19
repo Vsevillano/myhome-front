@@ -16,8 +16,17 @@ const getListas = () => {
     });
 };
 
+const deleteLista = (id) => {
+  return axios
+    .delete(API_URL + "listas/" + id)
+    .then((response) => {        
+      return response.data;
+    });
+};
+
 
 export default {
   createLista,
   getListas,  
+  deleteLista,
 };
