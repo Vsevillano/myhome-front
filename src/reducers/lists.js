@@ -19,7 +19,7 @@ import {
         return {
           ...state,
           isLoading: false,
-          listas: payload.lists,
+          listas: payload,
         };
       case CREATE_LIST_FAIL:
         return {

@@ -16,6 +16,7 @@ import { NotFound } from './pages/NotFound/NotFound';
 import { Acerca } from './pages/Acerca/Acerca';
 import { Faqs } from './pages/Faqs/Faqs';
 import { Productos } from './pages/Productos/Productos';
+import { EditListaCompra } from './pages/EditListaCompra/EditListaCompra';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path='login' element={<Signin/>}/>
                 <Route path='profile' element={<Profile/>}/>
                 <Route path='lista' element={<ListaCompra/>}/>
+                <Route path='lista/:id' element={<EditListaCompra/>}/>
                 <Route path='productos' element={<Productos/>}/>
                 <Route path='contactos' element={<Contactos/>}/>
                 <Route path='calendario' element={<Calendario/>}/>

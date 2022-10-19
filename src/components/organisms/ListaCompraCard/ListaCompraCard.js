@@ -4,16 +4,19 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { globalStyles } from '../../../styles/global.styles';
+import { useNavigate } from 'react-router-dom';
+import { listaCompraCardStyles } from './ListaCompraCard.styles';
 
 
 export const ListaCompraCard = ({lista, handleDeleteLista}) => {
     const globalClases = globalStyles();    
-
+    const classes = listaCompraCardStyles();
+    
     const [anchorEl, setAnchorEl] = useState(null);    
 
     const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
+    const handleOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -21,13 +24,15 @@ export const ListaCompraCard = ({lista, handleDeleteLista}) => {
         setAnchorEl(null);
     };
 
+    const navigate = useNavigate();
+    
     return (
         <Grid key={lista.id} item xs={12} className={globalClases.mt10}>
             <Card>
                 <CardHeader        
                     action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon onClick={handleClick}/>                  
+                    <IconButton aria-label="settings" onClick={(e) => handleOpen(e)}>
+                        <MoreVertIcon />
                         <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -37,7 +42,11 @@ export const ListaCompraCard = ({lista, handleDeleteLista}) => {
                             'aria-labelledby': 'basic-button',
                         }}
                         >
-                        <MenuItem onClick={handleClose} disableRipple>
+                        <MenuItem onClick={ (e) => {
+                            handleClose();
+                            navigate('/lista/' + lista.id)
+                            }
+                        } disableRipple>
                             <EditIcon className={`${globalClases.mr10} ${globalClases.fs20}`} />
                             Editar
                         </MenuItem>
@@ -53,6 +62,8 @@ export const ListaCompraCard = ({lista, handleDeleteLista}) => {
                     </IconButton>
                     }
                     title={lista.nombre}        
+                    subheader={"Elementos en la lista: " + lista.productos.length}
+                    className={classes.root}
                 />                    
             </Card>
         </Grid>
