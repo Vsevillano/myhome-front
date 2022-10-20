@@ -24,6 +24,13 @@ const getLista = (id) => {
     });
 };
 
+const addProductoToLista = (lista) => {    
+  return axios.put(API_URL + "listas/" + lista.id, {
+    nombre: lista.nombre.toString(),
+    productos: lista.productos,  
+  });
+};
+
 const deleteLista = (id) => {
   return axios
     .delete(API_URL + "listas/" + id)
@@ -32,12 +39,11 @@ const deleteLista = (id) => {
     });
 };
 
-
-
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   createLista,
   getListas,
   getLista,
   deleteLista,
+  addProductoToLista,
 };

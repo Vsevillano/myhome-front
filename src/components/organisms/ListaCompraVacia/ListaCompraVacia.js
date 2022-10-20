@@ -4,7 +4,7 @@ import { globalStyles } from '../../../styles/global.styles';
 import nutritionImage from '../../../assets/Nutrition-plan.svg'
 import AddIcon from '@mui/icons-material/Add';
 
-export const ListaCompraVacia = ({setIsAdding}) => {
+export const ListaCompraVacia = () => {
   const globalClases = globalStyles();
 
   return (

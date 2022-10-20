@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { create } from '../../../actions/lists';
 import { globalStyles } from '../../../styles/global.styles';
 
-export const ListaCompraAdd = ({setIsAdding}) => {
+export const ListaCompraAdd = ({setIsAdding, setIsAdded}) => {
 
   const dispatch = useDispatch();
   const globalClases = globalStyles();
@@ -12,8 +12,9 @@ export const ListaCompraAdd = ({setIsAdding}) => {
 
   const handleCreateLista = (e) => {
     e.preventDefault();    
-    dispatch(create(name));      
-    setIsAdding(false)      
+    dispatch(create(name));          
+    setIsAdding(false);  
+    setIsAdded(true)   
   };
 
   return (

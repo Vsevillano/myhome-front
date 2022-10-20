@@ -17,6 +17,9 @@ export const globalStyles = makeStyles(theme => ({
     m0: {
         margin: '0 !important'
     },
+    m20: {
+        margin: '20px !important'
+    },
     mt5: {
         marginTop: '5px !important',
     },
@@ -46,6 +49,9 @@ export const globalStyles = makeStyles(theme => ({
     },
     maxWidth100: {
         maxWidth: '100%',
+    },
+    maxWidth200px: {
+        maxWidth: '200px',
     },
     colorWhite: {
         color: '#FAFAFA'

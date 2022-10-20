@@ -10,6 +10,9 @@ import {
     GET_LIST_REQUEST,
     GET_LIST_SUCCESS,
     GET_LIST_FAIL,
+    ADD_LIST_REQUEST,
+    ADD_LIST_SUCCESS,
+    ADD_LIST_FAIL,
   } from "./types";
   
   import ListService from "../services/lists.service";
@@ -98,3 +101,27 @@ import {
     );
   };
 
+  export const addProductoToLista = (lista) => (dispatch) => {
+    dispatch({
+      type: ADD_LIST_REQUEST,      
+    });
+    
+    return ListService.addProductoToLista(lista).then(
+      (response) => {             
+        dispatch({
+          type: ADD_LIST_SUCCESS,
+          payload: response,
+        });
+  
+        return Promise.resolve();
+      },
+      (error) => {
+        dispatch({
+          type: ADD_LIST_FAIL,
+        });
+        return Promise.reject();
+      }
+    );
+  };
+
+  

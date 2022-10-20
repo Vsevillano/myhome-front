@@ -19,16 +19,18 @@ export const ListaCompra = () => {
   const dispatch = useDispatch();
   
   const [isAdding, setIsAdding] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+
 
   const handleDeleteLista = (e, id) => {
     e.preventDefault();    
-    dispatch(deleteLista(id)).then(setIsDeleting(!isDeleting));    
+    dispatch(deleteLista(id));  
   };
   
   useEffect(() => {    
-      dispatch(getListas())
-  }, [dispatch, isAdding, isDeleting])
+      if (!listas) {
+        dispatch(getListas())
+      }
+  }, [dispatch, listas])
   
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -50,7 +52,7 @@ export const ListaCompra = () => {
               )))
               : (
                 <Grid item xs={12}>
-                  <ListaCompraVacia setIsAdding={setIsAdding}/>
+                  <ListaCompraVacia/>
                 </Grid>
               )
           )}
