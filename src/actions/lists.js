@@ -1,12 +1,15 @@
 import {
     CREATE_LIST_SUCCESS,
     CREATE_LIST_FAIL,
-    GET_LIST_SUCCESS,
-    GET_LIST_FAIL,
-    GET_LIST_REQUEST,
+    GET_LISTS_SUCCESS,
+    GET_LISTS_FAIL,
+    GET_LISTS_REQUEST,
     DELETE_LIST_REQUEST,
     DELETE_LIST_SUCCESS,
     DELETE_LIST_FAIL,
+    GET_LIST_REQUEST,
+    GET_LIST_SUCCESS,
+    GET_LIST_FAIL,
   } from "./types";
   
   import ListService from "../services/lists.service";
@@ -31,9 +34,31 @@ import {
   
   export const getListas = () => (dispatch) => {
     dispatch({
-      type: GET_LIST_REQUEST,      
+      type: GET_LISTS_REQUEST,      
     });
     return ListService.getListas().then(
+      (response) => {             
+        dispatch({
+          type: GET_LISTS_SUCCESS,
+          payload: response,
+        });
+  
+        return Promise.resolve();
+      },
+      (error) => {
+        dispatch({
+          type: GET_LISTS_FAIL,
+        });
+        return Promise.reject();
+      }
+    );
+  };
+
+  export const getLista = (id) => (dispatch) => {
+    dispatch({
+      type: GET_LIST_REQUEST,      
+    });
+    return ListService.getLista(id).then(
       (response) => {             
         dispatch({
           type: GET_LIST_SUCCESS,

@@ -1,12 +1,15 @@
 import {
     CREATE_LIST_SUCCESS,
     CREATE_LIST_FAIL,
-    GET_LIST_REQUEST,
-    GET_LIST_SUCCESS,
-    GET_LIST_FAIL,
+    GET_LISTS_REQUEST,
+    GET_LISTS_SUCCESS,
+    GET_LISTS_FAIL,
     DELETE_LIST_REQUEST,
     DELETE_LIST_SUCCESS,
     DELETE_LIST_FAIL,
+    GET_LIST_REQUEST,
+    GET_LIST_SUCCESS,
+    GET_LIST_FAIL,
   } from "../actions/types";
       
   const initialState = { isLoading: false, listas: null };
@@ -27,18 +30,18 @@ import {
           isLoading: false,
           listas: null,
         };
-      case GET_LIST_REQUEST:             
+      case GET_LISTS_REQUEST:             
         return {
           ...state,
           isLoading: true,          
         };        
-      case GET_LIST_SUCCESS:             
+      case GET_LISTS_SUCCESS:             
         return {
           ...state,
           isLoading: false,
           listas: payload,
         };
-      case GET_LIST_FAIL:
+      case GET_LISTS_FAIL:
         return {
           ...state,
           isLoading: false,
@@ -60,6 +63,23 @@ import {
           ...state,
           isLoading: false,
           listas: null,
+        };
+      case GET_LIST_REQUEST:             
+        return {
+          ...state,
+          isLoading: true,          
+        };        
+      case GET_LIST_SUCCESS:             
+        return {
+          ...state,
+          isLoading: false,
+          lista: payload,
+        };
+      case GET_LIST_FAIL:
+        return {
+          ...state,
+          isLoading: false,
+          lista: null,
         };
       default:
         return state;
