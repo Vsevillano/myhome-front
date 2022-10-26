@@ -1,14 +1,17 @@
+// Register
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 
+// Login/Logout
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
-
 export const LOGOUT = "LOGOUT";
 
+// Message request
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
+// Listas
 export const GET_LISTS_REQUEST = "GET_LISTS_REQUEST";
 export const GET_LISTS_SUCCESS = "GET_LISTS_SUCCESS";
 export const GET_LISTS_FAIL = "GET_LISTS_FAIL";
@@ -28,6 +31,7 @@ export const ADD_LIST_REQUEST = "ADD_LIST_REQUEST";
 export const ADD_LIST_SUCCESS = "ADD_LIST_SUCCESS";
 export const ADD_LIST_FAIL = "ADD_LIST_FAIL";
 
+// Productos
 export const GET_PRODUCTS_REQUEST = "GET_PRODUCTS_REQUEST";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAIL = "GET_PRODUCTS_FAIL";
@@ -35,3 +39,12 @@ export const GET_PRODUCTS_FAIL = "GET_PRODUCTS_FAIL";
 export const CREATE_PRODUCT_REQUEST = "GET_PRODUCTS_REQUEST";
 export const CREATE_PRODUCT_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const CREATE_PRODUCT_FAIL = "GET_PRODUCTS_FAIL";
+
+// Tareas
+export const GET_TAREA_REQUEST = "GET_TAREA_REQUEST";
+export const GET_TAREA_SUCCESS = "GET_TAREA_SUCCESS";
+export const GET_TAREA_FAIL = "GET_TAREA_FAIL";
+
+export const CREATE_TAREA_REQUEST = "GET_TAREA_REQUEST";
+export const CREATE_TAREA_SUCCESS = "GET_TAREA_SUCCESS";
+export const CREATE_TAREA_FAIL = "GET_TAREA_FAIL";

@@ -45,5 +45,3 @@ export const createProducto = (nombre) => (dispatch) => {
       }
     );
   };
-
-

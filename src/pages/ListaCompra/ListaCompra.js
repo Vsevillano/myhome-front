@@ -19,6 +19,7 @@ export const ListaCompra = () => {
   const dispatch = useDispatch();
   
   const [isAdding, setIsAdding] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
 
   const handleDeleteLista = (e, id) => {
@@ -27,10 +28,11 @@ export const ListaCompra = () => {
   };
   
   useEffect(() => {    
-      if (!listas) {
+      if (!listas || isAdded) {
         dispatch(getListas())
+        setIsAdded(false)
       }
-  }, [dispatch, listas])
+  }, [dispatch, listas, isAdded])
   
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -38,8 +40,8 @@ export const ListaCompra = () => {
 
   return (
     <Grid container> 
-      <Grid item xs={12}>
-        <Typography className={`${globalClases.mb10} ${globalClases.colorWhite} ${globalClases.fw700} ${globalClases.fs20}`}>Mis listas</Typography>      
+      <Grid item xs={12}>        
+        <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Mis listas</Typography>
       </Grid>
       {!isAdding ? (
         <Grid item xs={12}>
@@ -61,7 +63,7 @@ export const ListaCompra = () => {
       : 
       (
         <Grid item xs={12}>
-          <ListaCompraAdd setIsAdding={setIsAdding}/>
+          <ListaCompraAdd setIsAdding={setIsAdding} setIsAdded={setIsAdded}/>
         </Grid>
       )}
       <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>

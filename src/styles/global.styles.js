@@ -50,11 +50,20 @@ export const globalStyles = makeStyles(theme => ({
     maxWidth100: {
         maxWidth: '100%',
     },
+    maxWidth60px: {
+        maxWidth: '60px',
+    },
     maxWidth200px: {
         maxWidth: '200px',
     },
+    w100: {
+        width: '100%',
+    },
     colorWhite: {
         color: '#FAFAFA'
+    },
+    textShadowBlack: {
+        textShadow: '2px 2px 2px rgba(0,0,0,0.33)',
     },
     fw700: {
         fontWeight: '700 !important',
@@ -69,5 +78,9 @@ export const globalStyles = makeStyles(theme => ({
         position: 'absolute',
         bottom: '32px',
         right: 20,
-    }
+    },
+    formError: {
+        fontSize: 10,
+        color: '#FF0000'
+    }   
 }))

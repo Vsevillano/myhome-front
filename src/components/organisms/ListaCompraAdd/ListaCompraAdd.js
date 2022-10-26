@@ -12,9 +12,11 @@ export const ListaCompraAdd = ({setIsAdding, setIsAdded}) => {
 
   const handleCreateLista = (e) => {
     e.preventDefault();    
-    dispatch(create(name));          
-    setIsAdding(false);  
-    setIsAdded(true)   
+    dispatch(create(name)).then(() => {
+      setIsAdding(false)
+      setIsAdded(true)
+    });          
+    
   };
 
   return (

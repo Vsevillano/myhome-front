@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Card, Checkbox, Chip, Dialog, FormControl, Grid, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Card, Checkbox, Chip, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { globalStyles } from '../../styles/global.styles';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import { getProductos } from '../../actions/products';
+import { createProducto, getProductos } from '../../actions/products';
 import nutritionImage from '../../assets/verdura.png'
 
 export const EditListaCompra = () => {
@@ -21,26 +21,33 @@ export const EditListaCompra = () => {
   const { isLoading: isLoadingProductos, productos } = useSelector(state => state.productos);
 
   const [checked, setChecked] = useState([1]);
-  const [open, setOpen] = useState(false);
-  const [annadido, setAnnadido] = useState(false);
+  const [open, setOpen] = useState(false);  
   const [listaProductos, setListaProductos] = useState([]);
+  const [name, setName] = useState();
+  const [isCreated, setIsCreated] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLista(id));
-    setAnnadido(false);  
-  }, [dispatch, id, annadido])
+    if(!lista?.productos) {
+      dispatch(getLista(id));
+    }    
+  }, [dispatch, lista, id])
 
   useEffect(() => {    
-    dispatch(getProductos())    
-  }, [dispatch])
+      dispatch(getLista(id));    
+  }, [dispatch, id])
+
+  useEffect(() => {    
+    if (isCreated) {
+      dispatch(getProductos()).then(setIsCreated(false))      
+    }
+  }, [dispatch, isCreated])
   
   const MenuProps = {
     PaperProps: {
       style: {
-        maxHeight: 48 * 4.5 + 8,
-        width: 250,
+        
       },
     },
   };
@@ -74,9 +81,15 @@ export const EditListaCompra = () => {
       nombre : lista?.nombre,
       productos : listaProductos
     }));      
-    setOpen(false)
-    setAnnadido(true)
+    setOpen(false)    
   }
+
+  const handleCreateProducto = (e) => {
+    e.preventDefault();    
+    dispatch(createProducto(name)).then(
+      setIsCreated(true)
+    );
+  };
 
   const handleOpenClose = () => {
     setOpen(!open);    
@@ -112,14 +125,15 @@ export const EditListaCompra = () => {
                       }
                       disablePadding
                     >
-                      <ListItemButton>                          
+                      <ListItemButton>
+                                                 
                         <ListItemText id={labelId} primary={producto.nombre} />
                       </ListItemButton>
                     </ListItem>
                   );
                 })}
               </List>   
-          </Grid>
+            </Grid>
           ) : (
             <Grid item xs={12} textAlign='center'>
               <img src={nutritionImage} alt='Nutrition' className={`${globalClases.maxWidth200px} ${globalClases.mt50}`}/>
@@ -157,7 +171,7 @@ export const EditListaCompra = () => {
             <Card className={`${globalClases.px20} ${globalClases.pb20} ${globalClases.m20}`}>
               {isLoadingProductos ? <CustomLoader size='medium'/> : (
               <>
-              <Typography variant='h6' textAlign='center' className={globalClases.mt10}>Nuevo producto</Typography>
+              <Typography variant='h6' textAlign='center' className={globalClases.mt10}>Elige tus productos</Typography>
               
               
               <Select
@@ -176,7 +190,7 @@ export const EditListaCompra = () => {
                     ))}
                   </Box>
                 )}
-                MenuProps={MenuProps}
+                
               >
                 {productos?.map((producto) => (
                   <MenuItem
@@ -190,12 +204,25 @@ export const EditListaCompra = () => {
               
               <Grid container spacing={2}>
                   <Grid item xs={6}>
-                  <Button fullWidth variant="contained" className={`${globalClases.mt10}`} onClick={(e) => handleAddToList(e)}>Añadir</Button>              
+                  <Button fullWidth variant="contained" className={`${globalClases.mt10}`} onClick={(e) => handleAddToList(e)}>Actualizar</Button>              
                   </Grid>
                   <Grid item xs={6}>              
                   <Button fullWidth variant="outlined" className={`${globalClases.mt10}`} onClick={ () => setOpen(false)}>Cancelar</Button>
+                  </Grid>                  
+              </Grid>
+              <Grid container spacing={2} className={globalClases.mt10}>
+                  <Grid item xs={12}>
+                    <Typography variant='h6' textAlign='center' className={globalClases.mt10}>...o créalo si no existe</Typography>
+                    <TextField fullWidth label="Nombre del producto" variant="outlined" className={globalClases.mt10} onChange={ (e) => setName(e.target.value)}/>                   
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button fullWidth variant="contained" className={`${globalClases.mt10}`} onClick={(e) => handleCreateProducto(e)}>Crear</Button>              
+                  </Grid>
+                  <Grid item xs={6}>              
+                    <Button fullWidth variant="outlined" className={`${globalClases.mt10}`} onClick={ () => setOpen(false)}>Cancelar</Button>
                   </Grid>
               </Grid>
+              
               </>
               )}
             </Card>
