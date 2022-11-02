@@ -8,5 +8,11 @@ export const listaCompraCardStyles = makeStyles(() => ({
         '& .MuiCardHeader-subheader' : {
             fontSize: '12px'
         }
+    },
+    actions: {
+        display: 'flex',
+        justifyContent: 'right',
+        alignItems: 'flex-end',
+        paddingRight: 0,
     }
 }))

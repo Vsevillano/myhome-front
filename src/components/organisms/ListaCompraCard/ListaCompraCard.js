@@ -1,71 +1,40 @@
-import { Card, CardHeader, Grid, IconButton, Menu, MenuItem } from '@mui/material'
-import React, { useState } from 'react'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Checkbox, FormControlLabel, FormGroup, Grid, Paper, Typography } from '@mui/material'
+import React from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { globalStyles } from '../../../styles/global.styles';
-import { useNavigate } from 'react-router-dom';
 import { listaCompraCardStyles } from './ListaCompraCard.styles';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ListaCompraCard = ({lista, handleDeleteLista}) => {
     const globalClases = globalStyles();    
     const classes = listaCompraCardStyles();
-    
-    const [anchorEl, setAnchorEl] = useState(null);    
-
-    const open = Boolean(anchorEl);
-
-    const handleOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     const navigate = useNavigate();
-    
     return (
-        <Grid key={lista.id} item xs={12} className={globalClases.mt10}>
-            <Card>
-                <CardHeader        
-                    action={
-                    <IconButton aria-label="settings" onClick={(e) => handleOpen(e)}>
-                        <MoreVertIcon />
-                        <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                        >
-                        <MenuItem onClick={ (e) => {
-                            handleClose();
-                            navigate('/lista/' + lista.id)
-                            }
-                        } disableRipple>
-                            <EditIcon className={`${globalClases.mr10} ${globalClases.fs20}`} />
-                            Editar
-                        </MenuItem>
-                        <MenuItem onClick={ (e) => {
-                            handleClose();
-                            handleDeleteLista(e, lista.id);                            
-                            }
-                        } disableRipple>
-                            <DeleteIcon className={`${globalClases.mr10} ${globalClases.fs20}`} />
-                            Borrar
-                        </MenuItem>
-                        </Menu>
-                    </IconButton>
-                    }
-                    title={lista.nombre}        
-                    subheader={"Elementos en la lista: " + lista.productos.length}
-                    className={classes.root}
-                />                    
-            </Card>
+        <Grid item xs={12}>                        
+          <Paper elevation={1} className={`${globalClases.px20} ${globalClases.mt10} ${globalClases.pb10}`}>
+            <FormGroup>                  
+              <Grid container>
+                <Grid item xs={6}>
+                  <FormControlLabel control={<Checkbox/>} label={lista.nombre}/>
+                </Grid>                    
+                <Grid item xs={6} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
+                  <EditIcon className={globalClases.mx10} onClick={ e => {
+                    e.preventDefault();
+                    navigate(lista.id);
+                  }}/>
+                  <DeleteIcon onClick={ e => {
+                    e.preventDefault();
+                    handleDeleteLista(lista.id);
+                  }}/>
+                </Grid>      
+                <Grid item xs={12}>
+                  <Typography className={globalClases.fs11}>Elementos en la lista: {lista.productos.length}</Typography>
+                </Grid>                                                
+              </Grid>
+            </FormGroup>
+          </Paper>            
         </Grid>
     )
 }

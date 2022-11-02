@@ -8,10 +8,9 @@ import {
   
   const user = JSON.parse(localStorage.getItem("user"));
   
-  const initialState = user
-    ? { isLoggedIn: true, user }
-    : { isLoggedIn: false, user: null };
+  const initialState = user ? { isLoggedIn: true, user } : { isLoggedIn: false, user: null };
   
+  // eslint-disable-next-line import/no-anonymous-default-export
   export default function (state = initialState, action) {
     const { type, payload } = action;
   

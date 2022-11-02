@@ -7,6 +7,8 @@ import { globalStyles } from '../../styles/global.styles';
 import nutritionImage from '../../assets/Nutrition-plan.svg'
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { createTarea, getTareas } from '../../actions/tareas';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { useForm } from 'react-hook-form';
@@ -65,11 +67,18 @@ export const Tareas = () => {
             {tareas?.map((tarea) => (            
               <Paper key={tarea.id} elevation={1} className={`${globalClases.px20} ${globalClases.mt10}`}>
                 <FormGroup>                  
-                  <FormControlLabel control={<Checkbox/>} label={tarea.nombre} className={tarea.estado === 'Terminado' ? classes.terminado : null} />
                   <Grid container>
+                    <Grid item xs={6}>
+                      <FormControlLabel control={<Checkbox/>} label={tarea.nombre} className={tarea.estado === 'Terminado' ? classes.terminado : null} />
+                    </Grid>                    
+                    <Grid item xs={6} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
+                      <EditIcon className={globalClases.mx10}/>
+                      <DeleteIcon/>
+                    </Grid>
+                  
                     <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Fecha límite: {tarea.fecha}</Grid>
-                    <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Estado: {tarea.estado}</Grid>
-                    <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> {tarea.descripcion}</Grid>
+                    {/* <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Estado: {tarea.estado}</Grid> */}
+                    {/* <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> {tarea.descripcion}</Grid> */}
                   </Grid>
                 </FormGroup>
               </Paper>

@@ -38,19 +38,12 @@ export const EditListaCompra = () => {
       dispatch(getLista(id));    
   }, [dispatch, id])
 
-  useEffect(() => {    
-    if (isCreated) {
-      dispatch(getProductos()).then(setIsCreated(false))      
-    }
-  }, [dispatch, isCreated])
-  
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        
-      },
-    },
-  };
+  useEffect(() => {     
+      if (!productos || isCreated) {
+        dispatch(getProductos())
+        setIsCreated(false);
+      }   
+  }, [dispatch, productos, isCreated])
 
   const handleChange = (event) => {
     const {

@@ -7,8 +7,14 @@ export const globalStyles = makeStyles(theme => ({
     pt20: {
         paddingTop: 20,
     },
+    pt10: {
+        paddingTop: 10,
+    },
     pb20: {
         paddingBottom: 20,
+    },
+    pb10: {
+        paddingBottom: 10,
     },
     px20 : {
         paddingLeft: 20,
@@ -44,8 +50,15 @@ export const globalStyles = makeStyles(theme => ({
     ml35negative: {
         marginLeft: '-35px !important'
     },
+    mx10: {
+        marginLeft: '10px !important',
+        marginRight: '10px !important',
+    },
     textCenter: {
         textAlign: 'center',
+    },
+    textRight: {
+        textAlign: 'right',
     },
     maxWidth100: {
         maxWidth: '100%',

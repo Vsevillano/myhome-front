@@ -21,9 +21,7 @@ export const ListaCompra = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-
-  const handleDeleteLista = (e, id) => {
-    e.preventDefault();    
+  const handleDeleteLista = (id) => {      
     dispatch(deleteLista(id));  
   };
   
