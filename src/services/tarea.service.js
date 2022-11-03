@@ -18,39 +18,38 @@ const createTarea = (tarea) => {
   });
 };
 
-// const editProducto = (id, nombre) => {
-//   return axios.put(API_URL + "productos" + id, {
-//     nombre,    
-//   });
-// };
+const getTarea = (id) => {
+  return axios
+    .get(API_URL + "tareas/" + id)
+    .then((response) => {      
+      return response.data;
+    });
+};
 
-// const getProducto = (id) => {
-//   return axios
-//     .get(API_URL + "productos/" + id)
-//     .then((response) => {      
-//       return response.data;
-//     });
-// };
+const saveTarea = (tarea) => {    
+  return axios.put(API_URL + "tareas/" + tarea.id, {
+    nombre: tarea.nombre,
+    categoria: tarea.categoria,
+    descripcion: tarea.descripcion,
+    fecha: tarea.fecha,
+    estado: tarea.estado,
+  });
+};
 
-// const deleteProducto = (id) => {
-//   return axios
-//     .delete(API_URL + "productos/" + id)
-//     .then((response) => {        
-//       return response.data;
-//     });
-// };
-
-// const deleteAllProductos = () => {
-//   return axios
-//     .delete(API_URL + "productos/")
-//     .then((response) => {        
-//       return response.data;
-//     });
-// };
+const deleteTarea = (id) => {
+  return axios
+    .delete(API_URL + "tareas/" + id)
+    .then((response) => {        
+      return response.data;
+    });
+};
 
 
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getTareas,
   createTarea,
+  getTarea,
+  saveTarea,
+  deleteTarea,
 };

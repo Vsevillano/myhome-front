@@ -17,6 +17,7 @@ import { Acerca } from './pages/Acerca/Acerca';
 import { Faqs } from './pages/Faqs/Faqs';
 import { Productos } from './pages/Productos/Productos';
 import { EditListaCompra } from './pages/EditListaCompra/EditListaCompra';
+import { EditTarea } from './pages/EditTarea/EditTarea';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path='/' element={<GlobalLayout/>}>
                 <Route path='' element={<Home/>}/>
                 <Route path='tareas' element={<Tareas/>}/>
+                <Route path='tareas/:id' element={<EditTarea/>}/>
                 <Route path='login' element={<Signin/>}/>
                 <Route path='profile' element={<Profile/>}/>
                 <Route path='lista' element={<ListaCompra/>}/>

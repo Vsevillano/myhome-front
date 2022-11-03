@@ -48,7 +48,7 @@ export const LoginRegisterForm = () => {
         dispatch(login(username, password))
       })
       .catch(() => {
-        // reset();
+        reset();
       });    
   };
   

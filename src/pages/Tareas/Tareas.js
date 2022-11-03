@@ -1,30 +1,32 @@
-import { AppBar, Button, Checkbox,  Dialog, FormControl, FormControlLabel, FormGroup, Grid, IconButton,  InputLabel,  MenuItem,  Paper,  Select,  TextField,  Toolbar, Typography } from '@mui/material';
+import { AppBar, Button,  Dialog, FormControl, Grid, IconButton,  InputLabel,  MenuItem,  Select,  TextField,  Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { tareasStyles } from './Tareas.styles';
+
 import { globalStyles } from '../../styles/global.styles';
 import nutritionImage from '../../assets/Nutrition-plan.svg'
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { createTarea, getTareas } from '../../actions/tareas';
+
+import { createTarea, deleteTarea, getTareas } from '../../actions/tareas';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { useForm } from 'react-hook-form';
+import { TareaCard } from '../../components/organisms/TareaCard/TareaCard';
 
 export const Tareas = () => {
 
-  const globalClases = globalStyles();
-  const classes = tareasStyles();
+  const globalClases = globalStyles();  
   const [open, setOpen] = useState(false);  
-  const [estado, setEstado] = useState('');  
+  const [isDeleted, setIsDeleted] = useState(false);  
+  const [isCreated, setIsCreated] = useState(false);  
 
+  const [estado, setEstado] = useState('');  
+  
   const { user: currentUser } = useSelector((state) => state.auth);
   const { isLoading, tareas } = useSelector(state => state.tareas);
-  
+
   const dispatch = useDispatch();
-  
+
   const { register, formState : { errors }, handleSubmit, reset } = useForm({
     defaultValues: {
       nombre: '',
@@ -39,15 +41,24 @@ export const Tareas = () => {
 
   const handleCreateTarea = (data) => {           
     dispatch(createTarea(data));
+    setOpen(false)    
     reset();
+    setIsCreated(true)
   }
 
-  useEffect(() => {
-    if (!tareas){
-      dispatch(getTareas())
-      setOpen(false)
+  const handleDeleteTarea = (id) => {
+    dispatch(deleteTarea(id)).then(setIsDeleted(true));     
+  }
+
+  useEffect(() => {  
+    if (!tareas || isDeleted || isCreated)  {
+      dispatch(getTareas());
+      setIsDeleted(false);
+      setIsCreated(false)      
     }
-  }, [dispatch, tareas])  
+  }, [dispatch, tareas, isDeleted, isCreated])  
+
+  
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -65,28 +76,12 @@ export const Tareas = () => {
           <Grid item xs={12}>
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas pendientes</Typography>
             {tareas?.map((tarea) => (            
-              <Paper key={tarea.id} elevation={1} className={`${globalClases.px20} ${globalClases.mt10}`}>
-                <FormGroup>                  
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <FormControlLabel control={<Checkbox/>} label={tarea.nombre} className={tarea.estado === 'Terminado' ? classes.terminado : null} />
-                    </Grid>                    
-                    <Grid item xs={6} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
-                      <EditIcon className={globalClases.mx10}/>
-                      <DeleteIcon/>
-                    </Grid>
-                  
-                    <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Fecha límite: {tarea.fecha}</Grid>
-                    {/* <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Estado: {tarea.estado}</Grid> */}
-                    {/* <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> {tarea.descripcion}</Grid> */}
-                  </Grid>
-                </FormGroup>
-              </Paper>
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea}/>
             ))}
           </Grid>          
           )                              
         )}
-           <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>
+        <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>
           <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenClose}>Crear tarea</Button>
           <Dialog fullScreen open={open} onClose={handleOpenClose} >            
             <AppBar elevation={0} sx={{ position: 'relative' }}>

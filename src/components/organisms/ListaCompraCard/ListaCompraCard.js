@@ -17,7 +17,7 @@ export const ListaCompraCard = ({lista, handleDeleteLista}) => {
             <FormGroup>                  
               <Grid container>
                 <Grid item xs={6}>
-                  <FormControlLabel control={<Checkbox/>} label={lista.nombre}/>
+                  <Typography variant="body1" className={globalClases.mt10}>{lista.nombre}</Typography>                  
                 </Grid>                    
                 <Grid item xs={6} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
                   <EditIcon className={globalClases.mx10} onClick={ e => {
