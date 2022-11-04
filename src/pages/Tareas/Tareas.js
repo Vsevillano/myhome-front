@@ -47,7 +47,8 @@ export const Tareas = () => {
   }
 
   const handleDeleteTarea = (id) => {
-    dispatch(deleteTarea(id)).then(setIsDeleted(true));     
+    dispatch(deleteTarea(id));
+    setIsDeleted(true);     
   }
 
   useEffect(() => {  

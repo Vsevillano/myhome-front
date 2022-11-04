@@ -38,7 +38,7 @@ export const EditTarea = () => {
       categoria: tarea?.categoria,
       fecha: tarea?.fecha,      
     })     
-    setEstado(tarea?.estado)                        
+
   }, [dispatch, id, tarea, reset])
 
   const handleSaveTarea = (data) => {
@@ -60,7 +60,7 @@ export const EditTarea = () => {
   return (
     <Grid container> 
       {isLoading ? <CustomLoader size='medium'/> : (
-      <>
+      
         <Grid item xs={12}>
           <form onSubmit={handleSubmit(handleSaveTarea)}>
             <TextField fullWidth label="Nombre de la tarea" variant="outlined" className={globalClases.mt10} {...register('nombre', { required: true })}/>
@@ -77,13 +77,13 @@ export const EditTarea = () => {
                 {...register('estado', { required: true })}                
                 labelId="estado-label"
                 id="estado"
-                value={estado}
+                value={tarea?.estado || ''}
                 label="Estado"
                 onChange={ (e) => setEstado(e.target.value)}                      
               >
-                <MenuItem value={"Sin hacer"}>Sin hacer</MenuItem>
-                <MenuItem value={"Terminado"} >Terminado</MenuItem>
-                <MenuItem value={"En proceso"} >En proceso</MenuItem>
+                <MenuItem value={"Sin hacer"} selected={tarea?.estado === "Sin hacer"}>Sin hacer</MenuItem>
+                <MenuItem value={"Terminado"} selected={tarea?.estado === "Terminado"}>Terminado</MenuItem>
+                <MenuItem value={"En proceso"} selected={tarea?.estado === "En proceso"} >En proceso</MenuItem>                
               </Select>
               {errors.estado?.type === 'required' && <span className={globalClases.formError}>El campo estado es requerido</span>}
             </FormControl>
@@ -96,9 +96,8 @@ export const EditTarea = () => {
               </Grid>
             </Grid>
           </form>
-        </Grid>
-        
-      </>)}    
+        </Grid>        
+      )}    
     </Grid>
   )
 }

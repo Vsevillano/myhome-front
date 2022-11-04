@@ -46,7 +46,7 @@ export const Header = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>  
+        <Toolbar disableGutters>          
           <HomeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />        
           <Typography
             variant="h6"
