@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.myhome",
+  "appName": "myhome",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
