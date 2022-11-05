@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/";
+// const API_URL = "http://localhost:8080/api/";
+const API_URL = "http://cfgs-my-home-app-back.herokuapp.com/api/";
 
 const createLista = (nombre) => {
   return axios.post(API_URL + "listas", {
