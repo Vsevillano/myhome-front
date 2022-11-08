@@ -2,6 +2,7 @@ import axios from "axios";
 
 // const API_URL = "http://localhost:8080/api/";
 const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
+const user = JSON.parse(localStorage.getItem('user'));
 
 const createLista = (nombre) => {
   return axios.post(API_URL + "listas", {
@@ -9,17 +10,25 @@ const createLista = (nombre) => {
   });
 };
 
-const getListas = () => {
+const getListas = () => {  
   return axios
-    .get(API_URL + "listas")
-    .then((response) => {      
+    .get(API_URL + "listas", {
+      headers: {
+        'Authorization': 'Bearer ' + user.accessToken
+       }
+    })
+    .then((response) => {   
       return response.data;
     });
 };
 
 const getLista = (id) => {
   return axios
-    .get(API_URL + "listas/" + id)
+    .get(API_URL + "listas/" + id, {
+      headers: {
+        'Authorization': 'Bearer ' + user.accessToken
+       }
+    })
     .then((response) => {      
       return response.data;
     });

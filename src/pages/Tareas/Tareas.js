@@ -17,14 +17,17 @@ export const Tareas = () => {
 
   const globalClases = globalStyles();  
   const [open, setOpen] = useState(false);  
-  const [isDeleted, setIsDeleted] = useState(false);  
-  const [isCreated, setIsCreated] = useState(false);  
+  // const [isDeleted, setIsDeleted] = useState(false);  
+  // const [isCreated, setIsCreated] = useState(false);  
 
   const [estado, setEstado] = useState('');  
   
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { isLoading, tareas } = useSelector(state => state.tareas);
-
+  const { loading, tareas, } = useSelector(state => state.tareasList);
+  const { loading: loadingCreateTarea } = useSelector(state => state.createTarea);
+  const { loading: loadingDeleteTarea } = useSelector(state => state.deleteTarea);
+  const { loading: loadingSaveTarea } = useSelector(state => state.saveTarea);
+    
   const dispatch = useDispatch();
 
   const { register, formState : { errors }, handleSubmit, reset } = useForm({
@@ -42,24 +45,19 @@ export const Tareas = () => {
   const handleCreateTarea = (data) => {           
     dispatch(createTarea(data));
     setOpen(false)    
-    reset();
-    setIsCreated(true)
+    reset();    
   }
 
   const handleDeleteTarea = (id) => {
-    dispatch(deleteTarea(id));
-    setIsDeleted(true);     
+    dispatch(deleteTarea(id));             
   }
 
-  useEffect(() => {  
-    if (!tareas || isDeleted || isCreated)  {
-      dispatch(getTareas());
-      setIsDeleted(false);
-      setIsCreated(false)      
+  useEffect(() => {
+    if (!tareas || loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {  
+      dispatch(getTareas());      
+      // console.log("Create: " +  loadingCreateTarea + "\nDelete: " + loadingDeleteTarea + "\nSave: " + loadingSaveTarea)
     }
-  }, [dispatch, tareas, isDeleted, isCreated])  
-
-  
+  }, [dispatch, tareas, loadingCreateTarea, loadingDeleteTarea, loadingSaveTarea])  
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -67,7 +65,7 @@ export const Tareas = () => {
 
   return (
     <Grid container>      
-        {isLoading ? <CustomLoader size='medium'/> : (
+        {loading || loadingCreateTarea || loadingDeleteTarea? <CustomLoader size='medium'/> : (
           !tareas ? 
           <Grid item xs={12}>
               <img src={nutritionImage} alt='Nutrition' className={`${globalClases.maxWidth100} ${globalClases.mt50}`}/>

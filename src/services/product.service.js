@@ -2,10 +2,15 @@ import axios from "axios";
 
 // const API_URL = "http://localhost:8080/api/";
 const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
+const user = JSON.parse(localStorage.getItem('user'));
 
 const getProductos = () => {
   return axios
-    .get(API_URL + "productos")
+    .get(API_URL + "productos", {
+      headers: {
+        'Authorization': 'Bearer ' + user.accessToken
+       }
+    })
     .then((response) => {      
       return response.data;
     });
@@ -14,6 +19,10 @@ const getProductos = () => {
 const createProducto = (nombre) => {
   return axios.post(API_URL + "productos", {
     nombre,    
+  }, {
+    headers: {
+      'Authorization': 'Bearer ' + user.accessToken
+     }
   });
 };
 

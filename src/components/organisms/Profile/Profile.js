@@ -17,8 +17,8 @@ export const Profile = () => {
       <Grid item xs={12}>
         <Typography variant='body1'><strong>Username:</strong> {currentUser.username}</Typography>
         <Typography>
-        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        <strong>Token:</strong> {currentUser.accessToken}
+        
         </Typography>
         <Typography><strong>Id:</strong> {currentUser.id}</Typography>
         <Typography><strong>Email:</strong> {currentUser.email}</Typography>

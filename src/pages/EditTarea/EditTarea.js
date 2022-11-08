@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { globalStyles } from '../../styles/global.styles';
 
-import { getTarea, saveTarea } from '../../actions/tareas';
+import { getTareaById, saveTarea } from '../../actions/tareas';
 
 export const EditTarea = () => {
   const globalClases = globalStyles();
@@ -15,7 +15,9 @@ export const EditTarea = () => {
   const params = useParams();
   const {id} = params;  
   const { user: currentUser } = useSelector((state) => state.auth);  
-  const { isLoading, tarea } = useSelector(state => state.tareas);
+  const { loading, tarea } = useSelector(state => state.getTarea);
+  const { loading: loadingDelete } = useSelector(state => state.deleteTarea);
+  const { loading: loadingSave } = useSelector(state => state.saveTarea);
   
   const [estado, setEstado] = useState('');  
 
@@ -25,12 +27,12 @@ export const EditTarea = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {        
-    dispatch(getTarea(id));  
+    dispatch(getTareaById(id));  
   }, [dispatch, id])
 
   useEffect(() => {        
     if (!tarea) {
-      dispatch(getTarea(id));             
+      dispatch(getTareaById(id));             
     } 
     reset({
       nombre: tarea?.nombre,
@@ -59,7 +61,7 @@ export const EditTarea = () => {
 
   return (
     <Grid container> 
-      {isLoading ? <CustomLoader size='medium'/> : (
+      {loading || loadingDelete || loadingSave ? <CustomLoader size='medium'/> : (
       
         <Grid item xs={12}>
           <form onSubmit={handleSubmit(handleSaveTarea)}>
@@ -77,7 +79,7 @@ export const EditTarea = () => {
                 {...register('estado', { required: true })}                
                 labelId="estado-label"
                 id="estado"
-                value={tarea?.estado || ''}
+                value={estado || tarea?.estado}
                 label="Estado"
                 onChange={ (e) => setEstado(e.target.value)}                      
               >

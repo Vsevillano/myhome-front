@@ -11,85 +11,79 @@ import {
     DELETE_TAREA_REQUEST,
     DELETE_TAREA_SUCCESS,
     DELETE_TAREA_FAIL,
+    CREATE_TAREA_REQUEST,
+    CREATE_TAREA_SUCCESS,
+    CREATE_TAREA_FAIL,
   } from "../actions/types";
       
-  const initialState = { isLoading: false, tareas: null, tarea: null };
-  
-  // eslint-disable-next-line import/no-anonymous-default-export
-  export default function (state = initialState, action) {
+  const initialState = { loading: false, tareas: null, tarea: {}, error: null };
+
+  export const getTareasReducer = (state = initialState, action) => {
     const { type, payload } = action;
-  
     switch (type) {
-      case GET_TAREAS_REQUEST:
-        return {
-          ...state,
-          isLoading: true,          
-        };        
-      case GET_TAREAS_SUCCESS:              
-        return {
-          ...state,
-          isLoading: false,
-          tareas: payload,
-        };
-      case GET_TAREAS_FAIL:
-        return {
-          ...state,
-          isLoading: false,
-          tareas: null,
-        }; 
-      case GET_TAREA_REQUEST:
-        return {
-          ...state,
-          isLoading: true,          
-        };        
-      case GET_TAREA_SUCCESS:              
-        return {
-          ...state,
-          isLoading: false,
-          tarea: payload,
-        };
-      case GET_TAREA_FAIL:
-        return {
-          ...state,
-          isLoading: false,
-          tarea: null,
-        };  
-      case SAVE_TAREA_REQUEST:
-        return {
-          ...state,
-          isLoading: true,          
-        };        
-      case SAVE_TAREA_SUCCESS:              
-        return {
-          ...state,
-          isLoading: false,
-          tarea: payload,
-        };
-      case SAVE_TAREA_FAIL:
-        return {
-          ...state,
-          isLoading: false,
-          tarea: null,
-        };  
-        
-      case DELETE_TAREA_REQUEST:
-        return {
-          ...state,
-          isLoading: true,          
-        };        
-      case DELETE_TAREA_SUCCESS:              
-        return {
-          ...state,
-          isLoading: false,
-          tarea: payload,
-        };
-      case DELETE_TAREA_FAIL:
-        return {
-          ...state,
-          isLoading: false,
-          tarea: null,
-        };  
-      default:
-        return state;
+        case GET_TAREAS_REQUEST:
+            return { loading: true };
+        case GET_TAREAS_SUCCESS:            
+            return { loading: false, success: true, tareas: payload };
+        case GET_TAREAS_FAIL:
+            return { loading: false, error: payload };        
+        default:
+            return state;
     }
+}
+
+export const createTareaReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+      case CREATE_TAREA_REQUEST:
+          return { loading: true };
+      case CREATE_TAREA_SUCCESS:            
+          return { loading: false, success: true };
+      case CREATE_TAREA_FAIL:
+          return { loading: false, error: payload };        
+      default:
+          return state;
   }
+}
+
+export const getTareaReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+      case GET_TAREA_REQUEST:
+          return { loading: true };
+      case GET_TAREA_SUCCESS:            
+          return { loading: false, tarea: payload };
+      case GET_TAREA_FAIL:
+          return { loading: false, error: payload };        
+      default:
+          return state;
+  }
+}
+
+export const saveTareaReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+      case SAVE_TAREA_REQUEST:
+          return { loading: true };
+      case SAVE_TAREA_SUCCESS:            
+          return { loading: false, tarea: payload };
+      case SAVE_TAREA_FAIL:
+          return { loading: false, error: payload };        
+      default:
+          return state;
+  }
+}
+
+export const deleteTareaReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+      case DELETE_TAREA_REQUEST:
+          return { loading: true };
+      case DELETE_TAREA_SUCCESS:            
+          return { loading: false, tarea: payload };
+      case DELETE_TAREA_FAIL:
+          return { loading: false, error: payload };        
+      default:
+          return state;
+  }
+}
