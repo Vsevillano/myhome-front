@@ -11,6 +11,7 @@ export const GlobalLayout = () => {
   return (
     <Grid container className={classes.container}>      
         <Header/>
+        <Grid item sm={12} md={12} xs={12} className={classes.wave}/>
         <Grid item sm={12} md={12} xs={12} className={classes.root}>            
             <Outlet/>            
         </Grid>

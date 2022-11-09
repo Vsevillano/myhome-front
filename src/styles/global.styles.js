@@ -4,6 +4,9 @@ export const globalStyles = makeStyles(theme => ({
     p0: {
         padding: '0 !important'
     },
+    pl20: {
+        paddingLeft: 20,
+    },
     pt20: {
         paddingTop: 20,
     },
@@ -41,6 +44,9 @@ export const globalStyles = makeStyles(theme => ({
     mb10: {
         marginBottom: '10px !important',
     },
+    mb20: {
+        marginBottom: '20px !important',
+    },
     ml10: {
         marginLeft: '10px !important'
     },
@@ -69,11 +75,23 @@ export const globalStyles = makeStyles(theme => ({
     maxWidth200px: {
         maxWidth: '200px',
     },
+    maxWidth500px: {
+        maxWidth: '500px',
+    },
     w100: {
         width: '100%',
     },
     colorWhite: {
         color: '#FAFAFA'
+    },
+    bgColorBlue: {
+        backgroundColor: '#1976d2 !important'
+    },
+    inputWhite: {        
+        '& .MuiInputBase-colorPrimary': {
+            backgroundColor: '#ffffff !important',
+            borderRadius: 4,
+        }
     },
     textShadowBlack: {
         textShadow: '2px 2px 2px rgba(0,0,0,0.33)',
@@ -83,6 +101,9 @@ export const globalStyles = makeStyles(theme => ({
     },
     fs11: {
         fontSize: '11px !important',
+    },
+    fs16: {
+        fontSize: '16px !important',
     },
     fs20: {
         fontSize: '20px !important',
@@ -95,5 +116,6 @@ export const globalStyles = makeStyles(theme => ({
     formError: {
         fontSize: 10,
         color: '#FF0000'
-    }   
+    },
+    
 }))

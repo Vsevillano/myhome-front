@@ -65,15 +65,15 @@ export const EditTarea = () => {
       
         <Grid item xs={12}>
           <form onSubmit={handleSubmit(handleSaveTarea)}>
-            <TextField fullWidth label="Nombre de la tarea" variant="outlined" className={globalClases.mt10} {...register('nombre', { required: true })}/>
+            <TextField fullWidth label="Nombre de la tarea" variant="outlined" className={`${globalClases.inputWhite} ${globalClases.mt10}`} {...register('nombre', { required: true })}/>
             {errors.nombre?.type === 'required' && <span className={globalClases.formError}>El campo nombre es requerido</span>}
-            <TextField fullWidth label="Descripción" variant="outlined" className={globalClases.mt10} {...register('descripcion', { required: true })}/>
+            <TextField fullWidth label="Descripción" variant="outlined" className={`${globalClases.inputWhite} ${globalClases.mt10}`} {...register('descripcion', { required: true })}/>
             {errors.descripcion?.type === 'required' && <span className={globalClases.formError}>El campo descripcion es requerido</span>}
-            <TextField fullWidth label="Categoría" variant="outlined" className={globalClases.mt10} {...register('categoria', { required: true })}/>
+            <TextField fullWidth label="Categoría" variant="outlined" className={`${globalClases.inputWhite} ${globalClases.mt10}`} {...register('categoria', { required: true })}/>
             {errors.categoria?.type === 'required' && <span className={globalClases.formError}>El campo categoria es requerido</span>}
-            <TextField type="date" InputLabelProps={{ shrink: true, required: true }} {...register('fecha', { required: true })} fullWidth label="Fecha límite" variant="outlined" className={globalClases.mt10} />
+            <TextField type="date" InputLabelProps={{ shrink: true, required: true }} {...register('fecha', { required: true })} fullWidth label="Fecha límite" variant="outlined" className={`${globalClases.inputWhite} ${globalClases.mt10}`} />
             {errors.fecha?.type === 'required' && <span className={globalClases.formError}>El campo fecha es requerido</span>}
-            <FormControl fullWidth className={globalClases.mt10}>
+            <FormControl fullWidth className={`${globalClases.inputWhite} ${globalClases.mt10}`}>
               <InputLabel id="estado-label">Estado</InputLabel>
               <Select
                 {...register('estado', { required: true })}                

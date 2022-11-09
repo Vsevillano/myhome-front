@@ -34,17 +34,17 @@ export const myHomeTheme = createTheme({
 
     },
     overides: {
-        MuiOutlinedInput: {
-            root: {
-                height: '48px !important',
-                marginTop: '0px !important',
-                backgroundColor: '#FFFFFF',
-                color: '#353535',
-                '& fieldset': {
-                    border: '2px solid #CFCFCF',
-                    borderRadiud: 4,
-                }
-            },           
-        },        
+        // MuiOutlinedInput: {
+        //     root: {
+        //         height: '48px !important',
+        //         marginTop: '0px !important',
+        //         backgroundColor: '#FFFFFF',
+        //         color: '#353535',
+        //         '& fieldset': {
+        //             border: '2px solid #CFCFCF',
+        //             borderRadius: 4,
+        //         }
+        //     },           
+        // },        
     }
 })

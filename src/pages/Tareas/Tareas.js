@@ -1,4 +1,4 @@
-import { AppBar, Button,  Dialog, FormControl, Grid, IconButton,  InputLabel,  MenuItem,  Select,  TextField,  Toolbar, Typography } from '@mui/material';
+import { AppBar, Button,  Dialog, FormControl, Grid, IconButton,  InputLabel,  MenuItem,  Select,  TextField,  Toolbar, Typography, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -12,10 +12,15 @@ import { createTarea, deleteTarea, getTareas } from '../../actions/tareas';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { useForm } from 'react-hook-form';
 import { TareaCard } from '../../components/organisms/TareaCard/TareaCard';
+import { tareasStyles } from './Tareas.styles';
+import { useTheme } from '@mui/styles';
+
 
 export const Tareas = () => {
-
+  const classes = tareasStyles();
   const globalClases = globalStyles();  
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = useState(false);  
   // const [isDeleted, setIsDeleted] = useState(false);  
   // const [isCreated, setIsCreated] = useState(false);  
@@ -53,7 +58,7 @@ export const Tareas = () => {
   }
 
   useEffect(() => {
-    if (!tareas || loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {  
+    if (tareas === null || loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {  
       dispatch(getTareas());      
       // console.log("Create: " +  loadingCreateTarea + "\nDelete: " + loadingDeleteTarea + "\nSave: " + loadingSaveTarea)
     }
@@ -64,25 +69,42 @@ export const Tareas = () => {
   }
 
   return (
-    <Grid container>      
+    <Grid container spacing={isMobile ? 2 : 10} className={classes.tareasContainer}>      
         {loading || loadingCreateTarea || loadingDeleteTarea? <CustomLoader size='medium'/> : (
           !tareas ? 
-          <Grid item xs={12}>
-              <img src={nutritionImage} alt='Nutrition' className={`${globalClases.maxWidth100} ${globalClases.mt50}`}/>
-              <Typography className={`${globalClases.mb10} ${globalClases.fw700} ${globalClases.textCenter} ${globalClases.mt10}`}>Nada que hacer...</Typography>                
-          </Grid> :
+          <>
+          <Grid item xs={12} md={6}>
+            <img src={nutritionImage} alt='Nutrition' className={`${globalClases.maxWidth100} ${globalClases.mt50}`}/>          
+          </Grid>
+          <Grid item xs={12} md={6} alignItems='center' justifyContent='center' display='flex' flexDirection='column'>          
+            <Typography className={`${globalClases.mb10} ${globalClases.fw700} ${globalClases.textCenter} ${globalClases.mt10}`}>"Nada que hacer..." </Typography>                
+            <Typography className={`${globalClases.mb10} ${globalClases.textCenter} ${globalClases.mt10}`}> Empieza a crear tareas pulsando en el botón "Crear tarea" </Typography>                
+          </Grid>
+          </>
+          :
           ( 
-          <Grid item xs={12}>
+          <>
+          <Grid item xs={12} md={6}>
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas pendientes</Typography>
-            {tareas?.map((tarea) => (            
+            {tareas?.map((tarea) => (         
+              tarea.estado !== 'Terminado' &&   
               <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea}/>
             ))}
-          </Grid>          
+          </Grid>        
+          
+          <Grid item xs={12} md={6}>
+            <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas finalizadas</Typography>
+            {tareas?.map((tarea) => (         
+              tarea.estado === 'Terminado' &&   
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea}/>
+            ))}
+          </Grid>
+          </>
           )                              
         )}
         <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>
           <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenClose}>Crear tarea</Button>
-          <Dialog fullScreen open={open} onClose={handleOpenClose} >            
+          <Dialog fullScreen={isMobile} open={open} onClose={handleOpenClose} >            
             <AppBar elevation={0} sx={{ position: 'relative' }}>
               <Toolbar>                
                 <Typography sx={{ ml: 2, flex: 1 }}  variant="h6" component="div" className={globalClases.textCenter}>
@@ -125,7 +147,7 @@ export const Tareas = () => {
                     </Select>
                     {errors.estado?.type === 'required' && <span className={globalClases.formError}>El campo estado es requerido</span>}
                   </FormControl>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={2} className={globalClases.mb20}>
                     <Grid item xs={6}>
                       <Button type="submit" fullWidth variant="contained" className={`${globalClases.mt10}`}>Crear</Button>              
                     </Grid>

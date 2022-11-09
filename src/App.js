@@ -10,8 +10,8 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import { myHomeTheme } from './styles/theme';
 import { ListaCompra } from './pages/ListaCompra/ListaCompra';
-import { Contactos } from './pages/Contactos/Contactos';
-import { Calendario } from './pages/Calendario/Calendario';
+// import { Contactos } from './pages/Contactos/Contactos';
+// import { Calendario } from './pages/Calendario/Calendario';
 import { NotFound } from './pages/NotFound/NotFound';
 import { Acerca } from './pages/Acerca/Acerca';
 import { Faqs } from './pages/Faqs/Faqs';
@@ -34,8 +34,8 @@ function App() {
                 <Route path='lista' element={<ListaCompra/>}/>
                 <Route path='lista/:id' element={<EditListaCompra/>}/>
                 <Route path='productos' element={<Productos/>}/>
-                <Route path='contactos' element={<Contactos/>}/>
-                <Route path='calendario' element={<Calendario/>}/>
+                {/* <Route path='contactos' element={<Contactos/>}/> */}
+                {/* <Route path='calendario' element={<Calendario/>}/> */}
                 <Route path='acerca' element={<Acerca/>}/>
                 <Route path='faqs' element={<Faqs/>}/>
                 <Route path='*' element={<NotFound/>}/>

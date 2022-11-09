@@ -20,12 +20,18 @@ export const getTareas = () => {
 
 export const createTarea = (tarea) => { 
   const { nombre, descripcion, categoria, fecha, estado } = tarea;  
-  return axios.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado });
+  return axios.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado }, {
+    headers: {
+     'Authorization': 'Bearer ' + user.accessToken
+    }});
 };
 
 export const deleteTarea = (id) => {
   return axios
-    .delete(API_URL + "tareas/" + id)
+    .delete(API_URL + "tareas/" + id, {
+      headers: {
+       'Authorization': 'Bearer ' + user.accessToken
+      }})
     .then((response) => {        
       return response.data;
     });
@@ -33,7 +39,10 @@ export const deleteTarea = (id) => {
 
 export const getTarea = (id) => {
   return axios
-    .get(API_URL + "tareas/" + id)
+    .get(API_URL + "tareas/" + id, {
+      headers: {
+       'Authorization': 'Bearer ' + user.accessToken
+      }})
     .then((response) => {      
       return response.data;
     });
@@ -46,7 +55,10 @@ export const saveTarea = (tarea) => {
     descripcion: tarea.descripcion,
     fecha: tarea.fecha,
     estado: tarea.estado,
-  });
+  },{
+    headers: {
+     'Authorization': 'Bearer ' + user.accessToken
+    }});
 };
 
 

@@ -17,11 +17,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../actions/auth';
 import HomeIcon from '@mui/icons-material/Home';
 import { Divider } from '@mui/material';
-import { globalStyles } from '../../../styles/global.styles';
+// import { globalStyles } from '../../../styles/global.styles';
 
 export const Header = () => {
   const classes = headerLayoutStyles();
-  const globalClases = globalStyles();
+  // const globalClases = globalStyles();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -44,15 +44,15 @@ export const Header = () => {
   };
 
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar position="static" elevation={0} className={`${classes.headerContainer} ${classes.wave}`}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>          
           <HomeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />        
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -104,7 +104,7 @@ export const Header = () => {
               </MenuItem>)}
               {currentUser && (            
               <MenuItem component={Link} to='lista' onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Lista de la compra</Typography>                
+                <Typography textAlign="center">Listas</Typography>                
               </MenuItem>)}
               {currentUser && (
               <MenuItem component={Link} to='productos' onClick={handleCloseNavMenu}>              
@@ -112,22 +112,22 @@ export const Header = () => {
               </MenuItem>
               )}
               
-              {currentUser && (            
+              {/* {currentUser && (            
               <MenuItem component={Link} to='contactos' onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Contactos</Typography>
               </MenuItem>)}
               {currentUser && (            
               <MenuItem component={Link} to='calendario' onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Calendario</Typography>
-              </MenuItem>)}              
+              </MenuItem>)}               */}
             </Menu>
           </Box>
           <HomeIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -151,16 +151,16 @@ export const Header = () => {
             </Button>)}
             {currentUser && (               
             <Button component={Link} to='lista' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              Lista de la compra
+              Listas
             </Button>)}            
-            {currentUser && (               
+            {/* {currentUser && (               
             <Button component={Link} to='contactos' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
               Contactos
             </Button>)}
             {currentUser && (               
             <Button component={Link} to='calendario' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
               Calendario
-            </Button>)}                                                                  
+            </Button>)}                                                                   */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -211,9 +211,7 @@ export const Header = () => {
                   }}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>                
-                )}
-
-              
+                )}              
             </Menu>
           </Box>
         </Toolbar>
