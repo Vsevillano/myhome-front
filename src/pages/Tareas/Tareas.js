@@ -8,7 +8,7 @@ import nutritionImage from '../../assets/Nutrition-plan.svg'
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { createTarea, deleteTarea, getTareas } from '../../actions/tareas';
+import { createTarea, deleteTarea, getTareas, saveTarea } from '../../actions/tareas';
 import { CustomLoader } from '../../components/atoms/CustomLoader/CustomLoader';
 import { useForm } from 'react-hook-form';
 import { TareaCard } from '../../components/organisms/TareaCard/TareaCard';
@@ -22,8 +22,7 @@ export const Tareas = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = useState(false);  
-  // const [isDeleted, setIsDeleted] = useState(false);  
-  // const [isCreated, setIsCreated] = useState(false);  
+
 
   const [estado, setEstado] = useState('');  
   
@@ -57,12 +56,26 @@ export const Tareas = () => {
     dispatch(deleteTarea(id));             
   }
 
+  const handleSaveTarea = (data, id) => {    
+    dispatch(saveTarea({
+      id: id,
+      nombre: data.nombre,
+      categoria: data.categoria,
+      descripcion: data.descripcion,
+      fecha: data.fecha,
+      estado: data.estado,
+    }))    
+  };
+
+  useEffect(() => {    
+      dispatch(getTareas());            
+  }, [dispatch])
+
   useEffect(() => {
-    if (tareas === null || loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {  
-      dispatch(getTareas());      
-      // console.log("Create: " +  loadingCreateTarea + "\nDelete: " + loadingDeleteTarea + "\nSave: " + loadingSaveTarea)
+    if (loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {  
+      dispatch(getTareas());            
     }
-  }, [dispatch, tareas, loadingCreateTarea, loadingDeleteTarea, loadingSaveTarea])  
+  }, [dispatch, loadingCreateTarea, loadingDeleteTarea, loadingSaveTarea])
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -88,7 +101,7 @@ export const Tareas = () => {
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas pendientes</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado !== 'Terminado' &&   
-              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea}/>
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
             ))}
           </Grid>        
           
@@ -96,7 +109,7 @@ export const Tareas = () => {
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas finalizadas</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado === 'Terminado' &&   
-              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea}/>
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
             ))}
           </Grid>
           </>

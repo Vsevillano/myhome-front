@@ -19,6 +19,10 @@ export const globalStyles = makeStyles(theme => ({
     pb10: {
         paddingBottom: 10,
     },
+    px10 : {
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
     px20 : {
         paddingLeft: 20,
         paddingRight: 20,

@@ -28,7 +28,7 @@ function App() {
               <Route path='/' element={<GlobalLayout/>}>
                 <Route path='' element={<Home/>}/>
                 <Route path='tareas' element={<Tareas/>}/>
-                <Route path='tareas/:id' element={<EditTarea/>}/>
+                {/* <Route path='tareas/:id' element={<EditTarea/>}/> */}
                 <Route path='login' element={<Signin/>}/>
                 <Route path='profile' element={<Profile/>}/>
                 <Route path='lista' element={<ListaCompra/>}/>
