@@ -1,4 +1,4 @@
-import { AppBar, Button, Checkbox, Dialog, FormControl, FormControlLabel, FormGroup, Grid, IconButton, InputLabel, MenuItem, Paper, Select, TextField, Toolbar, Typography, useMediaQuery } from '@mui/material'
+import { AppBar, Button,  Dialog, FormControl,  FormGroup, Grid, IconButton, InputLabel, MenuItem, Paper, Select, TextField, Toolbar, Typography, useMediaQuery } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -47,7 +47,7 @@ export const TareaCard = ({tarea, handleDeleteTarea, handleSaveTarea}) => {
       <FormGroup>                  
         <Grid container>
           <Grid item xs={10}>
-            <FormControlLabel control={<Checkbox/>} label={tarea.nombre} className={tarea.estado === 'Terminado' ? classes.terminado : null} />
+            <Typography className={tarea.estado === 'Terminado' ? `${classes.terminado} ${globalClases.mt10}` : `${globalClases.mt10}`}>{tarea.nombre}</Typography>
           </Grid>                    
           <Grid item xs={2} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
             <EditIcon className={globalClases.mx10} onClick={handleOpenClose }/>
