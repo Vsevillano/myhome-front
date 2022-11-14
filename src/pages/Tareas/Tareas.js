@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form';
 import { TareaCard } from '../../components/organisms/TareaCard/TareaCard';
 import { tareasStyles } from './Tareas.styles';
 import { useTheme } from '@mui/styles';
+import { getUsers } from '../../actions/users';
 
 
 export const Tareas = () => {
@@ -25,12 +26,14 @@ export const Tareas = () => {
 
 
   const [estado, setEstado] = useState('');  
+  const [selectedUser, setSelectedUser] = useState('');  
   
   const { user: currentUser } = useSelector((state) => state.auth);
   const { loading, tareas, } = useSelector(state => state.tareasList);
   const { loading: loadingCreateTarea } = useSelector(state => state.createTarea);
   const { loading: loadingDeleteTarea } = useSelector(state => state.deleteTarea);
   const { loading: loadingSaveTarea } = useSelector(state => state.saveTarea);
+  const { loading: loadingGetUsers, users } = useSelector(state => state.getUsers);
     
   const dispatch = useDispatch();
 
@@ -39,6 +42,8 @@ export const Tareas = () => {
       nombre: '',
       descripcion: '',
       categoria: '',
+      user: '',
+      estado: ''
     }
   });
 
@@ -64,8 +69,13 @@ export const Tareas = () => {
       descripcion: data.descripcion,
       fecha: data.fecha,
       estado: data.estado,
+      user: data.user
     }))    
   };
+
+  useEffect(() => {    
+    dispatch(getUsers());            
+}, [dispatch])
 
   useEffect(() => {    
       dispatch(getTareas());            
@@ -83,7 +93,7 @@ export const Tareas = () => {
 
   return (
     <Grid container spacing={isMobile ? 2 : 10} className={classes.tareasContainer}>      
-        {loading || loadingCreateTarea || loadingDeleteTarea? <CustomLoader size='medium'/> : (
+        {loading || loadingCreateTarea || loadingDeleteTarea || loadingGetUsers ? <CustomLoader size='medium'/> : (
           !tareas ? 
           <>
           <Grid item xs={12} md={6}>
@@ -98,7 +108,7 @@ export const Tareas = () => {
           ( 
           <>
           <Grid item xs={12} md={6}>
-            <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas pendientes</Typography>
+            <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Listado de tareas pendientes</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado !== 'Terminado' &&   
               <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
@@ -106,7 +116,7 @@ export const Tareas = () => {
           </Grid>        
           
           <Grid item xs={12} md={6}>
-            <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Tareas finalizadas</Typography>
+            <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Listado de tareas finalizadas</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado === 'Terminado' &&   
               <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
@@ -157,6 +167,24 @@ export const Tareas = () => {
                       <MenuItem value={"Sin hacer"}>Sin hacer</MenuItem>
                       <MenuItem value={"Terminado"}>Terminado</MenuItem>
                       <MenuItem value={"En proceso"}>En proceso</MenuItem>
+                    </Select>
+                    {errors.estado?.type === 'required' && <span className={globalClases.formError}>El campo estado es requerido</span>}
+                  </FormControl>
+                  <FormControl fullWidth className={globalClases.mt10}>
+                    <InputLabel id="estado-label">Usuario</InputLabel>
+                    <Select
+                      {...register('user', { required: true })}                
+                      labelId="user-label"
+                      id="user"
+                      value={selectedUser}
+                      label="Estado"
+                      onChange={ (e) => setSelectedUser(e.target.value)}                      
+                    >
+                      {users?.map(user => (
+                        <MenuItem key={user.id} value={user.id}>{user.username}</MenuItem>
+                      ))}
+                      
+                      
                     </Select>
                     {errors.estado?.type === 'required' && <span className={globalClases.formError}>El campo estado es requerido</span>}
                   </FormControl>

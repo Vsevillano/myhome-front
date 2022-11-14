@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8080/api/";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
+const API_URL = "http://localhost:8080/api/";
+// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
 const user = JSON.parse(localStorage.getItem('user'));
 
 export const getTareas = () => {
@@ -19,8 +19,8 @@ export const getTareas = () => {
 
 
 export const createTarea = (tarea) => { 
-  const { nombre, descripcion, categoria, fecha, estado } = tarea;  
-  return axios.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado }, {
+  const { nombre, descripcion, categoria, fecha, estado, user } = tarea;  
+  return axios.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado, user }, {
     headers: {
      'Authorization': 'Bearer ' + user.accessToken
     }});
@@ -48,13 +48,14 @@ export const getTarea = (id) => {
     });
 };
 
-export const saveTarea = (tarea) => {    
+export const saveTarea = (tarea) => { 
   return axios.put(API_URL + "tareas/" + tarea.id, {
     nombre: tarea.nombre,
     categoria: tarea.categoria,
     descripcion: tarea.descripcion,
     fecha: tarea.fecha,
     estado: tarea.estado,
+    user: tarea.user
   },{
     headers: {
      'Authorization': 'Bearer ' + user.accessToken

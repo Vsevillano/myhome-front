@@ -14,11 +14,14 @@ import {
     CREATE_TAREA_REQUEST,
     CREATE_TAREA_SUCCESS,
     CREATE_TAREA_FAIL,
+    GET_USER_TAREAS_REQUEST,
+    GET_USER_TAREAS_SUCCESS,
+    GET_USER_TAREAS_FAIL,
   } from "../actions/types";
       
   const initialState = { loading: false, tareas: null, tarea: {}, error: null };
 
-  export const getTareasReducer = (state = initialState, action) => {
+export const getTareasReducer = (state = initialState, action) => {
     const { type, payload } = action;
     switch (type) {
         case GET_TAREAS_REQUEST:
@@ -26,6 +29,20 @@ import {
         case GET_TAREAS_SUCCESS:            
             return { loading: false, success: true, tareas: payload };
         case GET_TAREAS_FAIL:
+            return { loading: false, error: payload };        
+        default:
+            return state;
+    }
+}
+
+export const getUserTareasReducer = (state = initialState, action) => {
+    const { type, payload } = action;
+    switch (type) {
+        case GET_USER_TAREAS_REQUEST:
+            return { loading: true };
+        case GET_USER_TAREAS_SUCCESS:            
+            return { loading: false, success: true, tareas: payload };
+        case GET_USER_TAREAS_FAIL:
             return { loading: false, error: payload };        
         default:
             return state;
