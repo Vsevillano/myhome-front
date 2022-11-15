@@ -111,7 +111,7 @@ export const Tareas = () => {
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Listado de tareas pendientes</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado !== 'Terminado' &&   
-              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea} users={users}/>
             ))}
           </Grid>        
           
@@ -119,7 +119,7 @@ export const Tareas = () => {
             <Typography variant='h6' className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}>Listado de tareas finalizadas</Typography>
             {tareas?.map((tarea) => (         
               tarea.estado === 'Terminado' &&   
-              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea}/>
+              <TareaCard key={tarea.id} tarea={tarea} handleDeleteTarea={handleDeleteTarea} handleSaveTarea={handleSaveTarea} users={users}/>
             ))}
           </Grid>
           </>

@@ -1,4 +1,4 @@
-import { AppBar, Button,  Dialog, FormControl,  FormGroup, Grid, IconButton, InputLabel, MenuItem, Paper, Select, TextField, Toolbar, Typography, useMediaQuery } from '@mui/material'
+import { AppBar, Button,  Collapse,  Dialog, FormControl,  FormGroup, Grid, IconButton, InputLabel, MenuItem, Paper, Select, TextField, Toolbar, Typography, useMediaQuery } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,8 +9,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@emotion/react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { styled } from '@mui/material/styles';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export const TareaCard = ({tarea, handleDeleteTarea, handleSaveTarea}) => {
+export const TareaCard = ({tarea, handleDeleteTarea, handleSaveTarea, users}) => {
     const dispatch = useDispatch();
     const globalClases = globalStyles();    
     const classes = tareaCardStyles();
@@ -42,6 +44,21 @@ export const TareaCard = ({tarea, handleDeleteTarea, handleSaveTarea}) => {
   
     }, [dispatch, tarea, reset])
 
+
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+
+    const formatDate = (date) => {
+      const newDate = date.split("-");
+      return newDate[2] + "/" + newDate[1] + "/" + newDate[0]
+    }
+
+    const username = users?.find(user => { return user.id === tarea.user})
+
+  
     return (
     <Paper key={tarea.id} elevation={1} className={`${globalClases.px20} ${globalClases.mt10}`}>
       <FormGroup>                  
@@ -51,9 +68,19 @@ export const TareaCard = ({tarea, handleDeleteTarea, handleSaveTarea}) => {
           </Grid>                    
           <Grid item xs={2} className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}>
             <EditIcon className={globalClases.mx10} onClick={handleOpenClose }/>
-            <DeleteIcon onClick={() => handleDeleteTarea(tarea.id)}/>
+            <DeleteIcon onClick={() => handleDeleteTarea(tarea.id)}/>                          
+            <ExpandMoreIcon  expand={`${expanded}`}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"/>
           </Grid>                  
-          <Grid item xs={6} className={`${classes.fechaTarea} ${globalClases.mb10}`}> Fecha límite: {tarea.fecha}</Grid>
+          <Grid item xs={12} className={`${classes.fechaTarea}`}> Fecha límite: {formatDate(tarea.fecha)}</Grid>
+          <Grid item xs={12} className={`${classes.fechaTarea} ${classes.fechaTarea}`}> Responsable: {username.username}</Grid>
+          <Grid item xs={12} className={`${classes.fechaTarea} ${globalClases.mb10}`}>          
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <Typography>{tarea.descripcion}</Typography>
+            </Collapse>
+          </Grid>
           <Dialog fullScreen={isMobile} open={open} onClose={handleOpenClose} >            
             <AppBar elevation={0} sx={{ position: 'relative' }}>
               <Toolbar>                

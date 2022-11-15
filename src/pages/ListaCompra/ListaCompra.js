@@ -46,7 +46,7 @@ export const ListaCompra = () => {
           {isLoading ? <CustomLoader size='medium'/> : (  
             listas ? (
               listas.map(lista => (
-                <Grid key={lista.id} item xs={12}>
+                <Grid key={lista.id} item xs={12} md={4}>
                   <ListaCompraCard lista={lista} handleDeleteLista={handleDeleteLista}/>
                 </Grid>
               )))
