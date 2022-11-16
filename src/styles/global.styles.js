@@ -121,5 +121,13 @@ export const globalStyles = makeStyles(theme => ({
         fontSize: 10,
         color: '#FF0000'
     },
+    container: {
+        maxWidth: '1536px',
+        
+        [theme.breakpoints.up('md')]: {            
+            paddingLeft: 24,
+            paddingRight: 24,               
+        }, 
+    }
     
 }))
