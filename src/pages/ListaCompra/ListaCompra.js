@@ -37,7 +37,7 @@ export const ListaCompra = () => {
   }
 
   return (
-    <Grid container>
+    <Grid container className={globalClases.container}>
       <Grid item xs={12}>
         <Typography
           variant="h6"
@@ -45,7 +45,7 @@ export const ListaCompra = () => {
         >
           Mis listas
         </Typography>
-      </Grid>
+      
       {!isAdding ? (
         <Grid item xs={12}>
           {isLoading ? (
@@ -85,5 +85,6 @@ export const ListaCompra = () => {
         </Button>
       </Grid>
     </Grid>
+  </Grid>
   );
 };

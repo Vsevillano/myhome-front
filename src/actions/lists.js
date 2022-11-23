@@ -13,11 +13,15 @@ import {
     ADD_LIST_REQUEST,
     ADD_LIST_SUCCESS,
     ADD_LIST_FAIL,
+    CREATE_LIST_REQUEST,
   } from "./types";
   
   import ListService from "../services/lists.service";
   
   export const create = (nombre) => (dispatch) => {
+    dispatch({
+      type: CREATE_LIST_REQUEST,
+    });
     return ListService.createLista(nombre).then(
       (response) => {
         dispatch({

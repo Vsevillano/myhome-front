@@ -1,7 +1,9 @@
 import { makeStyles } from "@mui/styles";
 import wave from '../../../../assets/wave_thin.svg';
 export const globalLayoutStyles = makeStyles((theme) => ({
-    root: {      
+    root: {  
+      display: 'flex',
+      justifyContent: 'center',    
       background: 'linear-gradient(174deg, rgba(106,172,228,1) 0%, rgba(255,255,255,1) 65%)',
       minHeight: 'calc(100vh - 60px)',
       padding: 15,

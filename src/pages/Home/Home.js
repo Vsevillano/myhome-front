@@ -11,7 +11,7 @@ import { globalStyles } from "../../styles/global.styles";
 
 export const Home = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { loading, tareas } = useSelector((state) => state.userTareas);
+  const { loading, userTareas } = useSelector((state) => state.userTareas);
   const { loading: loadingGetUsers, users } = useSelector(
     (state) => state.getUsers
   );
@@ -73,7 +73,7 @@ export const Home = () => {
         </Grid>
       </Grid>
     ) : (
-      <Grid container>
+      <Grid container className={globalClases.container}>
         <Grid item xs={4}>
           {loading ? (
             <CustomLoader size="medium" />
@@ -85,8 +85,8 @@ export const Home = () => {
               >
                 Mis tareas pendientes
               </Typography>
-              {tareas ? (
-                tareas?.map((tarea) => (
+              {userTareas ? (
+                userTareas?.map((tarea) => (
                   <TareaCard
                     key={tarea.id}
                     tarea={tarea}
@@ -97,7 +97,7 @@ export const Home = () => {
                 ))
               ) : (
                 <Typography variant="p" className={`${globalClases.fw700}`}>
-                  ¡Enhorabuena! No tienes tareas pendientes
+                  ¡Enhorabuena! No tienes userTareas pendientes
                 </Typography>
               )}
             </>
@@ -106,7 +106,7 @@ export const Home = () => {
       </Grid>
     )
   ) : (
-    <Grid container>
+    <Grid container className={globalClases.container}>
       <Grid item xs={12}>
         <Typography
           variant="h6"

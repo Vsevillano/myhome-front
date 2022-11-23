@@ -41,9 +41,9 @@ export const LoginRegisterForm = () => {
   };
 
   const handleRegister = (data) => {
-    const {username, email, password} = data;
+    const {nombre, apellidos, username, email, telefono, password} = data;
 
-    dispatch(registerUser(username, email, password))
+    dispatch(registerUser(nombre, apellidos, username, email, telefono, password))
       .then(() => {
         dispatch(login(username, password))
       })
@@ -54,7 +54,7 @@ export const LoginRegisterForm = () => {
   
 
   if (isLoggedIn) {
-    return <Navigate to="/profile" />;
+    return <Navigate to="/" />;
   }
 
   return (
@@ -81,10 +81,17 @@ export const LoginRegisterForm = () => {
     : (
       <form onSubmit={handleSubmit(handleRegister)} >
         <Typography variant='h6' textAlign='center'>Registrar</Typography>
+        <TextField fullWidth label="Nombre" variant="outlined" autoComplete='off' className={globalClases.mt10} {...register('nombre', { required: true })} />
+        {errors.nombre?.type === 'required' && <span className={globalClases.formError}>El campo nombre es requerido</span>}        
+        <TextField fullWidth label="Apellidos" variant="outlined" autoComplete='off' className={globalClases.mt10} {...register('apellidos', { required: true })} />
+        {errors.apellidos?.type === 'required' && <span className={globalClases.formError}>El campo apellidos es requerido</span>}        
         <TextField fullWidth label="Usuario" variant="outlined" autoComplete='off' className={globalClases.mt10} {...register('username', { required: true })} />
         {errors.username?.type === 'required' && <span className={globalClases.formError}>El campo usuario es requerido</span>}        
         <TextField fullWidth label="Email" autoComplete='off' variant="outlined" className={globalClases.mt10} {...register('email', { required: true, pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/ })} />        
         {errors.email?.type === 'pattern' && <span className={globalClases.formError}>El campo email debe tener el formato ejemplo@dominio.es</span>}
+        {errors.email?.type === 'required' && <span className={globalClases.formError}>El campo email es requerido</span>}
+        <TextField fullWidth label="Teléfono" variant="outlined" autoComplete='off' className={globalClases.mt10} {...register('telefono', { required: true })} />
+        {/* {errors.telefono?.type === 'pattern' && <span className={globalClases.formError}>El campo email debe tener el formato ejemplo@dominio.es</span>} */}
         <TextField fullWidth label="Contraseña" autoComplete='off' variant="outlined" type='password' className={globalClases.mt10} {...register('password', { required: true })} />
         {errors.password?.type === 'required' && <span className={globalClases.formError}>El campo contraseña es requerido</span>}
         <TextField fullWidth label="Repetir contraseña" autoComplete='off' variant="outlined" type='password' className={globalClases.mt10} {...register('verifypassword', { required: true, validate: () => validatePassword(getValues('password'), getValues('verifypassword')) })} />                

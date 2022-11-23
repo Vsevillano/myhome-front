@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 import { globalStyles } from "../../styles/global.styles";
 import nutritionImage from "../../assets/Nutrition-plan.svg";
@@ -31,12 +30,12 @@ import {
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { useForm } from "react-hook-form";
 import { TareaCard } from "../../components/organisms/TareaCard/TareaCard";
-import { tareasStyles } from "./Tareas.styles";
 import { useTheme } from "@mui/styles";
 import { getUsers } from "../../actions/users";
+import { Navigate } from "react-router-dom";
 
 export const Tareas = () => {
-  const classes = tareasStyles();
+  
   const globalClases = globalStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -46,19 +45,10 @@ export const Tareas = () => {
   const [selectedUser, setSelectedUser] = useState("");
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { loading, tareas } = useSelector((state) => state.tareasList);
-  const { loading: loadingCreateTarea } = useSelector(
-    (state) => state.createTarea
-  );
-  const { loading: loadingDeleteTarea } = useSelector(
-    (state) => state.deleteTarea
-  );
-  const { loading: loadingSaveTarea } = useSelector((state) => state.saveTarea);
-  const { loading: loadingGetUsers, users } = useSelector(
-    (state) => state.getUsers
-  );
+  const { loading, tareas } = useSelector((state) => state.tareas);
+  const { loading: loadingGetUsers, users } = useSelector((state) => state.getUsers);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   const {
     register,
@@ -107,15 +97,15 @@ export const Tareas = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getTareas());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTareas());
+  // }, [dispatch]);
 
   useEffect(() => {
-    if (loadingCreateTarea || loadingDeleteTarea || loadingSaveTarea) {
+    if (!tareas) {
       dispatch(getTareas());
     }
-  }, [dispatch, loadingCreateTarea, loadingDeleteTarea, loadingSaveTarea]);
+  }, [dispatch, tareas]);
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -127,9 +117,7 @@ export const Tareas = () => {
       spacing={isMobile ? 2 : 10}
       className={globalClases.container}
     >
-      {loading ||
-      loadingCreateTarea ||
-      loadingDeleteTarea ||
+      {loading ||  
       loadingGetUsers ? (
         <CustomLoader size="medium" />
       ) : !tareas ? (
@@ -165,7 +153,7 @@ export const Tareas = () => {
         </>
       ) : (
         <>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Typography
               variant="h6"
               className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}
@@ -174,7 +162,7 @@ export const Tareas = () => {
             </Typography>
             {tareas?.map(
               (tarea) =>
-                tarea.estado !== "Terminado" && (
+                tarea.estado === "Sin hacer" && (
                   <TareaCard
                     key={tarea.id}
                     tarea={tarea}
@@ -186,7 +174,29 @@ export const Tareas = () => {
             )}
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
+            <Typography
+              variant="h6"
+              className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}
+            >
+              Listado de tareas en proceso
+            </Typography>
+            {tareas?.map(
+              (tarea) =>
+                tarea.estado === "En proceso" && (
+                  <TareaCard
+                    key={tarea.id}
+                    tarea={tarea}
+                    handleDeleteTarea={handleDeleteTarea}
+                    handleSaveTarea={handleSaveTarea}
+                    users={users}
+                    
+                  />
+                )
+            )}
+          </Grid>
+
+          <Grid item xs={12} md={4}>
             <Typography
               variant="h6"
               className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}
@@ -327,7 +337,7 @@ export const Tareas = () => {
                   >
                     {users?.map((user) => (
                       <MenuItem key={user.id} value={user.id}>
-                        {user.username}
+                        {user?.username}
                       </MenuItem>
                     ))}
                   </Select>

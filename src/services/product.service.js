@@ -1,11 +1,11 @@
-import axios from "axios";
+import api from "./api";
 
-// const API_URL = "http://localhost:8080/api/";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
+const API_URL = "http://localhost:8080/api/";
+// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
 const user = JSON.parse(localStorage.getItem('user'));
 
 const getProductos = () => {
-  return axios
+  return api
     .get(API_URL + "productos", {
       headers: {
         'Authorization': 'Bearer ' + user.accessToken
@@ -17,7 +17,7 @@ const getProductos = () => {
 };
 
 const createProducto = (nombre) => {
-  return axios.post(API_URL + "productos", {
+  return api.post(API_URL + "productos", {
     nombre,    
   }, {
     headers: {
@@ -27,13 +27,13 @@ const createProducto = (nombre) => {
 };
 
 const editProducto = (id, nombre) => {
-  return axios.put(API_URL + "productos" + id, {
+  return api.put(API_URL + "productos" + id, {
     nombre,    
   });
 };
 
 const getProducto = (id) => {
-  return axios
+  return api
     .get(API_URL + "productos/" + id)
     .then((response) => {      
       return response.data;
@@ -41,7 +41,7 @@ const getProducto = (id) => {
 };
 
 const deleteProducto = (id) => {
-  return axios
+  return api
     .delete(API_URL + "productos/" + id)
     .then((response) => {        
       return response.data;
@@ -49,7 +49,7 @@ const deleteProducto = (id) => {
 };
 
 const deleteAllProductos = () => {
-  return axios
+  return api
     .delete(API_URL + "productos/")
     .then((response) => {        
       return response.data;

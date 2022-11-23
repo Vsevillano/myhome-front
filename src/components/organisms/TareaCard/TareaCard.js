@@ -21,13 +21,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { globalStyles } from "../../../styles/global.styles";
 import { tareaCardStyles } from "./TareaCard.styles";
-import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { styled } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InfoIcon from "@mui/icons-material/Info";
 
 export const TareaCard = ({
@@ -39,11 +36,11 @@ export const TareaCard = ({
   const dispatch = useDispatch();
   const globalClases = globalStyles();
   const classes = tareaCardStyles();
-  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
   const [estado, setEstado] = useState("");
+  const [selectedUser, setSelectedUser] = useState(tarea.user);
 
   const {
     register,
@@ -60,6 +57,7 @@ export const TareaCard = ({
 
   const handleSubmitTarea = (data) => {
     handleSaveTarea(data, id);
+    handleOpenClose();
   };
 
   useEffect(() => {
@@ -110,8 +108,8 @@ export const TareaCard = ({
             xs={2}
             className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}
           >
-            <EditIcon className={globalClases.mx10} onClick={handleOpenClose} />
-            <DeleteIcon onClick={() => handleDeleteTarea(tarea.id)} />
+            <EditIcon onClick={handleOpenClose} />
+            <DeleteIcon  className={globalClases.mx10} onClick={() => handleDeleteTarea(tarea.id)} />
             <InfoIcon
               expand={`${expanded}`}
               onClick={handleExpandClick}
@@ -129,7 +127,7 @@ export const TareaCard = ({
             className={`${classes.fechaTarea} ${classes.fechaTarea}`}
           >
             {" "}
-            Responsable: {username.username}
+            Responsable: {username?.username}
           </Grid>
           <Grid
             item
@@ -261,6 +259,23 @@ export const TareaCard = ({
                       </span>
                     )}
                   </FormControl>
+                  <FormControl fullWidth className={globalClases.mt10}>
+                  <InputLabel id="estado-label">Usuario</InputLabel>
+                  <Select
+                    {...register("user", { required: true })}
+                    labelId="user-label"
+                    id="user"                    
+                    value={selectedUser || ''}
+                    label="Estado"
+                    onChange={(e) => setSelectedUser(e.target.value)}
+                  >
+                    {users?.map((user) => (
+                      <MenuItem key={user.id} value={user.id} >
+                        {user?.username}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  </FormControl>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <Button
@@ -277,9 +292,7 @@ export const TareaCard = ({
                         fullWidth
                         variant="outlined"
                         className={`${globalClases.mt10}`}
-                        onClick={(e) => {
-                          navigate("/tareas");
-                        }}
+                        onClick={handleOpenClose}
                       >
                         Cancelar
                       </Button>

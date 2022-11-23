@@ -13,6 +13,7 @@ import {
     ADD_LIST_REQUEST,
     ADD_LIST_SUCCESS,
     ADD_LIST_FAIL,
+    CREATE_LIST_REQUEST,
   } from "../actions/types";
       
   const initialState = { isLoading: false, listas: null };
@@ -22,6 +23,11 @@ import {
     const { type, payload } = action;
   
     switch (type) {
+      case CREATE_LIST_REQUEST:             
+      return {
+        ...state,
+        isLoading: true,
+      };
       case CREATE_LIST_SUCCESS:
         return {
           ...state,

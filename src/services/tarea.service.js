@@ -1,65 +1,46 @@
-import axios from "axios";
+import api from "./api";
 
-// const API_URL = "http://localhost:8080/api/";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
-const user = JSON.parse(localStorage.getItem('user'));
+const API_URL = "http://localhost:8080/api/";
+// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
 
 export const getTareas = () => {
-  return axios
-    .get(API_URL + "tareas", {
-      headers: {
-       'Authorization': 'Bearer ' + user.accessToken
-      }
-    })
+  return api
+    .get(API_URL + "tareas")
     .then((response) => {   
       return response.data;
     });
 };
 
-
-
 export const createTarea = (tarea) => { 
   const { nombre, descripcion, categoria, fecha, estado, user } = tarea;  
-  return axios.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado, user }, {
-    headers: {
-     'Authorization': 'Bearer ' + user.accessToken
-    }});
+  return api.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado, user });
 };
 
 export const deleteTarea = (id) => {
-  return axios
-    .delete(API_URL + "tareas/" + id, {
-      headers: {
-       'Authorization': 'Bearer ' + user.accessToken
-      }})
+  return api
+    .delete(API_URL + "tareas/" + id)
     .then((response) => {        
       return response.data;
     });
 };
 
 export const getTarea = (id) => {
-  return axios
-    .get(API_URL + "tareas/" + id, {
-      headers: {
-       'Authorization': 'Bearer ' + user.accessToken
-      }})
+  return api
+    .get(API_URL + "tareas/" + id)
     .then((response) => {      
       return response.data;
     });
 };
 
 export const saveTarea = (tarea) => { 
-  return axios.put(API_URL + "tareas/" + tarea.id, {
+  return api.put(API_URL + "tareas/" + tarea.id, {
     nombre: tarea.nombre,
     categoria: tarea.categoria,
     descripcion: tarea.descripcion,
     fecha: tarea.fecha,
     estado: tarea.estado,
     user: tarea.user
-  },{
-    headers: {
-     'Authorization': 'Bearer ' + user.accessToken
-    }});
+  });
 };
 
 

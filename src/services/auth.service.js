@@ -1,18 +1,18 @@
 import axios from "axios";
+import api from './api';
 
-// const API_URL = "http://localhost:8080/api/auth/";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/auth/";
 
-const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    email,
-    password,
+const API_URL = "http://localhost:8080/api/auth/";
+// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/auth/";
+
+const register = (nombre, apellidos, username, email, telefono, password) => {
+  return api.post(API_URL + "signup", {
+    nombre, apellidos, username, email, telefono, password
   });
 };
 
 const login = (username, password) => {
-  return axios
+  return api
     .post(API_URL + "signin", {
       username,
       password,

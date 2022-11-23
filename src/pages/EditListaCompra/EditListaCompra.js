@@ -93,29 +93,22 @@ export const EditListaCompra = () => {
   }  
 
   return (
-    <Grid container> 
+    <Grid container className={globalClases.container}> 
       {isLoading ? <CustomLoader size='medium'/> : (
       <>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={4}>
           <Typography className={`${globalClases.mb10} ${globalClases.colorWhite} ${globalClases.fw700} ${globalClases.fs20}`}>Lista {lista?.nombre}</Typography>      
-        </Grid>
+        
         
           {lista?.productos?.length > 0 ? (
-            <Grid item xs={12}>            
+            
               <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {lista?.productos?.map((producto) => {
                   const labelId = `checkbox-list-secondary-label-${producto.id}`;
                   return (
                     <ListItem
                       key={producto.id}
-                      secondaryAction={
-                        <Checkbox
-                          edge="end"
-                          onChange={handleToggle(producto.id)}
-                          checked={checked.indexOf(producto.id) !== -1}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      }
+                      
                       disablePadding
                     >
                       <ListItemButton>
@@ -126,14 +119,15 @@ export const EditListaCompra = () => {
                   );
                 })}
               </List>   
-            </Grid>
+            
           ) : (
             <Grid item xs={12} textAlign='center'>
               <img src={nutritionImage} alt='Nutrition' className={`${globalClases.maxWidth200px} ${globalClases.mt50}`}/>
               <Typography className={`${globalClases.mb10} ${globalClases.fw700} ${globalClases.textCenter} ${globalClases.mt10}`}>¿Qué necesitas comprar?</Typography>      
               <Typography>Toca el botón más para empezar a añadir productos a tu lista</Typography>        
             </Grid>
-          )}                        
+          )}   
+          </Grid>                     
         
         <Grid item xs={12} textAlign='right' className={globalClases.bottomButton}>
         <>
@@ -225,5 +219,6 @@ export const EditListaCompra = () => {
       </>
       )}      
     </Grid>
+    
   )
 }
