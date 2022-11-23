@@ -1,9 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import api from './api';
 
 
-const API_URL = "http://localhost:8080/api/auth/";
-// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/auth/";
+// const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/auth/";
 
 const register = (nombre, apellidos, username, email, telefono, password) => {
   return api.post(API_URL + "signup", {
@@ -30,6 +30,7 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   register,
   login,

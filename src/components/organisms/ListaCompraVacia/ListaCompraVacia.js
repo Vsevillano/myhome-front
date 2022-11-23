@@ -1,8 +1,7 @@
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import { globalStyles } from '../../../styles/global.styles';
 import nutritionImage from '../../../assets/Nutrition-plan.svg'
-import AddIcon from '@mui/icons-material/Add';
 
 export const ListaCompraVacia = () => {
   const globalClases = globalStyles();

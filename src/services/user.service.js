@@ -1,8 +1,8 @@
 import api from "./api";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/test/";
-// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/test/";
+// const API_URL = "http://localhost:8080/api/test/";
+const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/test/";
 
 const getPublicContent = () => {
   return api.get(API_URL + "all");

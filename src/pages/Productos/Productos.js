@@ -1,4 +1,4 @@
-import { AppBar, Button, Card, Checkbox, Dialog, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, Toolbar, Typography } from '@mui/material'
+import { AppBar, Button, Card, Checkbox, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, Toolbar, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../../styles/global.styles';
 import noProducts from '../../assets/noproducts.png'

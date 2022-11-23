@@ -1,7 +1,7 @@
 import api from "./api";
 
-const API_URL = "http://localhost:8080/api/";
-// const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
+// const API_URL = "http://localhost:8080/api/";
+const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
 
 export const getTareas = () => {
   return api

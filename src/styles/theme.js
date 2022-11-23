@@ -1,7 +1,7 @@
-import { createBreakpoints } from "@mui/system";
+// import { createBreakpoints } from "@mui/system";
 import { createTheme } from '@mui/material/styles';
 
-const breakpoints = createBreakpoints({});
+// const breakpoints = createBreakpoints({});
 
 export const myHomeTheme = createTheme({
     

@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Card, Checkbox, Chip, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Card, Chip, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -20,7 +20,7 @@ export const EditListaCompra = () => {
   const { isLoading, lista } = useSelector(state => state.lists);
   const { isLoading: isLoadingProductos, productos } = useSelector(state => state.productos);
 
-  const [checked, setChecked] = useState([1]);
+  // const [checked, setChecked] = useState([1]);
   const [open, setOpen] = useState(false);  
   const [listaProductos, setListaProductos] = useState([]);
   const [name, setName] = useState();
@@ -55,17 +55,17 @@ export const EditListaCompra = () => {
     );
   };
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  // const handleToggle = (value) => () => {
+  //   const currentIndex = checked.indexOf(value);
+  //   const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-  };
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
+  //   setChecked(newChecked);
+  // };
 
   const handleAddToList = (e) => {
     e.preventDefault();    
