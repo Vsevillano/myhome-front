@@ -2,7 +2,7 @@ import api from "./api";
 
 // const API_URL = "http://localhost:8080/api/";
 const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/";
-const user = JSON.parse(localStorage.getItem('user'));
+// const user = JSON.parse(localStorage.getItem('user'));
 
 const createLista = (nombre) => {
   return api.post(API_URL + "listas", {
@@ -12,11 +12,7 @@ const createLista = (nombre) => {
 
 const getListas = () => {  
   return api
-    .get(API_URL + "listas", {
-      headers: {
-        'Authorization': 'Bearer ' + user.accessToken
-       }
-    })
+    .get(API_URL + "listas")
     .then((response) => {   
       return response.data;
     });
@@ -24,11 +20,7 @@ const getListas = () => {
 
 const getLista = (id) => {
   return api
-    .get(API_URL + "listas/" + id, {
-      headers: {
-        'Authorization': 'Bearer ' + user.accessToken
-       }
-    })
+    .get(API_URL + "listas/" + id)
     .then((response) => {      
       return response.data;
     });

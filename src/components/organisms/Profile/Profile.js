@@ -11,7 +11,7 @@ export const Profile = () => {
   
 
   const globalClases = globalStyles();
-  console.log(currentUser)
+  
   if (!currentUser) {
     return <Navigate to="/login" />;
   }
