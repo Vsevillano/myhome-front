@@ -104,7 +104,7 @@ export const Header = () => {
               </MenuItem>)}
               {currentUser && (            
               <MenuItem component={Link} to='lista' onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Listas</Typography>                
+                <Typography textAlign="center">Listas de la compra</Typography>                
               </MenuItem>)}
               {currentUser && (
               <MenuItem component={Link} to='productos' onClick={handleCloseNavMenu}>              
@@ -151,7 +151,7 @@ export const Header = () => {
             </Button>)}
             {currentUser && (               
             <Button component={Link} to='lista' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              Listas
+              Listas de la compra
             </Button>)}            
             {/* {currentUser && (               
             <Button component={Link} to='contactos' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>

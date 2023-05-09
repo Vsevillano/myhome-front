@@ -31,6 +31,9 @@ export const ListaCompra = () => {
       setIsAdded(false);
     }
   }, [dispatch, listas, isAdded]);
+  
+
+
 
   if (!currentUser) {
     return <Navigate to="/login" />;

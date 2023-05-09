@@ -1,9 +1,6 @@
-// import axios from "axios";
+import { API_URL } from '../utils/constants/urls';
 import api from './api';
-
-
-// const API_URL = "http://localhost:8080/api/auth/";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api/auth/";
+import TokenService from "./token.service";
 
 const register = (nombre, apellidos, username, email, telefono, password) => {
   return api.post(API_URL + "signup", {
@@ -19,15 +16,18 @@ const login = (username, password) => {
     })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        TokenService.setUser(response.data)
       }
-
       return response.data;
     });
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  TokenService.removeUser();
+};
+
+const getCurrentUser = () => {
+  return TokenService.getUser();
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -35,4 +35,5 @@ export default {
   register,
   login,
   logout,
+  getCurrentUser,
 };

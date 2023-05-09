@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Card, Chip, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Card, Chip, Dialog, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -8,10 +8,15 @@ import { globalStyles } from '../../styles/global.styles';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import { createProducto, getProductos } from '../../actions/products';
-import nutritionImage from '../../assets/verdura.png'
+import nutritionImage from '../../assets/verdura.png';
+import { useTheme } from "@mui/styles";
+
 
 export const EditListaCompra = () => {
   const globalClases = globalStyles();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
   const params = useParams();
   const {id} = params;
@@ -135,7 +140,7 @@ export const EditListaCompra = () => {
               Añadir a la lista
           </Button>
           <Dialog
-            fullScreen
+            fullScreen={isMobile}
             open={open}
             onClose={handleOpenClose}                    
           >

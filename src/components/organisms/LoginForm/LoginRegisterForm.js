@@ -72,7 +72,10 @@ export const LoginRegisterForm = () => {
 
         {loading ? 
           <CustomLoader size='small'/> :
-          <Button type='submit' fullWidth variant="contained" className={globalClases.mt10}>Iniciar sesión</Button>          
+          <>
+            <Button type='submit' fullWidth variant="contained" className={globalClases.mt10}>Iniciar sesión</Button> 
+            <Button onClick={ e => {e.preventDefault(); navigate("/");}} fullWidth variant="contained" className={globalClases.mt10}>Volver</Button>        
+          </>
         } 
         <Typography className={`${globalClases.fs11} ${globalClases.formError} ${globalClases.pt10} ${globalClases.pb10} ${globalClases.textCenter}`}>{message}</Typography>       
         <Typography className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}>¿No tienes cuenta? <u onClick={ () => setIsRegister(true)}>Registrar</u></Typography>
@@ -97,6 +100,7 @@ export const LoginRegisterForm = () => {
         <TextField fullWidth label="Repetir contraseña" autoComplete='off' variant="outlined" type='password' className={globalClases.mt10} {...register('verifypassword', { required: true, validate: () => validatePassword(getValues('password'), getValues('verifypassword')) })} />                
         {errors.verifypassword && <span className={globalClases.formError}>Las contraseñas deben coincidir</span>}
         <Button type='submit' fullWidth variant="contained" className={globalClases.mt10}>Registrar</Button>        
+        <Button onClick={ e => {e.preventDefault(); navigate("/");}} fullWidth variant="contained" className={globalClases.mt10}>Volver</Button>        
         <Typography className={`${globalClases.fs11} ${globalClases.formError} ${globalClases.pt10} ${globalClases.pb10} ${globalClases.textCenter}`}>{message}</Typography>  
         <Typography className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}>¿Ya tienes cuenta? <u onClick={ () => setIsRegister(false)}>Iniciar sesión</u></Typography>
       </form>

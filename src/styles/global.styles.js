@@ -125,13 +125,9 @@ export const globalStyles = makeStyles(theme => ({
         display: 'flex',
         
         paddingTop: '20px',
-        paddingLeft: '100px !important',
-        paddingRight: '100px !important',
+        paddingLeft: '24px',
+        paddingRight: '24px',
         
-        [theme.breakpoints.up('md')]: {            
-            paddingLeft: 24,
-            paddingRight: 24,               
-        }, 
     }
     
 }))

@@ -97,7 +97,7 @@ export const Home = () => {
                 ))
               ) : (
                 <Typography variant="p" className={`${globalClases.fw700}`}>
-                  ¡Enhorabuena! No tienes userTareas pendientes
+                  ¡Enhorabuena! No tienes tareas pendientes
                 </Typography>
               )}
             </>

@@ -30,7 +30,7 @@ export const ListaCompraCard = ({lista, handleDeleteLista}) => {
                   }}/>
                 </Grid>      
                 <Grid item xs={12}>
-                  <Typography className={globalClases.fs11}>Elementos en la lista: {lista.productos.length}</Typography>
+                  <Typography className={globalClases.fs11}>Elementos en la lista: {lista?.productos?.length}</Typography>
                 </Grid>                                                
               </Grid>
             </FormGroup>

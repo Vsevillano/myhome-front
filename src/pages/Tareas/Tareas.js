@@ -94,8 +94,9 @@ export const Tareas = () => {
   };
 
   useEffect(() => {
+    if (!users)
     dispatch(getUsers());
-  }, [dispatch]);
+  }, [dispatch, users]);
 
   // useEffect(() => {
   //   dispatch(getTareas());
@@ -112,6 +113,7 @@ export const Tareas = () => {
   }
 
   return (
+    
     <Grid
       container
       spacing={isMobile ? 2 : 10}

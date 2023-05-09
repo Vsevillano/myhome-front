@@ -1,8 +1,6 @@
 import axios from "axios";
+import { API_URL } from "../utils/constants/urls";
 import TokenService from "./token.service";
-
-// const API_URL = "http://localhost:8080/api";
-const API_URL = "https://cfgs-my-home-app-back.herokuapp.com/api";
 
 const instance = axios.create({
   baseURL: API_URL,
@@ -10,6 +8,7 @@ const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 
 instance.interceptors.request.use(
   (config) => {
@@ -32,18 +31,16 @@ instance.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
 
-    
-
     if (originalConfig.url !== "/auth/signin" && err.response) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
-                
+
         try {
           const rs = await instance.post("/auth/refreshtoken", {
             refreshToken: TokenService.getLocalRefreshToken(),
-          });                  
-          
+          });
+
           const { accessToken } = rs.data;
           TokenService.updateLocalAccessToken(accessToken);
 
@@ -51,6 +48,9 @@ instance.interceptors.response.use(
         } catch (_error) {
           return Promise.reject(_error);
         }
+      }
+      if (err.response.status === 403) {
+        TokenService.removeUser();
       }
     }
 
