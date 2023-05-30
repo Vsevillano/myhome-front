@@ -122,12 +122,16 @@ export const globalStyles = makeStyles(theme => ({
         color: '#FF0000'
     },
     container: {
-        display: 'flex',
-        
+        display: 'flex',        
         paddingTop: '20px',
         paddingLeft: '24px',
-        paddingRight: '24px',
-        
+        paddingRight: '24px',        
+    },
+    fitContent: {
+        height: 'fit-content'
+    },
+    justifyCenter: {
+        justifyContent: 'space-between'
     }
     
 }))

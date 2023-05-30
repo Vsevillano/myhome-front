@@ -1,13 +1,13 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { LoginRegisterForm } from '../../components/organisms/LoginForm/LoginRegisterForm'
+import { RegisterForm } from '../../components/organisms/RegisterForm/RegisterForm'
 
-export const Signin = () => {
+export const Register = () => {
 
   return (
     <Grid container>
       <Grid item xs={12}>
-          <LoginRegisterForm/>
+          <RegisterForm/>
       </Grid>
     </Grid>
     

@@ -105,8 +105,8 @@ export const TareaCard = ({
           </Grid>
           <Grid
             item
-            xs={2}
-            className={`${globalClases.px20} ${globalClases.mt10} ${classes.actions}`}
+            xs={12} md={2}
+            className={!isMobile ? `${globalClases.px20} ${globalClases.mt10} ${classes.actions}` : `${globalClases.justifyCenter}`}
           >
             <EditIcon onClick={handleOpenClose} />
             <DeleteIcon  className={globalClases.mx10} onClick={() => handleDeleteTarea(tarea.id)} />
