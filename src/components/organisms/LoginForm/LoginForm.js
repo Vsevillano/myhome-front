@@ -30,7 +30,7 @@ export const LoginForm = () => {
 
     dispatch(login(username, password))
       .then(() => {
-        navigate("/profile");        
+        navigate("/");        
       })
       .catch(() => {        
         setLoading(false);        
