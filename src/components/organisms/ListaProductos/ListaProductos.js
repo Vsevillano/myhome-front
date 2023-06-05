@@ -1,6 +1,5 @@
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   AppBar,
   Button,
@@ -12,8 +11,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
@@ -22,17 +20,18 @@ import { globalStyles } from "../../../styles/global.styles";
 import { useForm } from "react-hook-form";
 import { useTheme } from "@emotion/react";
 
-export const ListaProductos = ({ productos }) => {
+export const ListaProductos = ({ productos, handleDeleteProduct, handleEditProducto }) => {
   const globalClases = globalStyles();
 
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [productEdited, setProductEdited] = useState({});
+  const { register, formState: { errors }, handleSubmit, reset} = useForm();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+    setExpanded(false);
   };
 
   const handleOpenClose = () => {
@@ -40,18 +39,16 @@ export const ListaProductos = ({ productos }) => {
   };
 
   const handleSubmitEditProduct = (data) => {
+    handleEditProducto(productEdited.id, data.nombre)
     handleOpenClose();
     reset();
   };
 
-  const handleDeleteProduct = () => {};
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
+  useEffect(() => {        
+    reset({
+      nombre: productEdited?.nombre,    
+    })     
+  }, [productEdited, reset])
 
   return (
     <>
@@ -65,26 +62,39 @@ export const ListaProductos = ({ productos }) => {
                 key={i}
               >
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
+                  //expandIcon={<ExpandMoreIcon />}
+                  //aria-controls="panel1bh-content"
+                  //id="panel1bh-header"
                 >
-                  <Typography>{producto.nombre}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
                   <Grid
                     item
-                    xs={12}
-                    md={12}
+                    xs={10}                    
                     className={`${globalClases.mb10} ${globalClases.mt20}`}
                   >
-                    <EditIcon onClick={handleOpenClose} />
+                    <Typography>{producto.nombre}</Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={4}                    
+                    className={`${globalClases.mb10} ${globalClases.mt20} ${globalClases.textRight}`}
+                  >
+                    <EditIcon onClick={ e => {
+                      handleOpenClose(); 
+                      setProductEdited(producto);
+                      
+                      }
+                    }/>
                     <DeleteIcon
                       className={globalClases.mx10}
                       onClick={() => handleDeleteProduct(producto.id)}
                     />
                   </Grid>
-                </AccordionDetails>
+
+                  
+                </AccordionSummary>
+                {/* <AccordionDetails>
+                  Detalles
+                </AccordionDetails> */}
               </Accordion>
             );
           })}
@@ -121,7 +131,7 @@ export const ListaProductos = ({ productos }) => {
               <TextField
                 fullWidth
                 label="Nombre del producto"
-                variant="outlined"
+                variant="outlined"                
                 className={`${globalClases.inputWhite} ${globalClases.mt10}`}
                 {...register("nombre", { required: true })}
               />

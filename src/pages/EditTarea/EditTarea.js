@@ -15,7 +15,7 @@ export const EditTarea = () => {
   const params = useParams();
   const {id} = params;  
   const { user: currentUser } = useSelector((state) => state.auth);  
-  const { loading, tarea } = useSelector(state => state.getTarea);
+  const { isLoading, tarea } = useSelector(state => state.getTarea);
   const { loading: loadingDelete } = useSelector(state => state.deleteTarea);
   const { loading: loadingSave } = useSelector(state => state.saveTarea);
   
@@ -61,7 +61,7 @@ export const EditTarea = () => {
 
   return (
     <Grid container> 
-      {loading || loadingDelete || loadingSave ? <CustomLoader size='medium'/> : (
+      {isLoading || loadingDelete || loadingSave ? <CustomLoader size='medium'/> : (
       
         <Grid item xs={12}>
           <form onSubmit={handleSubmit(handleSaveTarea)}>

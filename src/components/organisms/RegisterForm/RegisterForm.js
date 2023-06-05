@@ -1,11 +1,10 @@
 import { Button, Grid, TextField, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { registerFormStyles } from "./RegisterForm.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { login, registerUser } from "../../../actions/auth";
 import { globalStyles } from "../../../styles/global.styles";
-import { CustomLoader } from "../../atoms/CustomLoader/CustomLoader";
 import { useForm } from "react-hook-form";
 import { validatePassword } from "../../../common/utils/fieldValidator";
 export const RegisterForm = () => {

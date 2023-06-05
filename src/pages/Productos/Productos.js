@@ -13,7 +13,12 @@ import React, { useEffect, useState } from "react";
 import { globalStyles } from "../../styles/global.styles";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { createProducto, getProductos } from "../../actions/products";
+import {
+  createProducto,
+  deleteProducto,
+  getProductos,
+  saveProducto,
+} from "../../actions/products";
 import { Navigate } from "react-router-dom";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import CloseIcon from "@mui/icons-material/Close";
@@ -26,7 +31,9 @@ export const Productos = () => {
   const globalClases = globalStyles();
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { isLoading, productos } = useSelector((state) => state.productos);
+  const { isLoading, editSuccess, deleteSuccess, saveSuccess, productos } = useSelector(
+    (state) => state.productos
+  );
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -52,14 +59,26 @@ export const Productos = () => {
     reset();
   };
 
+  const handleEditProducto = (id, nombre) => {
+    dispatch(saveProducto(id, nombre));
+    setOpen(false);
+    reset();
+  };
+
   useEffect(() => {
-    if (!productos) {
-      dispatch(getProductos());
-    }
-  }, [dispatch, productos]);
+    dispatch(getProductos());
+  }, []);
+
+  useEffect(() => {
+    if (deleteSuccess || editSuccess || saveSuccess) dispatch(getProductos());
+  }, [dispatch, deleteSuccess, editSuccess, saveSuccess]);
 
   const handleOpenClose = () => {
     setOpen(!open);
+  };
+
+  const handleDeleteProduct = (id) => {
+    dispatch(deleteProducto(id));
   };
 
   if (!currentUser) {
@@ -68,13 +87,25 @@ export const Productos = () => {
 
   return (
     <Grid container className={globalClases.container}>
-      {isLoading ? (
-        <CustomLoader size="medium" />
-      ) : !productos ? (
-        <ListaProductosVacia />
-      ) : (
-        <ListaProductos productos={productos} />
-      )}
+      <Grid item xs={12}>
+        <Typography
+          variant="h6"
+          className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}
+        >
+          Productos
+        </Typography>
+        {isLoading ? (
+          <CustomLoader size="medium" />
+        ) : !productos ? (
+          <ListaProductosVacia />
+        ) : (
+          <ListaProductos
+            productos={productos}
+            handleDeleteProduct={handleDeleteProduct}
+            handleEditProducto={handleEditProducto}
+          />
+        )}
+      </Grid>
       <Grid
         item
         xs={12}

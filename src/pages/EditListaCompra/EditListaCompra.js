@@ -14,7 +14,6 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  TextField,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -27,7 +26,7 @@ import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { globalStyles } from "../../styles/global.styles";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
-import { createProducto, getProductos } from "../../actions/products";
+import { getProductos } from "../../actions/products";
 import nutritionImage from "../../assets/verdura.png";
 import { useTheme } from "@mui/styles";
 
@@ -45,11 +44,8 @@ export const EditListaCompra = () => {
   const { isLoading: isLoadingProductos, productos } = useSelector(
     (state) => state.productos
   );
-
-  // const [checked, setChecked] = useState([1]);
   const [open, setOpen] = useState(false);
   const [listaProductos, setListaProductos] = useState([]);
-  const [name, setName] = useState();
   const [isCreated, setIsCreated] = useState(false);
 
   const dispatch = useDispatch();
@@ -81,17 +77,6 @@ export const EditListaCompra = () => {
     );
   };
 
-  // const handleToggle = (value) => () => {
-  //   const currentIndex = checked.indexOf(value);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(value);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-  //   setChecked(newChecked);
-  // };
 
   const handleAddToList = (e) => {
     e.preventDefault();
@@ -105,10 +90,6 @@ export const EditListaCompra = () => {
     setOpen(false);
   };
 
-  const handleCreateProducto = (e) => {
-    e.preventDefault();
-    dispatch(createProducto(name)).then(setIsCreated(true));
-  };
 
   const handleOpenClose = () => {
     setOpen(!open);
@@ -270,44 +251,7 @@ export const EditListaCompra = () => {
                           </Button>
                         </Grid>
                       </Grid>
-                      <Grid container spacing={2} className={globalClases.mt10}>
-                        <Grid item xs={12}>
-                          <Typography
-                            variant="h6"
-                            textAlign="center"
-                            className={globalClases.mt10}
-                          >
-                            ...o créalo si no existe
-                          </Typography>
-                          <TextField
-                            fullWidth
-                            label="Nombre del producto"
-                            variant="outlined"
-                            className={globalClases.mt10}
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            fullWidth
-                            variant="contained"
-                            className={`${globalClases.mt10}`}
-                            onClick={(e) => handleCreateProducto(e)}
-                          >
-                            Crear
-                          </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            className={`${globalClases.mt10}`}
-                            onClick={() => setOpen(false)}
-                          >
-                            Cancelar
-                          </Button>
-                        </Grid>
-                      </Grid>
+                      
                     </>
                   )}
                 </Card>

@@ -43,7 +43,7 @@ export const ListaCompra = () => {
           variant="h6"
           className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20}`}
         >
-          Mis listas
+          Listas de compra
         </Typography>
 
         {!isAdding ? (
