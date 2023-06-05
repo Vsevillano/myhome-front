@@ -6,6 +6,7 @@ import {
   DELETE_LIST_REQUEST,
   DELETE_PRODUCT_FAIL,
   DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
   GET_PRODUCTS_FAIL,
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
@@ -38,7 +39,8 @@ export const deleteProducto = (id) => async (dispatch) => {
   dispatch({ type: DELETE_PRODUCT_REQUEST });
   try {
     const response = await ProductService.deleteProducto(id);
-    dispatch({ type: DELETE_PRODUCT_REQUEST, payload: response, success: true });
+    
+    dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: response});
   } catch (error) {
     dispatch({ type: DELETE_PRODUCT_FAIL });
   }

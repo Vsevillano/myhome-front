@@ -49,7 +49,6 @@ export default function (state = initialState, action) {
     case SAVE_PRODUCT_FAIL:
       return { ...state, isLoading: false, error: payload, saveSuccess: false };
     default:
-      return state;
-    
+      return state;    
   }
 }

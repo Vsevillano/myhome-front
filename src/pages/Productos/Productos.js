@@ -65,12 +65,9 @@ export const Productos = () => {
     reset();
   };
 
-  useEffect(() => {
-    dispatch(getProductos());
-  }, []);
 
   useEffect(() => {
-    if (deleteSuccess || editSuccess || saveSuccess) dispatch(getProductos());
+    if (!productos || deleteSuccess || editSuccess || saveSuccess) dispatch(getProductos());
   }, [dispatch, deleteSuccess, editSuccess, saveSuccess]);
 
   const handleOpenClose = () => {
