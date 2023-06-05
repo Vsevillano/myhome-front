@@ -64,6 +64,10 @@ export const globalStyles = makeStyles(theme => ({
         marginLeft: '10px !important',
         marginRight: '10px !important',
     },
+    mt10: {
+        marginTop: '10px !important',
+        marginBottom: '10px !important',
+    },
     textCenter: {
         textAlign: 'center',
     },

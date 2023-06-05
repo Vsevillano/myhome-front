@@ -92,7 +92,7 @@ export const TareaCard = ({
     >
       <FormGroup>
         <Grid container>
-          <Grid item xs={10}>
+          <Grid item xs={12} md={12}>
             <Typography
               className={
                 tarea.estado === "Terminado"
@@ -106,11 +106,10 @@ export const TareaCard = ({
           <Grid
             item
             xs={12}
-            md={2}
+            md={12}
             className={
-              !isMobile
-                ? `${globalClases.px20} ${globalClases.mt10} ${classes.actions}`
-                : `${globalClases.justifyCenter}`
+              `${globalClases.mb10} ${globalClases.mt20} ${classes.actions}`
+              
             }
           >
             <EditIcon onClick={handleOpenClose} />

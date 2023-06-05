@@ -17,8 +17,8 @@ export const tareaCardStyles = makeStyles(() => ({
     },
     actions: {
         display: 'flex',
-        justifyContent: 'right',
-        alignItems: 'flex-end',
-        paddingRight: 0,
+        justifyContent: 'left',
+        
+        
     }
 }))
