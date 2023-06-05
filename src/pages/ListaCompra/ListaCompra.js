@@ -31,9 +31,6 @@ export const ListaCompra = () => {
       setIsAdded(false);
     }
   }, [dispatch, listas, isAdded]);
-  
-
-
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -48,46 +45,46 @@ export const ListaCompra = () => {
         >
           Mis listas
         </Typography>
-      
-      {!isAdding ? (
-        <Grid item xs={12}>
-          {isLoading ? (
-            <CustomLoader size="medium" />
-          ) : listas ? (
-            listas.map((lista) => (
-              <Grid key={lista.id} item xs={12} md={4}>
-                <ListaCompraCard
-                  lista={lista}
-                  handleDeleteLista={handleDeleteLista}
-                />
+
+        {!isAdding ? (
+          <Grid item xs={12}>
+            {isLoading ? (
+              <CustomLoader size="medium" />
+            ) : listas ? (
+              listas.map((lista) => (
+                <Grid key={lista.id} item xs={12} md={4}>
+                  <ListaCompraCard
+                    lista={lista}
+                    handleDeleteLista={handleDeleteLista}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <ListaCompraVacia />
               </Grid>
-            ))
-          ) : (
-            <Grid item xs={12}>
-              <ListaCompraVacia />
-            </Grid>
-          )}
-        </Grid>
-      ) : (
-        <Grid item xs={12}>
-          <ListaCompraAdd setIsAdding={setIsAdding} setIsAdded={setIsAdded} />
-        </Grid>
-      )}
-      <Grid
-        item
-        xs={12}
-        textAlign="right"
-        className={globalClases.bottomButton}
-      >
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setIsAdding(true)}
+            )}
+          </Grid>
+        ) : (
+          <Grid item xs={12}>
+            <ListaCompraAdd setIsAdding={setIsAdding} setIsAdded={setIsAdded} />
+          </Grid>
+        )}
+        <Grid
+          item
+          xs={12}
+          textAlign="right"
+          className={globalClases.bottomButton}
         >
-          Crear lista
-        </Button>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => setIsAdding(true)}
+          >
+            Crear lista
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
-  </Grid>
   );
 };

@@ -153,14 +153,10 @@ export const Header = () => {
             <Button component={Link} to='lista' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
               Listas de la compra
             </Button>)}            
-            {/* {currentUser && (               
-            <Button component={Link} to='contactos' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              Contactos
-            </Button>)}
             {currentUser && (               
-            <Button component={Link} to='calendario' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              Calendario
-            </Button>)}                                                                   */}
+            <Button component={Link} to='productos' onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Productos
+            </Button>)}                                                                  
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

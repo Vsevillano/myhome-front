@@ -10,9 +10,7 @@ const getProductos = () => {
 };
 
 const createProducto = (nombre) => {
-  return api.post(API_URL + "productos", {
-    nombre,    
-  });
+  return api.post(API_URL + "productos", {nombre});
 };
 
 const editProducto = (id, nombre) => {

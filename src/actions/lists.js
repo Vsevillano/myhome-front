@@ -18,27 +18,6 @@ import {
   
   import ListService from "../services/lists.service";
   
-  export const create = (nombre) => (dispatch) => {
-    dispatch({
-      type: CREATE_LIST_REQUEST,
-    });
-    return ListService.createLista(nombre).then(
-      (response) => {
-        dispatch({
-          type: CREATE_LIST_SUCCESS,
-        });
-  
-        return Promise.resolve();
-      },
-      (error) => {
-        dispatch({
-          type: CREATE_LIST_FAIL,
-        });
-        return Promise.reject();
-      }
-    );
-  };
-  
   export const getListas = () => (dispatch) => {
     dispatch({
       type: GET_LISTS_REQUEST,      
@@ -55,6 +34,27 @@ import {
       (error) => {
         dispatch({
           type: GET_LISTS_FAIL,
+        });
+        return Promise.reject();
+      }
+    );
+  };
+
+  export const create = (nombre) => (dispatch) => {
+    dispatch({
+      type: CREATE_LIST_REQUEST,
+    });
+    return ListService.createLista(nombre).then(
+      (response) => {
+        dispatch({
+          type: CREATE_LIST_SUCCESS,
+        });
+  
+        return Promise.resolve();
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_LIST_FAIL,
         });
         return Promise.reject();
       }

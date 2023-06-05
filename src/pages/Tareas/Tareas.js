@@ -35,7 +35,6 @@ import { getUsers } from "../../actions/users";
 import { Navigate } from "react-router-dom";
 
 export const Tareas = () => {
-  
   const globalClases = globalStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -45,10 +44,10 @@ export const Tareas = () => {
   const [selectedUser, setSelectedUser] = useState("");
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { loading, tareas } = useSelector((state) => state.tareas);
-  const { loading: loadingGetUsers, users } = useSelector((state) => state.getUsers);
+  const { isLoading, tareas } = useSelector((state) => state.tareas);
+  const { loadingGetUsers, users } = useSelector((state) => state.getUsers);
 
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -94,13 +93,8 @@ export const Tareas = () => {
   };
 
   useEffect(() => {
-    if (!users)
-    dispatch(getUsers());
+    if (!users) dispatch(getUsers());
   }, [dispatch, users]);
-
-  // useEffect(() => {
-  //   dispatch(getTareas());
-  // }, [dispatch]);
 
   useEffect(() => {
     if (!tareas) {
@@ -113,14 +107,12 @@ export const Tareas = () => {
   }
 
   return (
-    
     <Grid
       container
       spacing={isMobile ? 2 : 10}
       className={globalClases.container}
     >
-      {loading ||  
-      loadingGetUsers ? (
+      {isLoading || loadingGetUsers ? (
         <CustomLoader size="medium" />
       ) : !tareas ? (
         <>
@@ -192,7 +184,6 @@ export const Tareas = () => {
                     handleDeleteTarea={handleDeleteTarea}
                     handleSaveTarea={handleSaveTarea}
                     users={users}
-                    
                   />
                 )
             )}

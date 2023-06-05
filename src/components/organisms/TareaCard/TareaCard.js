@@ -105,11 +105,19 @@ export const TareaCard = ({
           </Grid>
           <Grid
             item
-            xs={12} md={2}
-            className={!isMobile ? `${globalClases.px20} ${globalClases.mt10} ${classes.actions}` : `${globalClases.justifyCenter}`}
+            xs={12}
+            md={2}
+            className={
+              !isMobile
+                ? `${globalClases.px20} ${globalClases.mt10} ${classes.actions}`
+                : `${globalClases.justifyCenter}`
+            }
           >
             <EditIcon onClick={handleOpenClose} />
-            <DeleteIcon  className={globalClases.mx10} onClick={() => handleDeleteTarea(tarea.id)} />
+            <DeleteIcon
+              className={globalClases.mx10}
+              onClick={() => handleDeleteTarea(tarea.id)}
+            />
             <InfoIcon
               expand={`${expanded}`}
               onClick={handleExpandClick}
@@ -260,21 +268,21 @@ export const TareaCard = ({
                     )}
                   </FormControl>
                   <FormControl fullWidth className={globalClases.mt10}>
-                  <InputLabel id="estado-label">Usuario</InputLabel>
-                  <Select
-                    {...register("user", { required: true })}
-                    labelId="user-label"
-                    id="user"                    
-                    value={selectedUser || ''}
-                    label="Estado"
-                    onChange={(e) => setSelectedUser(e.target.value)}
-                  >
-                    {users?.map((user) => (
-                      <MenuItem key={user.id} value={user.id} >
-                        {user?.username}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    <InputLabel id="estado-label">Usuario</InputLabel>
+                    <Select
+                      {...register("user", { required: true })}
+                      labelId="user-label"
+                      id="user"
+                      value={selectedUser || ""}
+                      label="Estado"
+                      onChange={(e) => setSelectedUser(e.target.value)}
+                    >
+                      {users?.map((user) => (
+                        <MenuItem key={user.id} value={user.id}>
+                          {user?.username}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </FormControl>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>

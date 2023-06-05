@@ -15,16 +15,6 @@ export const getTareas = () => async(dispatch) => {
     }
 };
 
-export const getUserTareas = () => async(dispatch) => {
-  dispatch({ type: GET_USER_TAREAS_REQUEST });
-  try {
-    const tareas = await UserService.getUserTareas();
-    dispatch({ type: GET_USER_TAREAS_SUCCESS, payload: tareas });
-  } catch (error) {
-    dispatch({ type: GET_USER_TAREAS_FAIL, payload: error.message });
-  }
-};
-
 export const createTarea = (tarea) => async(dispatch) => {        
   dispatch({ type: CREATE_TAREA_REQUEST });
   try {
@@ -62,6 +52,16 @@ export const saveTarea = (tarea) => async(dispatch) => {
     dispatch({ type: SAVE_TAREA_SUCCESS, payload: response });
   } catch (error) {
     dispatch({ type: SAVE_TAREA_FAIL });
+  }
+};
+
+export const getUserTareas = () => async(dispatch) => {
+  dispatch({ type: GET_USER_TAREAS_REQUEST });
+  try {
+    const tareas = await UserService.getUserTareas();
+    dispatch({ type: GET_USER_TAREAS_SUCCESS, payload: tareas });
+  } catch (error) {
+    dispatch({ type: GET_USER_TAREAS_FAIL, payload: error.message });
   }
 };
 

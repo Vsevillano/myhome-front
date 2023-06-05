@@ -53,7 +53,7 @@ export const Home = () => {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getUserTareas());
-  }, []);
+  }, [dispatch]);
 
   return loadingGetUsers || loading ? (
     <CustomLoader size="medium" />
