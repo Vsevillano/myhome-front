@@ -7,6 +7,10 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 
+// Send forgot password mail
+export const FORGOR_PASSWORD_MAIL_SEND_SUCCESS = 'FORGOR_PASSWORD_MAIL_SEND_SUCCESS';
+export const FORGOR_PASSWORD_MAIL_SEND_FAIL = 'FORGOR_PASSWORD_MAIL_SEND_FAIL';
+
 // Message request
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";

@@ -35,17 +35,14 @@ export const NewPasswordForm = () => {
 
     dispatch(changepassword(decodedToken.sub, password))
       .then(() => {
-        navigate("/profile");        
+        navigate("/");        
       })
       .catch(() => {        
         setLoading(false);        
       });    
   };
 
-  if (isLoggedIn) {
-    return <Navigate to="/" />;
-  }
-
+  
   return (
     
     <Grid container elevation={3} justifyContent="center">

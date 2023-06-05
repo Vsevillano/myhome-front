@@ -121,6 +121,10 @@ export const globalStyles = makeStyles(theme => ({
         fontSize: 10,
         color: '#FF0000'
     },
+    formSuccess: {
+        fontSize: 10,
+        color: '#198754'
+    },
     container: {
         display: 'flex',        
         paddingTop: '20px',

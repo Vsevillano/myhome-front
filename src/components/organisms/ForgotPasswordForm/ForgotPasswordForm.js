@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import { loginRegisterFormStyles } from './LoginRegisterForm.styles'
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate  } from 'react-router-dom';
-import { login } from '../../../actions/auth';
+import { sendMailforgotPassword } from '../../../actions/auth';
 import { globalStyles } from '../../../styles/global.styles';
 import {CustomLoader} from '../../atoms/CustomLoader/CustomLoader'
 import { useForm } from 'react-hook-form';
+import { SET_MESSAGE } from '../../../actions/types';
 export const ForgotPasswordForm = () => {
   const theme = useTheme();
   const classes = loginRegisterFormStyles(theme);
@@ -23,14 +24,19 @@ export const ForgotPasswordForm = () => {
 
   const { register, formState : { errors }, handleSubmit } = useForm();
 
-  const handleLogin = (data) => {
-    const {username, password} = data;
+  const handleSendMail = (data) => {
+    const {email} = data;
 
     setLoading(true);
 
-    dispatch(login(username, password))
+    dispatch(sendMailforgotPassword(email))
       .then(() => {
-        navigate("/profile");        
+        dispatch({
+          type: SET_MESSAGE,
+          payload: "Email enviado. Por favor, revise su bandeja de entrada",
+        });   
+        setLoading(false);        
+
       })
       .catch(() => {        
         setLoading(false);        
@@ -49,7 +55,7 @@ export const ForgotPasswordForm = () => {
         md={6}
         className={`${classes.form} ${globalClases.mt50}`}
       >
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={handleSubmit(handleSendMail)}>
           <Typography variant="h6" textAlign="center">
             Recuperar contraseña
           </Typography>
@@ -94,7 +100,7 @@ export const ForgotPasswordForm = () => {
             </>
           )}
           <Typography
-            className={`${globalClases.fs11} ${globalClases.formError} ${globalClases.pt10} ${globalClases.pb10} ${globalClases.textCenter}`}
+            className={`${globalClases.fs11} ${globalClases.formSuccess} ${globalClases.pt10} ${globalClases.pb10} ${globalClases.textCenter}`}
           >
             {message}
           </Typography>          
