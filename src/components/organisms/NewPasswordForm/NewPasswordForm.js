@@ -50,7 +50,6 @@ export const NewPasswordForm = () => {
     return <Navigate to="/" />;
   }
 
-
   return (
     <Grid container elevation={3} justifyContent="center">
       <Grid

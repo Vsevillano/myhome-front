@@ -1,24 +1,22 @@
 import { makeStyles } from "@mui/styles";
 
 export const tareaCardStyles = makeStyles(() => ({
-    root: {   
-        '& .MuiCardHeader-title' : {
-            fontSize: '20px !important',
-        },
-        '& .MuiCardHeader-subheader' : {
-            fontSize: '12px'
-        }
+  root: {
+    "& .MuiCardHeader-title": {
+      fontSize: "20px !important",
     },
-    fechaTarea: {
-        fontSize: 10
+    "& .MuiCardHeader-subheader": {
+      fontSize: "12px",
     },
-    terminado: {
-        textDecoration: 'line-through'
-    },
-    actions: {
-        display: 'flex',
-        justifyContent: 'left',
-        
-        
-    }
-}))
+  },
+  fechaTarea: {
+    fontSize: 10,
+  },
+  terminado: {
+    textDecoration: "line-through",
+  },
+  actions: {
+    display: "flex",
+    justifyContent: "left",
+  },
+}));

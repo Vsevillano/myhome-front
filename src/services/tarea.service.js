@@ -2,47 +2,45 @@ import { API_URL } from "../utils/constants/urls";
 import api from "./api";
 
 export const getTareas = () => {
-  return api
-    .get(API_URL + "tareas")
-    .then((response) => {   
-      return response.data;
-    });
+  return api.get(API_URL + "tareas").then((response) => {
+    return response.data;
+  });
 };
 
-export const createTarea = (tarea) => { 
-  const { nombre, descripcion, categoria, fecha, estado, user } = tarea;  
-  return api.post(API_URL + "tareas", { nombre, descripcion, categoria, fecha, estado, user });
+export const createTarea = (tarea) => {
+  const { nombre, descripcion, categoria, fecha, estado, user } = tarea;
+  return api.post(API_URL + "tareas", {
+    nombre,
+    descripcion,
+    categoria,
+    fecha,
+    estado,
+    user,
+  });
 };
 
 export const deleteTarea = (id) => {
-  return api
-    .delete(API_URL + "tareas/" + id)
-    .then((response) => {        
-      return response.data;
-    });
+  return api.delete(API_URL + "tareas/" + id).then((response) => {
+    return response.data;
+  });
 };
 
 export const getTarea = (id) => {
-  return api
-    .get(API_URL + "tareas/" + id)
-    .then((response) => {      
-      return response.data;
-    });
+  return api.get(API_URL + "tareas/" + id).then((response) => {
+    return response.data;
+  });
 };
 
-export const saveTarea = (tarea) => { 
+export const saveTarea = (tarea) => {
   return api.put(API_URL + "tareas/" + tarea.id, {
     nombre: tarea.nombre,
     categoria: tarea.categoria,
     descripcion: tarea.descripcion,
     fecha: tarea.fecha,
     estado: tarea.estado,
-    user: tarea.user
+    user: tarea.user,
   });
 };
-
-
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

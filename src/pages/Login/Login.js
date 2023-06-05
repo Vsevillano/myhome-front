@@ -1,15 +1,13 @@
-import { Grid } from '@mui/material'
-import React from 'react'
-import { LoginForm } from '../../components/organisms/LoginForm/LoginForm'
+import { Grid } from "@mui/material";
+import React from "react";
+import { LoginForm } from "../../components/organisms/LoginForm/LoginForm";
 
 export const Login = () => {
-
   return (
     <Grid container>
       <Grid item xs={12}>
-          <LoginForm/>
+        <LoginForm />
       </Grid>
     </Grid>
-    
-  )
-}
+  );
+};

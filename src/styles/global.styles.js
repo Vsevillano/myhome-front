@@ -64,7 +64,7 @@ export const globalStyles = makeStyles(theme => ({
         marginLeft: '10px !important',
         marginRight: '10px !important',
     },
-    mt10: {
+    my10: {
         marginTop: '10px !important',
         marginBottom: '10px !important',
     },
@@ -117,7 +117,7 @@ export const globalStyles = makeStyles(theme => ({
         fontSize: '20px !important',
     },
     bottomButton: {
-        position: 'absolute',
+        position: 'sticky',
         bottom: '32px',
         right: 20,
     },

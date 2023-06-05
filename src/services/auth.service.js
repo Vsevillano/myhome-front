@@ -38,7 +38,6 @@ const sendMailforgotPassword = (email) => {
       subject: "Recuperar contraseña",
     })
     .then((response) => {
-      
       return response.data;
     });
   // si todo va bien, devolverá un 200
@@ -77,5 +76,5 @@ export default {
   getCurrentUser,
   changeUserPassword,
   checkForgotPasswordToken,
-  sendMailforgotPassword
+  sendMailforgotPassword,
 };

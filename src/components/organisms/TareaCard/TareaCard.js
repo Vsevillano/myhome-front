@@ -17,15 +17,16 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { globalStyles } from "../../../styles/global.styles";
 import { tareaCardStyles } from "./TareaCard.styles";
 import CloseIcon from "@mui/icons-material/Close";
+import InfoIcon from "@mui/icons-material/Info";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import InfoIcon from "@mui/icons-material/Info";
+
 
 export const TareaCard = ({
   tarea,

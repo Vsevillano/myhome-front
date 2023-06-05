@@ -1,5 +1,5 @@
 const validatePassword = (password, verifyPassword) => {
-    return password === verifyPassword
-}
+  return password === verifyPassword;
+};
 
-export { validatePassword }
+export { validatePassword };

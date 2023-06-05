@@ -67,11 +67,7 @@ export const Productos = () => {
   }
 
   return (
-    <Grid
-      container
-      spacing={isMobile ? 2 : 10}
-      className={globalClases.container}
-    >
+    <Grid container className={globalClases.container}>
       {isLoading ? (
         <CustomLoader size="medium" />
       ) : !productos ? (

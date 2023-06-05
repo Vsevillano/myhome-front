@@ -1,4 +1,16 @@
-import { Grid, Typography, useMediaQuery, Table, TableBody, TableRow, TableHead, TableCell, Paper, TableContainer, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  useMediaQuery,
+  Table,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  Paper,
+  TableContainer,
+  Button,
+} from "@mui/material";
 import { useTheme } from "@mui/styles";
 
 import React, { useEffect, useState } from "react";
@@ -65,13 +77,13 @@ export const Home = () => {
         className={globalClases.container}
       >
         <Grid item xs={12} md={12}>
-        <Typography
-                variant="h6"
-                className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20} ${globalClases.mb10}`}
-              >
+          <Typography
+            variant="h6"
+            className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20} ${globalClases.mb10}`}
+          >
             Gestión de usuarios
           </Typography>
-          
+
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -79,15 +91,15 @@ export const Home = () => {
                   <TableCell>Nombre y apellidos</TableCell>
                   <TableCell align="center">Usuario</TableCell>
                   <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">Teléfono</TableCell>  
-                  <TableCell align="center">Acciones</TableCell>  
+                  <TableCell align="center">Teléfono</TableCell>
+                  <TableCell align="center">Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {users.map((row) => (
                   <TableRow
                     key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
                       {row.nombre} {row.apellidos}
@@ -95,7 +107,9 @@ export const Home = () => {
                     <TableCell align="center">{row.username}</TableCell>
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">{row.telefono}</TableCell>
-                    <TableCell align="center"><Button>Desactivar</Button></TableCell>
+                    <TableCell align="center">
+                      <Button>Desactivar</Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

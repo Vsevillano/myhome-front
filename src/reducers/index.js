@@ -3,7 +3,7 @@ import auth from "./auth";
 import message from "./message";
 import lists from "./lists";
 import productos from "./products";
-import { tareasReducer, getUserTareasReducer, } from "./tareas";
+import { tareasReducer, getUserTareasReducer } from "./tareas";
 import { getUsersReducer } from "./users";
 
 export default combineReducers({
@@ -11,7 +11,7 @@ export default combineReducers({
   message,
   lists,
   productos,
-  tareas: tareasReducer,  
+  tareas: tareasReducer,
   getUsers: getUsersReducer,
   userTareas: getUserTareasReducer,
 });

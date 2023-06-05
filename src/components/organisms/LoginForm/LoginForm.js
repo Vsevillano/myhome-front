@@ -1,12 +1,12 @@
-import { Button, Grid, TextField, Typography, useTheme } from '@mui/material'
-import React, { useState } from 'react'
-import { loginRegisterFormStyles } from './LoginRegisterForm.styles'
+import { Button, Grid, TextField, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { loginRegisterFormStyles } from "./LoginRegisterForm.styles";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate  } from 'react-router-dom';
-import { login } from '../../../actions/auth';
-import { globalStyles } from '../../../styles/global.styles';
-import {CustomLoader} from '../../atoms/CustomLoader/CustomLoader'
-import { useForm } from 'react-hook-form';
+import { Navigate, useNavigate } from "react-router-dom";
+import { login } from "../../../actions/auth";
+import { globalStyles } from "../../../styles/global.styles";
+import { CustomLoader } from "../../atoms/CustomLoader/CustomLoader";
+import { useForm } from "react-hook-form";
 export const LoginForm = () => {
   const theme = useTheme();
   const classes = loginRegisterFormStyles(theme);
@@ -14,27 +14,31 @@ export const LoginForm = () => {
 
   let navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
 
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
-  const { register, formState : { errors }, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   const handleLogin = (data) => {
-    const {username, password} = data;
+    const { username, password } = data;
 
     setLoading(true);
 
     dispatch(login(username, password))
       .then(() => {
-        navigate("/");        
+        navigate("/");
       })
-      .catch(() => {        
-        setLoading(false);        
-      });    
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   if (isLoggedIn) {
@@ -115,16 +119,19 @@ export const LoginForm = () => {
             className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}
           >
             ¿No tienes cuenta?{" "}
-            <u onClick={() => navigate('/register', { replace: true })}>Registrar</u>
+            <u onClick={() => navigate("/register", { replace: true })}>
+              Registrar
+            </u>
           </Typography>
           <Typography
             className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}
           >
-            
-            <u onClick={() => navigate('/forgotpassword', { replace: true })}>¿Has olvidado tu contraseña?{" "}</u>
+            <u onClick={() => navigate("/forgotpassword", { replace: true })}>
+              ¿Has olvidado tu contraseña?{" "}
+            </u>
           </Typography>
         </form>
       </Grid>
     </Grid>
   );
-}
+};

@@ -1,13 +1,13 @@
-import { Button, Grid, TextField, Typography, useTheme } from '@mui/material'
-import React, { useState } from 'react'
-import { registerFormStyles } from './RegisterForm.styles'
+import { Button, Grid, TextField, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { registerFormStyles } from "./RegisterForm.styles";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate  } from 'react-router-dom';
-import { login, registerUser } from '../../../actions/auth';
-import { globalStyles } from '../../../styles/global.styles';
-import {CustomLoader} from '../../atoms/CustomLoader/CustomLoader'
-import { useForm } from 'react-hook-form';
-import { validatePassword } from '../../../common/utils/fieldValidator';
+import { Navigate, useNavigate } from "react-router-dom";
+import { login, registerUser } from "../../../actions/auth";
+import { globalStyles } from "../../../styles/global.styles";
+import { CustomLoader } from "../../atoms/CustomLoader/CustomLoader";
+import { useForm } from "react-hook-form";
+import { validatePassword } from "../../../common/utils/fieldValidator";
 export const RegisterForm = () => {
   const theme = useTheme();
   const classes = registerFormStyles(theme);
@@ -15,25 +15,32 @@ export const RegisterForm = () => {
 
   let navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
-  const { register, formState : { errors }, handleSubmit, reset, getValues } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    getValues,
+  } = useForm();
 
   const handleRegister = (data) => {
-    const {nombre, apellidos, username, email, telefono, password} = data;
+    const { nombre, apellidos, username, email, telefono, password } = data;
 
-    dispatch(registerUser(nombre, apellidos, username, email, telefono, password))
+    dispatch(
+      registerUser(nombre, apellidos, username, email, telefono, password)
+    )
       .then(() => {
-        dispatch(login(username, password))
+        dispatch(login(username, password));
       })
       .catch(() => {
         reset();
-      });    
+      });
   };
-  
 
   if (isLoggedIn) {
     return <Navigate to="/" />;
@@ -182,11 +189,12 @@ export const RegisterForm = () => {
             className={`${globalClases.textCenter} ${globalClases.fs11} ${globalClases.mt5}`}
           >
             ¿Ya tienes cuenta?{" "}
-            <u onClick={() => navigate('/login', { replace: true })}>Iniciar sesión</u>
+            <u onClick={() => navigate("/login", { replace: true })}>
+              Iniciar sesión
+            </u>
           </Typography>
-          
         </form>
       </Grid>
     </Grid>
   );
-}
+};
