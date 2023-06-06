@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { loginRegisterFormStyles } from "./LoginRegisterForm.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { changepassword } from "../../../actions/auth";
+import { changepassword, login } from "../../../actions/auth";
 import { globalStyles } from "../../../styles/global.styles";
 import { CustomLoader } from "../../atoms/CustomLoader/CustomLoader";
 import { useForm } from "react-hook-form";
@@ -39,7 +39,7 @@ export const NewPasswordForm = () => {
 
     dispatch(changepassword(decodedToken.sub, password))
       .then(() => {
-        navigate("/");
+        dispatch(login(decodedToken.sub, password)).then(navigate('/'))
       })
       .catch(() => {
         setLoading(false);
