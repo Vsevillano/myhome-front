@@ -56,7 +56,7 @@ export const Home = () => {
     }
   }, [dispatch, isAdmin, currentUser]);
 
-  return loadingGetUsers || loadingTareascd ? (
+  return loadingGetUsers || loadingTareas ? (
     <CustomLoader size="medium" />
   ) : currentUser ? (
     isAdmin ? (
