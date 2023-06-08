@@ -1,5 +1,4 @@
 import {
-  Button,
   Grid,
   List,
   ListItem,
@@ -10,18 +9,17 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { addProductoToLista, getLista } from "../../actions/lists";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { globalStyles } from "../../styles/global.styles";
 import { getProductos } from "../../actions/products";
 import { useTheme } from "@mui/styles";
 import { ListaProductosAnnadir } from "../../components/organisms/ListaProductosAnnadir/ListaProductosAnnadir";
-import AddIcon from "@mui/icons-material/ArrowBack";
 
 export const EditListaCompra = () => {
   const globalClases = globalStyles();
-  let navigate = useNavigate();
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
@@ -29,7 +27,9 @@ export const EditListaCompra = () => {
   const { id } = params;
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { isLoading, lista } = useSelector((state) => state.lists);
+  const { isLoading, lista, successAdded } = useSelector(
+    (state) => state.lists
+  );
   const { isLoading: isLoadingProductos, productos } = useSelector(
     (state) => state.productos
   );
@@ -45,8 +45,6 @@ export const EditListaCompra = () => {
         productos: [...stringProductos, producto.nombre],
       })
     );
-    dispatch(getLista(id));
-    dispatch(getProductos());
   };
 
   const handleDeleteFromList = (e, producto) => {
@@ -62,19 +60,12 @@ export const EditListaCompra = () => {
         productos: nuevaLista,
       })
     );
-    dispatch(getLista(id));
-    dispatch(getProductos());
   };
 
   useEffect(() => {
     dispatch(getLista(id));
     dispatch(getProductos());
   }, [dispatch, id]);
-
-  useEffect(() => {
-    if (!lista) dispatch(getLista(id));
-    if (!productos) dispatch(getProductos());
-  }, [dispatch, lista, productos]);
 
   useEffect(() => {
     if (lista?.productos) {
@@ -88,62 +79,42 @@ export const EditListaCompra = () => {
 
   return (
     <Grid container spacing={2} className={globalClases.container}>
-      <>
-        <Grid item xs={12} md={6}>
-          <Typography
-            className={`${globalClases.mb10} ${globalClases.colorWhite} ${globalClases.fw700} ${globalClases.fs20}`}
-          >
-            Productos en la lista {lista?.nombre}
-          </Typography>
-          {isLoading ? (
-            <CustomLoader size="medium" />
-          ) : lista?.productos ? (
-            <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
-              {lista?.productos?.map((producto) => {
-                const labelId = `checkbox-list-secondary-label-${producto.id}`;
-                return (
-                  <ListItem key={producto.id} disablePadding>
-                    <ListItemButton
-                      onClick={(e) => handleDeleteFromList(e, producto)}
-                    >
-                      <ListItemText id={labelId} primary={producto.nombre} />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-          ) : (
-            <Typography>Sin productos</Typography>
-          )}
-        </Grid>
-        {isLoading || isLoadingProductos ? (
-          <CustomLoader size="medium" />
-        ) : (
+      {isLoading || isLoadingProductos ? (
+        <CustomLoader size="medium" />
+      ) : (
+        <>
+          <Grid item xs={12} md={6}>
+            <Typography
+              className={`${globalClases.mb10} ${globalClases.colorWhite} ${globalClases.fw700} ${globalClases.fs20}`}
+            >
+              Productos en la lista {lista?.nombre}
+            </Typography>
+            {lista?.productos ? (
+              <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
+                {lista?.productos?.map((producto) => {
+                  const labelId = `checkbox-list-secondary-label-${producto.id}`;
+                  return (
+                    <ListItem key={producto.id} disablePadding>
+                      <ListItemButton
+                        onClick={(e) => handleDeleteFromList(e, producto)}
+                      >
+                        <ListItemText id={labelId} primary={producto.nombre} />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            ) : (
+              <Typography>Sin productos</Typography>
+            )}
+          </Grid>
           <ListaProductosAnnadir
             productos={productos}
             lista={lista}
             handleAddToList={handleAddToList}
           />
-        )}
-
-        <Grid
-          item
-          xs={12}
-          textAlign="right"
-          className={globalClases.bottomButton}
-        >
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/lista");
-            }}
-          >
-            Volver
-          </Button>
-        </Grid>
-      </>
+        </>
+      )}
     </Grid>
   );
 };

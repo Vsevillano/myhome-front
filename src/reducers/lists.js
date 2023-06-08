@@ -16,7 +16,7 @@ import {
   CREATE_LIST_REQUEST,
 } from "../actions/types";
 
-const initialState = { isLoading: false, listas: null, successCreate: false, lista: null};
+const initialState = { isLoading: false, listas: null, successCreate: false, successAdded: false, lista: null};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
@@ -53,11 +53,11 @@ export default function (state = initialState, action) {
       return { ...state, isLoading: false };
     // Anadir un producto a una lista
     case ADD_LIST_REQUEST:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, successAdded: false };
     case ADD_LIST_SUCCESS:
-      return { ...state, isLoading: false, lista: payload };
+      return { ...state, isLoading: false, lista: payload, successAdded: true };
     case ADD_LIST_FAIL: 
-      return { ...state, isLoading: false };
+      return { ...state, isLoading: false, successAdded: false };
     default:
       return state;
   }
