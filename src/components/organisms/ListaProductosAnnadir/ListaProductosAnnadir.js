@@ -1,10 +1,14 @@
-import { Grid, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
 import React from "react";
+import AddIcon from '@mui/icons-material/Add';
+
 
 import { globalStyles } from "../../../styles/global.styles";
 
 export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => {
   const globalClases = globalStyles();
+
+  
 
   return (
     <>
@@ -20,10 +24,12 @@ export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => 
               const listaIds = lista?.productos?.map((producto) => producto.id);
               if (!listaIds?.includes(producto.id)) {
                 return (
-                  <ListItem key={producto.id} disablePadding>
-                    <ListItemButton
-                      onClick={(e) => handleAddToList(e, producto)}
-                    >
+                  <ListItem key={producto.id} disablePadding secondaryAction={
+                    <IconButton edge="end" aria-label="delete" onClick={(e) => handleAddToList(e, producto)}>
+                      <AddIcon />
+                    </IconButton>
+                  }>
+                    <ListItemButton>
                       <ListItemText
                         id={producto.id}
                         primary={producto.nombre}
@@ -32,7 +38,6 @@ export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => 
                   </ListItem>
                 );
               }
-              return null;
             })}
           </List>
         ) : (

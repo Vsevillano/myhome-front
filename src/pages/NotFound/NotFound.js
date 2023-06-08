@@ -20,7 +20,7 @@ export const NotFound = () => {
           to="/"
           className={globalClases.mt10}
         >
-          Volver al iniciio
+          Volver al inicio
         </Button>
       </Grid>
     </Grid>

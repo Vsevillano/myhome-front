@@ -1,5 +1,7 @@
 import {
+  Button,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -9,17 +11,18 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { addProductoToLista, getLista } from "../../actions/lists";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { globalStyles } from "../../styles/global.styles";
 import { getProductos } from "../../actions/products";
 import { useTheme } from "@mui/styles";
 import { ListaProductosAnnadir } from "../../components/organisms/ListaProductosAnnadir/ListaProductosAnnadir";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export const EditListaCompra = () => {
   const globalClases = globalStyles();
-
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
@@ -89,15 +92,25 @@ export const EditListaCompra = () => {
             >
               Productos en la lista {lista?.nombre}
             </Typography>
-            {lista?.productos ? (
+            {lista?.productos.length > 0 ? (
               <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
                 {lista?.productos?.map((producto) => {
                   const labelId = `checkbox-list-secondary-label-${producto.id}`;
                   return (
-                    <ListItem key={producto.id} disablePadding>
-                      <ListItemButton
-                        onClick={(e) => handleDeleteFromList(e, producto)}
-                      >
+                    <ListItem
+                      key={producto.id}
+                      disablePadding
+                      secondaryAction={
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={(e) => handleDeleteFromList(e, producto)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemButton>
                         <ListItemText id={labelId} primary={producto.nombre} />
                       </ListItemButton>
                     </ListItem>
@@ -105,7 +118,7 @@ export const EditListaCompra = () => {
                 })}
               </List>
             ) : (
-              <Typography>Sin productos</Typography>
+              <Typography>No has añadido ningún producto aún</Typography>
             )}
           </Grid>
           <ListaProductosAnnadir
@@ -113,8 +126,26 @@ export const EditListaCompra = () => {
             lista={lista}
             handleAddToList={handleAddToList}
           />
+          <Grid
+              item
+              xs={12}
+              textAlign="right"
+              className={globalClases.bottomButton}
+            >
+              <Button
+                variant="contained"
+                startIcon={<ArrowBackIcon />}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/lista");
+                }}
+              >
+                Volver
+              </Button>
+            </Grid>
         </>
       )}
     </Grid>
+    
   );
 };

@@ -68,15 +68,14 @@ export const ListaProductos = ({ productos, handleDeleteProduct, handleEditProdu
                 >
                   <Grid
                     item
-                    xs={10}                    
-                    className={`${globalClases.mb10} ${globalClases.mt20}`}
+                    xs={10}                                        
                   >
                     <Typography>{producto.nombre}</Typography>
                   </Grid>
                   <Grid
                     item
                     xs={4}                    
-                    className={`${globalClases.mb10} ${globalClases.mt20} ${globalClases.textRight}`}
+                    className={`${globalClases.textRight}`}
                   >
                     <EditIcon onClick={ e => {
                       handleOpenClose(); 

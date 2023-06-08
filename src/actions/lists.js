@@ -31,7 +31,7 @@ export const getListas = () => async (dispatch) => {
 export const createLista = (nombre) => async (dispatch) => {
   dispatch({ type: CREATE_LIST_REQUEST});
   try {
-    const listas = await ListService.createLista(nombre);    
+    const listas = await ListService.createLista(nombre);           
     dispatch({ type: CREATE_LIST_SUCCESS, payload: listas.data });
   } catch (error) {
     dispatch({ type: CREATE_LIST_FAIL, payload: error.message});
@@ -51,8 +51,8 @@ export const getLista = (id) => async (dispatch) => {
 export const deleteLista = (id) => async (dispatch) => {
   dispatch({ type: DELETE_LIST_REQUEST});
   try {
-    const lista = await ListService.deleteLista(id);
-    dispatch({ type: DELETE_LIST_SUCCESS, payload: lista });
+    const listas = await ListService.deleteLista(id);    
+    dispatch({ type: DELETE_LIST_SUCCESS, payload: listas.data });
   } catch (error) {
     dispatch({type: DELETE_LIST_FAIL, payload: error.message});
   }

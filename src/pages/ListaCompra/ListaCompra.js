@@ -41,8 +41,19 @@ export const ListaCompra = () => {
   };
 
   useEffect(() => {
+    if (successCreate)
     dispatch(getListas());
-  }, [dispatch, successCreate, successDelete]);
+  }, [dispatch, successCreate]);
+
+  useEffect(() => {
+    if (successDelete)
+    dispatch(getListas());
+  }, [dispatch, successDelete]);
+
+  useEffect(() => {
+   
+    dispatch(getListas());
+  }, [dispatch]);
 
 
   if (!currentUser) {
@@ -63,9 +74,7 @@ export const ListaCompra = () => {
               Listas de compra
             </Typography>
             <Grid item xs={12}>
-              {isLoading ? (
-                <CustomLoader size="medium" />
-              ) : listas?.length > 0 ? (
+              {listas?.length > 0 ? ( 
                 listas?.map((lista) => (
                   <Grid key={lista.id} item xs={12} md={4}>
                     <ListaCompraCard
