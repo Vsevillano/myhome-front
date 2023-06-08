@@ -16,7 +16,7 @@ import {
   CREATE_LIST_REQUEST,
 } from "../actions/types";
 
-const initialState = { isLoading: false, listas: null, lista: null};
+const initialState = { isLoading: false, listas: null, successCreate: false, lista: null};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
@@ -25,11 +25,11 @@ export default function (state = initialState, action) {
   switch (type) {
     // Crear una lista
     case CREATE_LIST_REQUEST:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, successCreate: false };
     case CREATE_LIST_SUCCESS:
-      return { ...state, isLoading: false, listas: payload };
+      return { ...state, isLoading: false, listas: payload, successCreate: true };
     case CREATE_LIST_FAIL:
-      return { ...state, isLoading: false };
+      return { ...state, isLoading: false, successCreate: false };
     // Obtener todas las listas
     case GET_LISTS_REQUEST:
       return { ...state, isLoading: true };
@@ -39,11 +39,11 @@ export default function (state = initialState, action) {
       return { ...state, isLoading: false };
     // Eliminar lista
     case DELETE_LIST_REQUEST:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, successDelete: false };
     case DELETE_LIST_SUCCESS:
-      return { ...state, isLoading: false, listas: payload};
+      return { ...state, isLoading: false, listas: payload, successDelete: true};
     case DELETE_LIST_FAIL:
-      return { ...state, isLoading: false };
+      return { ...state, isLoading: false, successDelete: false };
     // Obtener una lista
     case GET_LIST_REQUEST:
       return { ...state, isLoading: true };

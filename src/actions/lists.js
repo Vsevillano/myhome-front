@@ -31,9 +31,8 @@ export const getListas = () => async (dispatch) => {
 export const createLista = (nombre) => async (dispatch) => {
   dispatch({ type: CREATE_LIST_REQUEST});
   try {
-    const lista = await ListService.createLista(nombre);
-    
-    dispatch({ type: CREATE_LIST_SUCCESS, payload: lista });
+    const listas = await ListService.createLista(nombre);    
+    dispatch({ type: CREATE_LIST_SUCCESS, payload: listas.data });
   } catch (error) {
     dispatch({ type: CREATE_LIST_FAIL, payload: error.message});
   }

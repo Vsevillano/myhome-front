@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   List,
   ListItem,
@@ -9,17 +10,18 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { addProductoToLista, getLista } from "../../actions/lists";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { globalStyles } from "../../styles/global.styles";
 import { getProductos } from "../../actions/products";
 import { useTheme } from "@mui/styles";
 import { ListaProductosAnnadir } from "../../components/organisms/ListaProductosAnnadir/ListaProductosAnnadir";
+import AddIcon from "@mui/icons-material/ArrowBack";
 
 export const EditListaCompra = () => {
   const globalClases = globalStyles();
-
+  let navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
@@ -123,6 +125,24 @@ export const EditListaCompra = () => {
             handleAddToList={handleAddToList}
           />
         )}
+
+        <Grid
+          item
+          xs={12}
+          textAlign="right"
+          className={globalClases.bottomButton}
+        >
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/lista");
+            }}
+          >
+            Volver
+          </Button>
+        </Grid>
       </>
     </Grid>
   );
