@@ -5,7 +5,7 @@ export const globalLayoutStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     background:
-      "linear-gradient(174deg, rgba(106,172,228,1) 0%, rgba(255,255,255,1) 65%)",
+      "linear-gradient(174deg, rgba(106,172,228,1) 0%, rgba(255,255,255,1) 95%)",
     minHeight: "calc(100vh - 60px)",
     padding: 15,
     paddingTop: 45,
