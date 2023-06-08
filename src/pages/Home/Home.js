@@ -8,7 +8,7 @@ import { LoggedUserHome } from "../../components/organisms/LoggedUserHome/Logged
 import { NoLoggedUserHome } from "../../components/organisms/NoLoggedUserHome/NoLoggedUserHome";
 
 export const Home = () => {
-  const { user: currentUser, loginSuccess } = useSelector(
+  const { user: currentUser } = useSelector(
     (state) => state.auth
   );
   const { loading: loadingTareas, userTareas } = useSelector(

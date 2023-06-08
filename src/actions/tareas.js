@@ -46,7 +46,7 @@ export const deleteTarea = (id) => async (dispatch) => {
   dispatch({ type: DELETE_TAREA_REQUEST });
   try {
     const response = await TareaService.deleteTarea(id);
-    dispatch({ type: DELETE_TAREA_SUCCESS, payload: response, success: true });
+    dispatch({ type: DELETE_TAREA_SUCCESS, payload: response});
   } catch (error) {
     dispatch({ type: DELETE_TAREA_FAIL });
   }

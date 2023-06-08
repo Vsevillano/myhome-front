@@ -4,18 +4,12 @@ import { useDispatch } from "react-redux";
 import { create } from "../../../actions/lists";
 import { globalStyles } from "../../../styles/global.styles";
 
-export const ListaCompraAdd = ({ setIsAdding, setIsAdded }) => {
+export const ListaCompraAdd = ({ handleCreateLista }) => {
   const dispatch = useDispatch();
   const globalClases = globalStyles();
   const [name, setName] = useState("");
 
-  const handleCreateLista = (e) => {
-    e.preventDefault();
-    dispatch(create(name)).then(() => {
-      setIsAdding(false);
-      setIsAdded(true);
-    });
-  };
+
 
   return (
     <Card className={`${globalClases.px20} ${globalClases.pb20}`}>
@@ -44,8 +38,7 @@ export const ListaCompraAdd = ({ setIsAdding, setIsAdded }) => {
           <Button
             fullWidth
             variant="outlined"
-            className={`${globalClases.mt10}`}
-            onClick={() => setIsAdding(false)}
+            className={`${globalClases.mt10}`}            
           >
             Cancelar
           </Button>

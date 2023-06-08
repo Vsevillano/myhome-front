@@ -18,112 +18,53 @@ import {
 
 import ListService from "../services/lists.service";
 
-export const getListas = () => (dispatch) => {
-  dispatch({
-    type: GET_LISTS_REQUEST,
-  });
-  return ListService.getListas().then(
-    (response) => {
-      dispatch({
-        type: GET_LISTS_SUCCESS,
-        payload: response,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      dispatch({
-        type: GET_LISTS_FAIL,
-      });
-      return Promise.reject();
-    }
-  );
+export const getListas = () => async (dispatch) => {
+  dispatch({ type: GET_LISTS_REQUEST });
+  try {
+    const listas = await ListService.getListas();
+    dispatch({ type: GET_LISTS_SUCCESS, payload: listas });
+  } catch (error) {
+    dispatch({ type: GET_LISTS_FAIL, payload: error.message });
+  }
 };
 
-export const create = (nombre) => (dispatch) => {
-  dispatch({
-    type: CREATE_LIST_REQUEST,
-  });
-  return ListService.createLista(nombre).then(
-    (response) => {
-      dispatch({
-        type: CREATE_LIST_SUCCESS,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      dispatch({
-        type: CREATE_LIST_FAIL,
-      });
-      return Promise.reject();
-    }
-  );
+export const createLista = (nombre) => async (dispatch) => {
+  dispatch({ type: CREATE_LIST_REQUEST});
+  try {
+    const lista = await ListService.createLista(nombre);
+    
+    dispatch({ type: CREATE_LIST_SUCCESS, payload: lista });
+  } catch (error) {
+    dispatch({ type: CREATE_LIST_FAIL, payload: error.message});
+  }
 };
 
-export const getLista = (id) => (dispatch) => {
-  dispatch({
-    type: GET_LIST_REQUEST,
-  });
-  return ListService.getLista(id).then(
-    (response) => {
-      dispatch({
-        type: GET_LIST_SUCCESS,
-        payload: response,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      dispatch({
-        type: GET_LIST_FAIL,
-      });
-      return Promise.reject();
-    }
-  );
+export const getLista = (id) => async (dispatch) => {
+  dispatch({ type: GET_LIST_REQUEST });
+  try {
+    const lista = await ListService.getLista(id);
+    dispatch({ type: GET_LIST_SUCCESS, payload: lista });
+  } catch (error) {
+    dispatch({ type: GET_LIST_FAIL, payload: error.message });
+  }
 };
 
-export const deleteLista = (id) => (dispatch) => {
-  dispatch({
-    type: DELETE_LIST_REQUEST,
-  });
-  return ListService.deleteLista(id).then(
-    (response) => {
-      dispatch({
-        type: DELETE_LIST_SUCCESS,
-        payload: response,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      dispatch({
-        type: DELETE_LIST_FAIL,
-      });
-      return Promise.reject();
-    }
-  );
+export const deleteLista = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_LIST_REQUEST});
+  try {
+    const lista = await ListService.deleteLista(id);
+    dispatch({ type: DELETE_LIST_SUCCESS, payload: lista });
+  } catch (error) {
+    dispatch({type: DELETE_LIST_FAIL, payload: error.message});
+  }
 };
 
-export const addProductoToLista = (lista) => (dispatch) => {
-  dispatch({
-    type: ADD_LIST_REQUEST,
-  });
-
-  return ListService.addProductoToLista(lista).then(
-    (response) => {
-      dispatch({
-        type: ADD_LIST_SUCCESS,
-        payload: response,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      dispatch({
-        type: ADD_LIST_FAIL,
-      });
-      return Promise.reject();
-    }
-  );
+export const addProductoToLista = (listaEntrada) => async (dispatch) => {
+  dispatch({ type: ADD_LIST_REQUEST });
+  try {
+    const lista = await ListService.addProductoToLista(listaEntrada);
+    dispatch({type: ADD_LIST_SUCCESS, payload: lista.data});
+  } catch (error) {
+    dispatch({ type: ADD_LIST_FAIL, payload: error.message});
+  }
 };
