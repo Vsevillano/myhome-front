@@ -278,9 +278,10 @@ export const TareaCard = ({
                       onChange={(e) => setSelectedUser(e.target.value)}
                     >
                       {users?.map((user) => (
+                        user?.username !== 'Administrador' && (
                         <MenuItem key={user.id} value={user.id}>
                           {user?.username}
-                        </MenuItem>
+                        </MenuItem>)
                       ))}
                     </Select>
                   </FormControl>

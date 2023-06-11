@@ -7,7 +7,6 @@ import { createLista, deleteLista, getListas } from "../../actions/lists";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { ListaCompraVacia } from "../../components/organisms/ListaCompraVacia/ListaCompraVacia";
 import { ListaCompraCard } from "../../components/organisms/ListaCompraCard/ListaCompraCard";
-import { ListaCompraAdd } from "../../components/organisms/ListaCompraAdd/ListaCompraAdd";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";

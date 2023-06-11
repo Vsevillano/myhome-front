@@ -1,5 +1,5 @@
 import { Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 
 
@@ -8,7 +8,11 @@ import { globalStyles } from "../../../styles/global.styles";
 export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => {
   const globalClases = globalStyles();
 
+  const [productosNoLista, setProductosNoLista ] = useState([]);
   
+  useEffect(() => {
+    setProductosNoLista(productos?.filter((producto) => !lista.productos.some((item) => item.id === producto.id)));
+  }, [lista, productos]);
 
   return (
     <>
@@ -18,11 +22,10 @@ export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => 
         >
           Productos para añadir
         </Typography>
-        {productos && lista ? (
+        {productosNoLista?.length > 0 ? (
           <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {productos.map((producto) => {
-              const listaIds = lista?.productos?.map((producto) => producto.id);
-              if (!listaIds?.includes(producto.id)) {
+            {productosNoLista.map((producto) => {
+              
                 return (
                   <ListItem key={producto.id} disablePadding secondaryAction={
                     <IconButton edge="end" aria-label="delete" onClick={(e) => handleAddToList(e, producto)}>
@@ -37,7 +40,7 @@ export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => 
                     </ListItemButton>
                   </ListItem>
                 );
-              }
+              
             })}
           </List>
         ) : (

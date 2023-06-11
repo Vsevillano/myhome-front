@@ -16,7 +16,7 @@ export const Faqs = () => {
           variant="h6"
           className={`${globalClases.colorWhite} ${globalClases.textShadowBlack} ${globalClases.fw700} ${globalClases.fs20} ${globalClases.mb10}`}
         >
-          Tareas pendientes
+          Preguntas frequentes
         </Typography>
 
         <Typography
@@ -47,7 +47,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Que pasa si pierdo o no recuerdo mi contraseña?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -62,7 +62,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Qué permisos de acceso tengo, administrador o usuario?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -71,21 +71,7 @@ export const Faqs = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography>¿Como puedo registrarme?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              El registro se puede hacer a través del formulario creado para
-              ello.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+        
 
         <Typography
           variant="h6"
@@ -93,13 +79,14 @@ export const Faqs = () => {
         >
           Tareas
         </Typography>
+
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo crear una tarea?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -114,7 +101,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo editar una tarea?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -129,7 +116,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo eliminar una tarea?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -144,7 +131,22 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo asignar a alguien una tarea?</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              El registro se puede hacer a través del formulario creado para
+              ello.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>¿Qué estados tiene una tarea?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -167,7 +169,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como creo una lista de la compra?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -182,7 +184,22 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como elimino una lista?</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              El registro se puede hacer a través del formulario creado para
+              ello.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>¿Como puedo añadir/eliminar productos a la lista de la compra?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -204,7 +221,7 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo crear productos?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -219,7 +236,22 @@ export const Faqs = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography>¿Como puedo registrarme?</Typography>
+            <Typography>¿Como puedo eliminar productos?</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              El registro se puede hacer a través del formulario creado para
+              ello.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>¿Como puedo modificar el nombre de los productos?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>

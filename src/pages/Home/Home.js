@@ -59,7 +59,7 @@ export const Home = () => {
   return loadingGetUsers || loadingTareas ? (
     <CustomLoader size="medium" />
   ) : currentUser ? (
-    isAdmin ? (
+    isAdmin ? (      
       <LoggedAdminHome users={users} />
     ) : (
       <LoggedUserHome

@@ -7,7 +7,6 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,23 +15,19 @@ import { addProductoToLista, getLista } from "../../actions/lists";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { globalStyles } from "../../styles/global.styles";
 import { getProductos } from "../../actions/products";
-import { useTheme } from "@mui/styles";
 import { ListaProductosAnnadir } from "../../components/organisms/ListaProductosAnnadir/ListaProductosAnnadir";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export const EditListaCompra = () => {
   const globalClases = globalStyles();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { isLoading, lista, successAdded } = useSelector(
-    (state) => state.lists
-  );
+  const { isLoading, lista } = useSelector((state) => state.lists);
   const { isLoading: isLoadingProductos, productos } = useSelector(
     (state) => state.productos
   );
@@ -127,25 +122,24 @@ export const EditListaCompra = () => {
             handleAddToList={handleAddToList}
           />
           <Grid
-              item
-              xs={12}
-              textAlign="right"
-              className={globalClases.bottomButton}
+            item
+            xs={12}
+            textAlign="right"
+            className={globalClases.bottomButton}
+          >
+            <Button
+              variant="contained"
+              startIcon={<ArrowBackIcon />}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/lista");
+              }}
             >
-              <Button
-                variant="contained"
-                startIcon={<ArrowBackIcon />}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/lista");
-                }}
-              >
-                Volver
-              </Button>
-            </Grid>
+              Volver
+            </Button>
+          </Grid>
         </>
       )}
     </Grid>
-    
   );
 };

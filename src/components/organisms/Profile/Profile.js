@@ -27,19 +27,22 @@ export const Profile = () => {
             Perfil
           </Typography>
         </Grid>
-        <Grid item md={2} sm={12}>
+        <Grid item md={1} sm={12}>
           <Avatar
             src="/static/images/avatar/1.jpg"
             sx={{ width: 100, height: 100 }}
             className={`${globalClases.ml10} ${globalClases.bgColorBlue}`}
           />
         </Grid>
-        <Grid item md={10} sm={12}>
+        <Grid item sm={12} md={8}>
           <Typography className={`${globalClases.fs20} ${globalClases.pl20}`}>
             {currentUser.username}
           </Typography>
           <Typography className={`${globalClases.fs11} ${globalClases.pl20}`}>
-            {currentUser.email}
+            Teléfono: {currentUser.telefono}
+          </Typography>
+          <Typography className={`${globalClases.fs11} ${globalClases.pl20}`}>
+            Email: {currentUser.email}
           </Typography>
         </Grid>
       </Grid>
