@@ -13,8 +13,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { changeUserEstado } from "../../../actions/users";
 
 import { globalStyles } from "../../../styles/global.styles";
 
