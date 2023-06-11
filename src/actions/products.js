@@ -3,7 +3,6 @@ import {
   CREATE_PRODUCT_FAIL,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
-  DELETE_LIST_REQUEST,
   DELETE_PRODUCT_FAIL,
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
@@ -18,8 +17,8 @@ import {
 export const getProductos = () => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
   try {
-    const productos = await ProductService.getProductos();
-    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: productos });
+    const response = await ProductService.getProductos();
+    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: response });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_FAIL, payload: error.message });
   }
@@ -28,8 +27,8 @@ export const getProductos = () => async (dispatch) => {
 export const createProducto = (nombre) => async (dispatch) => {
   dispatch({ type: CREATE_PRODUCT_REQUEST });
   try {
-    const productos = await ProductService.createProducto(nombre);
-    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: productos.data });
+    const response = await ProductService.createProducto(nombre);
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: CREATE_PRODUCT_FAIL });
   }
@@ -39,7 +38,6 @@ export const deleteProducto = (id) => async (dispatch) => {
   dispatch({ type: DELETE_PRODUCT_REQUEST });
   try {
     const response = await ProductService.deleteProducto(id);
-    
     dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: response});
   } catch (error) {
     dispatch({ type: DELETE_PRODUCT_FAIL });
@@ -49,8 +47,8 @@ export const deleteProducto = (id) => async (dispatch) => {
 export const saveProducto = (id, nombre) => async (dispatch) => {
   dispatch({ type: SAVE_PRODUCT_REQUEST });
   try {
-    const response = await ProductService.editProducto(id, nombre);    
-    dispatch({ type: SAVE_PRODUCT_SUCCESS, payload: response.data });
+    const response = await ProductService.editProducto(id, nombre); 
+    dispatch({ type: SAVE_PRODUCT_SUCCESS, payload: response });
   } catch (error) {
     dispatch({ type: SAVE_PRODUCT_FAIL });
   }

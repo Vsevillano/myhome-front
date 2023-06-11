@@ -31,7 +31,7 @@ export const Productos = () => {
   const globalClases = globalStyles();
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { isLoading, editSuccess, deleteSuccess, saveSuccess, productos } = useSelector(
+  const { isLoading, productos } = useSelector(
     (state) => state.productos
   );
 
@@ -65,11 +65,6 @@ export const Productos = () => {
     reset();
   };
 
-
-  useEffect(() => {
-    if (!productos || deleteSuccess || editSuccess || saveSuccess) dispatch(getProductos());
-  }, [dispatch, deleteSuccess, editSuccess, saveSuccess]);
-
   const handleOpenClose = () => {
     setOpen(!open);
   };
@@ -77,6 +72,11 @@ export const Productos = () => {
   const handleDeleteProduct = (id) => {
     dispatch(deleteProducto(id));
   };
+
+  useEffect(() => {
+    dispatch(getProductos());
+  }, [dispatch]);
+
 
   if (!currentUser) {
     return <Navigate to="/login" />;

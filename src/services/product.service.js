@@ -12,8 +12,8 @@ const createProducto = (nombre) => {
 };
 
 const editProducto = (id, nombre) => {
-  return api.put(API_URL + "productos/" + id, {
-    nombre,
+  return api.put(API_URL + "productos/" + id, {nombre}).then((response) => {
+    return response.data;
   });
 };
 

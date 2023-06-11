@@ -6,7 +6,6 @@ import {
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAIL,
   DELETE_PRODUCT_REQUEST,
-  DELETE_LIST_SUCCESS,
   DELETE_PRODUCT_FAIL,
   DELETE_PRODUCT_SUCCESS,
   SAVE_PRODUCT_REQUEST,
@@ -14,7 +13,7 @@ import {
   SAVE_PRODUCT_FAIL,
 } from "../actions/types";
 
-const initialState = { isLoading: false, editSuccess: false, deleteSuccess: false, saveSuccess: false,  productos: null, error: null };
+const initialState = { isLoading: false, productos: null, error: null };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
@@ -29,26 +28,26 @@ export default function (state = initialState, action) {
       return { ...state, isLoading: false, error: payload };
     // Create
     case CREATE_PRODUCT_REQUEST:
-      return { ...state, isLoading: true, editSuccess: false };
+      return { ...state, isLoading: true };
     case CREATE_PRODUCT_SUCCESS:
-      return { ...state, isLoading: false, productos: payload.data, editSuccess: true};
+      return { ...state, isLoading: false, productos: payload };
     case CREATE_PRODUCT_FAIL:
-      return { ...state, isLoading: false, error: payload, editSuccess: false };
+      return { ...state, isLoading: false, error: payload };
     // Delete
     case DELETE_PRODUCT_REQUEST:
-      return { ...state, isLoading: true, deleteSuccess: false };
+      return { ...state, isLoading: true };
     case DELETE_PRODUCT_SUCCESS:
-      return { ...state, isLoading: false, productos: payload.data, deleteSuccess: true };
+      return { ...state, isLoading: false, productos: payload };
     case DELETE_PRODUCT_FAIL:
-      return { ...state, isLoading: false, error: payload, deleteSuccess: false };
+      return { ...state, isLoading: false, error: payload };
     // Save/Edit product
     case SAVE_PRODUCT_REQUEST:
-      return { ...state, isLoading: true, saveSuccess: false };
+      return { ...state, isLoading: true };
     case SAVE_PRODUCT_SUCCESS:
-      return { ...state, isLoading: false, productos: payload.data, saveSuccess: true };
+      return { ...state, isLoading: false, productos: payload };
     case SAVE_PRODUCT_FAIL:
-      return { ...state, isLoading: false, error: payload, saveSuccess: false };
+      return { ...state, isLoading: false, error: payload };
     default:
-      return state;    
+      return state;
   }
 }
