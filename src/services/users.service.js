@@ -15,8 +15,13 @@ export const getUserTareas = () => {
   });
 };
 
+export const changeUserEstado = (id, estado) => {  
+  return api.put(API_URL + "users/active/" + id, estado);
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getUsers,
   getUserTareas,
+  changeUserEstado,
 };

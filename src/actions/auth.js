@@ -62,20 +62,46 @@ export const changepassword = (username, password) => (dispatch) => {
 export const login = (username, password) => (dispatch) => {
   return AuthService.login(username, password).then(
     (data) => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { user: data },
-      });
+      if (!data.activo) {
+        dispatch({
+          type: LOGIN_FAIL,
+        });
 
-      return Promise.resolve();
+        dispatch({
+          type: SET_MESSAGE,
+          payload: "Usuario bloqueado",
+        });
+        return Promise.reject();
+      } else {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: { user: data },
+        });
+        return Promise.resolve();
+      }
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      let message = "";
+
+      console.log(error);
+
+      if (error.code === "ERR_NETWORK") message = "Error de conexión";
+
+      if (error?.response?.data?.status) {
+        switch (error.response.data.status) {
+          case 400:
+            message = "Usuario o contraseña erróneas";
+            break;
+
+          default:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+              error.message ||
+              error.toString();
+            break;
+        }
+      }
 
       dispatch({
         type: LOGIN_FAIL,

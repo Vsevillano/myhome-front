@@ -92,6 +92,9 @@ export const globalStyles = makeStyles(theme => ({
     colorWhite: {
         color: '#FAFAFA'
     },
+    blueStrong: {
+        color: '#1976d2'
+    },
     bgColorBlue: {
         backgroundColor: '#1976d2 !important'
     },

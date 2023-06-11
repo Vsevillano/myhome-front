@@ -20,7 +20,7 @@ const login = (username, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
+      if (response.data.accessToken && response.data.activo ) {
         TokenService.setUser(response.data);
       }
       return response.data;
@@ -57,7 +57,7 @@ const changeUserPassword = (username, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
+      if (response.data.accessToken && response.data.activo) {
         TokenService.setUser(response.data);
       }
       return response.data;

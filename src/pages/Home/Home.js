@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTarea, getUserTareas, saveTarea } from "../../actions/tareas";
-import { getUsers } from "../../actions/users";
+import { changeUserEstado, getUsers } from "../../actions/users";
 import { CustomLoader } from "../../components/atoms/CustomLoader/CustomLoader";
 import { LoggedAdminHome } from "../../components/organisms/LoggedAdminHome/LoggedAdminHome";
 import { LoggedUserHome } from "../../components/organisms/LoggedUserHome/LoggedUserHome";
 import { NoLoggedUserHome } from "../../components/organisms/NoLoggedUserHome/NoLoggedUserHome";
 
 export const Home = () => {
-  const { user: currentUser } = useSelector(
-    (state) => state.auth
-  );
-  const { loading: loadingTareas, userTareas } = useSelector(
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const { isLoading: loadingTareas, userTareas } = useSelector(
     (state) => state.userTareas
   );
-  const { loading: loadingGetUsers, users } = useSelector(
-    (state) => state.getUsers
-  );
+  const {
+    isLoading: loadingGetUsers,
+    users,
+  } = useSelector((state) => state.getUsers);
 
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
@@ -39,6 +38,10 @@ export const Home = () => {
     );
   };
 
+  const handleChangeEstado = (id, estado) => {
+    dispatch(changeUserEstado(id, estado));
+  };
+
   useEffect(() => {
     if (
       currentUser?.roles?.find((item) => item === "ROLE_ADMIN") === "ROLE_ADMIN"
@@ -48,19 +51,18 @@ export const Home = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (currentUser && isAdmin) {
-      dispatch(getUsers());
+    if (currentUser) {
+    dispatch(getUsers());
+    dispatch(getUserTareas());
     }
-    if (currentUser && !isAdmin) {
-      dispatch(getUserTareas());
-    }
-  }, [dispatch, isAdmin, currentUser]);
+  }, [dispatch, currentUser]);
+
 
   return loadingGetUsers || loadingTareas ? (
     <CustomLoader size="medium" />
   ) : currentUser ? (
-    isAdmin ? (      
-      <LoggedAdminHome users={users} />
+    isAdmin ? (
+      <LoggedAdminHome users={users} handleChangeEstado={handleChangeEstado} />
     ) : (
       <LoggedUserHome
         loadingTareas={loadingTareas}

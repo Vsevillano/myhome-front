@@ -13,13 +13,17 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { changeUserEstado } from "../../../actions/users";
 
 import { globalStyles } from "../../../styles/global.styles";
 
-export const LoggedAdminHome = ({ users }) => {
+export const LoggedAdminHome = ({ users, handleChangeEstado }) => {
   const globalClases = globalStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  
   return (
     <Grid
       container
@@ -61,9 +65,15 @@ export const LoggedAdminHome = ({ users }) => {
                       <TableCell align="center">{row.telefono}</TableCell>
                       <TableCell align="center">
                         {row.activo ? (
-                          <Button>Desactivar</Button>
+                          <Button onClick={(e) => {
+                            e.preventDefault();
+                            handleChangeEstado(row.id, false);
+                          }}>Desactivar</Button>
                         ) : (
-                          <Button>Activar</Button>
+                          <Button onClick={(e) => {
+                            e.preventDefault();
+                            handleChangeEstado(row.id, true);
+                          }}>Activar</Button>
                         )}
                       </TableCell>
                     </TableRow>
