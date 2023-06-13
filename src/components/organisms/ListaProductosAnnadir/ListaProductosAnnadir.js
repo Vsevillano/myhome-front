@@ -11,7 +11,9 @@ export const ListaProductosAnnadir = ({ productos, lista, handleAddToList }) => 
   const [productosNoLista, setProductosNoLista ] = useState([]);
   
   useEffect(() => {
-    setProductosNoLista(productos?.filter((producto) => !lista.productos.some((item) => item.id === producto.id)));
+    if (lista && productos) {
+      setProductosNoLista(productos?.filter((producto) => !lista.productos.some((item) => item.id === producto.id)));
+    }
   }, [lista, productos]);
 
   return (

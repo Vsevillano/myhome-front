@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import ErrorBoundary from './components/molecules/Errorboundary';
 
 ReactDOM.render(    
-    <App />,    
+    <ErrorBoundary><App /></ErrorBoundary>,    
     document.getElementById('root')
 );
